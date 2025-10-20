@@ -32,24 +32,24 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto text-center">
             {/* Glass background container */}
             <div className="bg-white bg-opacity-30 backdrop-blur-lg border-2 border-black rounded-2xl p-8 shadow-2xl">
-              <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-6 drop-shadow-2xl">
+              <h1 className="text-4xl md:text-6xl font-semibold text-gray-900 mb-6">
                 Connecting Hawaii's{' '}
-                <span className="text-primary-600 font-black">Talent</span>
+                <span className="text-primary-600 font-semibold">Talent</span>
               </h1>
-              <p className="text-xl text-gray-800 mb-8 max-w-3xl mx-auto drop-shadow-xl font-semibold">
+              <p className="text-xl text-gray-800 mb-8 max-w-3xl mx-auto font-medium">
                 A community-driven career and talent discovery platform for Hawaii, 
                 connecting local talent with employers and ecosystem partners.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href="/signup" 
-                  className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-colors shadow-xl"
+                  className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-700 transition-colors shadow-lg"
                 >
                   Join the Community
                 </Link>
                 <Link 
                   href="/profiles" 
-                  className="bg-white bg-opacity-90 backdrop-blur-sm border-2 border-primary-600 text-primary-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors shadow-xl"
+                  className="bg-white bg-opacity-90 backdrop-blur-sm border border-primary-600 text-primary-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-50 transition-colors shadow-lg"
                 >
                   Browse Talent
                 </Link>
@@ -63,7 +63,7 @@ export default function HomePage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
               Our Mission
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -78,7 +78,7 @@ export default function HomePage() {
               <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-primary-600 text-2xl">🌺</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Local Focus</h3>
+              <h3 className="text-xl font-medium text-gray-900 mb-2">Local Focus</h3>
               <p className="text-gray-600">
                 Dedicated to Hawaii's unique talent ecosystem and community values.
               </p>
@@ -87,7 +87,7 @@ export default function HomePage() {
               <div className="bg-secondary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-secondary-600 text-2xl">🤝</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Community Driven</h3>
+              <h3 className="text-xl font-medium text-gray-900 mb-2">Community Driven</h3>
               <p className="text-gray-600">
                 Built by and for the Hawaii community, with authentic connections.
               </p>
@@ -96,7 +96,7 @@ export default function HomePage() {
               <div className="bg-accent-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-accent-600 text-2xl">🚀</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Growth Focused</h3>
+              <h3 className="text-xl font-medium text-gray-900 mb-2">Growth Focused</h3>
               <p className="text-gray-600">
                 Empowering career growth and economic development across the islands.
               </p>
@@ -109,7 +109,7 @@ export default function HomePage() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
               Featured Talent
             </h2>
             <p className="text-lg text-gray-600">
@@ -126,7 +126,7 @@ export default function HomePage() {
           <div className="text-center">
             <Link 
               href="/profiles" 
-              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
             >
               View All Talent →
             </Link>
@@ -138,7 +138,7 @@ export default function HomePage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
               Top Employers
             </h2>
             <p className="text-lg text-gray-600">
@@ -155,7 +155,7 @@ export default function HomePage() {
           <div className="text-center">
             <Link 
               href="/companies" 
-              className="bg-secondary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary-700 transition-colors"
+              className="bg-secondary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary-700 transition-colors"
             >
               View All Companies →
             </Link>
@@ -167,7 +167,7 @@ export default function HomePage() {
       <section className="py-16 bg-primary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
               What Our Community Says
             </h2>
           </div>
@@ -183,7 +183,7 @@ export default function HomePage() {
                   <span className="text-primary-600 font-bold">JD</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">John Doe</p>
+                  <p className="font-medium text-gray-900">John Doe</p>
                   <p className="text-sm text-gray-600">Software Engineer</p>
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default function HomePage() {
                   <span className="text-secondary-600 font-bold">SK</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">Sarah Kim</p>
+                  <p className="font-medium text-gray-900">Sarah Kim</p>
                   <p className="text-sm text-gray-600">HR Manager</p>
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default function HomePage() {
                   <span className="text-accent-600 font-bold">MC</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">Mike Chen</p>
+                  <p className="font-medium text-gray-900">Mike Chen</p>
                   <p className="text-sm text-gray-600">UX Designer</p>
                 </div>
               </div>
@@ -227,7 +227,7 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-16 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-semibold mb-4">
             Ready to Connect?
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -236,13 +236,13 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/signup" 
-              className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-colors"
+              className="bg-primary-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-700 transition-colors"
             >
               Get Started Today
             </Link>
             <Link 
               href="/about" 
-              className="border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors"
+              className="border border-white text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-white hover:text-gray-900 transition-colors"
             >
               Learn More
             </Link>

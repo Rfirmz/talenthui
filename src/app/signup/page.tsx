@@ -35,15 +35,15 @@ export default function SignupPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <div className="bg-primary-600 text-white px-4 py-2 rounded-lg font-bold text-2xl inline-block mb-4">
+          <div className="bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold text-2xl inline-block mb-4">
             Talent Hui
           </div>
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-3xl font-semibold text-gray-900">
             Create your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
             Or{' '}
-            <Link href="/login" className="font-medium text-primary-600 hover:text-primary-500">
+            <Link href="/login" className="font-normal text-primary-600 hover:text-primary-500">
               sign in to your existing account
             </Link>
           </p>

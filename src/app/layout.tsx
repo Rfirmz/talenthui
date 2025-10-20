@@ -1,10 +1,26 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, IBM_Plex_Sans, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-inter'
+});
+
+const ibmPlexSans = IBM_Plex_Sans({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-ibm-plex-sans'
+});
+
+const sourceSans3 = Source_Sans_3({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-source-sans-3'
+});
 
 export const metadata: Metadata = {
   title: 'Talent Hui - Connecting Hawaii\'s Talent',
@@ -18,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${ibmPlexSans.variable} ${sourceSans3.variable} font-sans`}>
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">

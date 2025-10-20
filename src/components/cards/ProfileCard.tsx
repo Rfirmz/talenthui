@@ -16,8 +16,8 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
             </span>
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900">{profile.full_name}</h3>
-            <p className="text-primary-600 font-medium">{profile.current_title}</p>
+            <h3 className="text-lg font-medium text-gray-900">{profile.full_name}</h3>
+            <p className="text-primary-600 font-normal">{profile.current_title}</p>
             <p className="text-gray-600 text-sm">{profile.company}</p>
             <p className="text-gray-500 text-sm">{profile.city}, {profile.island}</p>
             <p className="text-gray-500 text-sm">{profile.school}</p>

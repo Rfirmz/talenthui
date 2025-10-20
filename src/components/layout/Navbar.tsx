@@ -18,7 +18,7 @@ export default function Navbar() {
             <div className="flex justify-between h-20 py-4">
             <div className="flex items-center">
               <Link href="/" className="flex-shrink-0 flex items-center">
-                <div className="bg-primary-600 text-white px-4 py-2 rounded-lg font-black text-xl shadow-lg border-2 border-black text-shadow-lg">
+                <div className="bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold text-xl shadow-md">
                   Talent Hui
                 </div>
               </Link>
@@ -28,31 +28,31 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-6">
               <Link 
                 href="/profiles" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 rounded-lg text-base font-black transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-md"
+                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
               >
                 Talent
               </Link>
               <Link 
                 href="/companies" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 rounded-lg text-base font-black transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-md"
+                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
               >
                 Companies
               </Link>
               <Link 
                 href="/schools" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 rounded-lg text-base font-black transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-md"
+                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
               >
                 Schools
               </Link>
               <Link 
                 href="/cities" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 rounded-lg text-base font-black transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-md"
+                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
               >
                 Cities
               </Link>
               <Link 
                 href="/about" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 rounded-lg text-base font-black transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-md"
+                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
               >
                 About
               </Link>
@@ -62,7 +62,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-4">
               <Link 
                 href="/login" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 rounded-lg text-base font-black transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-md"
+                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
               >
                 Login
               </Link>

@@ -16,7 +16,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
             </span>
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900">{company.name}</h3>
+            <h3 className="text-lg font-medium text-gray-900">{company.name}</h3>
             <p className="text-gray-600 text-sm">{company.industry}</p>
             <p className="text-gray-500 text-sm">{company.city}, {company.island}</p>
             <p className="text-gray-500 text-sm">{company.size} employees</p>
@@ -27,7 +27,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
         </div>
       </Link>
       <div className="mt-4 flex justify-between items-center">
-        <span className="text-accent-600 font-medium text-sm">
+        <span className="text-accent-600 font-normal text-sm">
           Avg Salary: ${company.avg_salary.toLocaleString()}
         </span>
         <a 

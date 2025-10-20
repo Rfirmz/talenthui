@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom tribal pattern for top bar - using actual WebP image with sliding animation */
+.tribal-pattern {
+  background-image: url('/images/polynesian-tattoo-design-tribal-border-260nw-2449785233.png?v=5');
+  background-repeat: repeat-x;
+  background-size: auto 120px; /* Fixed height to prevent compression */
+  background-position: 0 0;
+  height: 120px; /* Much taller */
+  width: 100%;
+  display: block;
+  background-color: #f0f0f0; /* Fallback color */
+  animation: slideTribal 90s linear infinite;
+  overflow: hidden;
+}
+
+/* Sliding animation for tribal pattern */
+@keyframes slideTribal {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0; /* Slide the full width of the pattern */
+  }
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

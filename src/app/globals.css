@@ -46,13 +46,26 @@
 .tribal-pattern {
   background-image: url('/images/polynesian-tattoo-design-tribal-border-260nw-2449785233.png?v=5');
   background-repeat: repeat-x;
-  background-size: auto 120px; /* Fixed height to prevent compression */
-  background-position: 0 0;
-  height: 120px; /* Much taller */
+  background-size: auto 120px; /* Full size */
+  background-position: 0 -30px; /* Shift up to cut off bottom */
+  height: 50px; /* Skinnier height */
   width: 100%;
   display: block;
   background-color: #f0f0f0; /* Fallback color */
   animation: slideTribal 90s linear infinite;
+  overflow: hidden;
+}
+
+/* Static tribal pattern - no animation */
+.tribal-pattern-static {
+  background-image: url('/images/polynesian-tattoo-design-tribal-border-260nw-2449785233.png?v=5');
+  background-repeat: repeat-x;
+  background-size: auto 120px; /* Full size */
+  background-position: 0 -30px; /* Shift up to cut off bottom */
+  height: 50px; /* Skinnier height */
+  width: 100%;
+  display: block;
+  background-color: #f0f0f0; /* Fallback color */
   overflow: hidden;
 }
 

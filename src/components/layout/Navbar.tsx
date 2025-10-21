@@ -1,12 +1,34 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
+
+  // Handle scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show navbar when scrolling up, hide when scrolling down
+      if (currentScrollY < lastScrollY || currentScrollY < 100) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const isActive = (path: string) => {
     return pathname === path || pathname.startsWith(path + '/');
@@ -14,18 +36,23 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Tribal Pattern Top Bar with Navigation Overlay */}
-      <div className="relative">
-        <div className="tribal-pattern"></div>
-        
-        {/* Navigation Overlay */}
-        <nav className="absolute top-0 left-0 right-0 z-10">
+      {/* Solid Color Header with Navigation */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-gray-200 transition-transform duration-300 ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-20 py-4">
             <div className="flex items-center">
               <Link href="/" className="flex-shrink-0 flex items-center">
-                <div className="bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold text-xl shadow-md">
-                  Talent Hui
+                <div className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold text-xl shadow-md">
+                  <Image
+                    src="/images/hawaii.png"
+                    alt="Hawaii"
+                    width={24}
+                    height={24}
+                    className="object-contain"
+                  />
+                  <span>Talent Hui</span>
                 </div>
               </Link>
             </div>
@@ -34,31 +61,31 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-6">
               <Link 
                 href="/profiles" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/profiles') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/profiles') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Talent
               </Link>
               <Link 
                 href="/companies" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/companies') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/companies') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Companies
               </Link>
               <Link 
                 href="/schools" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/schools') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/schools') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Schools
               </Link>
               <Link 
                 href="/cities" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/cities') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/cities') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Cities
               </Link>
               <Link 
                 href="/about" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/about') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/about') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 About
               </Link>
@@ -68,7 +95,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-4">
               <Link 
                 href="/login" 
-                className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
+                className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black"
               >
                 Login
               </Link>
@@ -84,7 +111,7 @@ export default function Navbar() {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-primary-600 hover:text-primary-800 focus:outline-none focus:text-primary-800 bg-white bg-opacity-90 backdrop-blur-md p-3 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 border-2 border-black"
+                className="text-primary-600 hover:text-primary-800 focus:outline-none focus:text-primary-800 bg-white p-3 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 border-2 border-black"
               >
                 <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -97,7 +124,7 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-4 pt-4 pb-4 space-y-2 sm:px-4 bg-white bg-opacity-95 backdrop-blur-md shadow-2xl border-2 border-black">
+            <div className="px-4 pt-4 pb-4 space-y-2 sm:px-4 bg-white shadow-lg border border-gray-200">
               <Link 
                 href="/profiles" 
                 className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/profiles') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
@@ -152,8 +179,7 @@ export default function Navbar() {
             </div>
           </div>
         )}
-        </nav>
-      </div>
+      </nav>
     </>
   );
 }

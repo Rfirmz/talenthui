@@ -37,9 +37,11 @@ export default function RootLayout({
       <body className={`${inter.variable} ${ibmPlexSans.variable} ${sourceSans3.variable} font-sans`}>
         <div className="min-h-screen flex flex-col">
           <Navbar />
-          <main className="flex-grow">
+          <main className="flex-grow pt-20">
             {children}
           </main>
+          {/* Tribal Pattern Section */}
+          <div className="tribal-pattern"></div>
           <Footer />
         </div>
       </body>

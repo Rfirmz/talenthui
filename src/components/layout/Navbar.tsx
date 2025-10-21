@@ -2,9 +2,15 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    return pathname === path || pathname.startsWith(path + '/');
+  };
 
   return (
     <>
@@ -28,31 +34,31 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-6">
               <Link 
                 href="/profiles" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/profiles') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Talent
               </Link>
               <Link 
                 href="/companies" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/companies') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Companies
               </Link>
               <Link 
                 href="/schools" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/schools') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Schools
               </Link>
               <Link 
                 href="/cities" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/cities') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 Cities
               </Link>
               <Link 
                 href="/about" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
+                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black ${isActive('/about') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
               >
                 About
               </Link>
@@ -62,7 +68,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-4">
               <Link 
                 href="/login" 
-                className="text-primary-600 hover:text-primary-700 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
+                className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white bg-opacity-90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105 border-2 border-black"
               >
                 Login
               </Link>
@@ -78,7 +84,7 @@ export default function Navbar() {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-primary-600 hover:text-primary-700 focus:outline-none focus:text-primary-700 bg-white bg-opacity-90 backdrop-blur-md p-3 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 border-2 border-black"
+                className="text-primary-600 hover:text-primary-800 focus:outline-none focus:text-primary-800 bg-white bg-opacity-90 backdrop-blur-md p-3 rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 border-2 border-black"
               >
                 <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -94,35 +100,35 @@ export default function Navbar() {
             <div className="px-4 pt-4 pb-4 space-y-2 sm:px-4 bg-white bg-opacity-95 backdrop-blur-md shadow-2xl border-2 border-black">
               <Link 
                 href="/profiles" 
-                className="text-primary-600 hover:text-primary-700 block px-5 py-4 rounded-lg text-lg font-black transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-md"
+                className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/profiles') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Talent
               </Link>
               <Link 
                 href="/companies" 
-                className="text-primary-600 hover:text-primary-700 block px-5 py-4 rounded-lg text-lg font-black transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-md"
+                className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/companies') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Companies
               </Link>
               <Link 
                 href="/schools" 
-                className="text-primary-600 hover:text-primary-700 block px-5 py-4 rounded-lg text-lg font-black transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-md"
+                className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/schools') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Schools
               </Link>
               <Link 
                 href="/cities" 
-                className="text-primary-600 hover:text-primary-700 block px-5 py-4 rounded-lg text-lg font-black transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-md"
+                className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/cities') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Cities
               </Link>
               <Link 
                 href="/about" 
-                className="text-primary-600 hover:text-primary-700 block px-5 py-4 rounded-lg text-lg font-black transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-md"
+                className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/about') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
@@ -130,7 +136,7 @@ export default function Navbar() {
               <div className="border-t border-primary-200 pt-4">
                 <Link 
                   href="/login" 
-                  className="text-primary-600 hover:text-primary-700 block px-5 py-4 rounded-lg text-lg font-black transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-md"
+                  className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/login') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Login

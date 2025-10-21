@@ -73,3 +73,17 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Smooth scrolling animation for carousel */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 18s linear infinite;
+}

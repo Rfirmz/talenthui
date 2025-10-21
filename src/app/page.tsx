@@ -4,6 +4,7 @@ import { mockCompanies } from '@/data/companies';
 import ProfileCard from '@/components/cards/ProfileCard';
 import CompanyCard from '@/components/cards/CompanyCard';
 import VideoBackground from '@/components/ui/VideoBackground';
+import CompanyCarousel from '@/components/ui/CompanyCarousel';
 
 export default function HomePage() {
   const featuredProfiles = mockProfiles.slice(0, 6);
@@ -144,6 +145,11 @@ export default function HomePage() {
             <p className="text-lg text-gray-600">
               Leading companies hiring Hawaii's best talent
             </p>
+          </div>
+
+          {/* Company Carousel */}
+          <div className="mb-16">
+            <CompanyCarousel />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

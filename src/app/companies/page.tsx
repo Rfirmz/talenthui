@@ -5,6 +5,7 @@ import { mockCompanies } from '@/data/companies';
 import CompanyCard from '@/components/cards/CompanyCard';
 import SearchBar from '@/components/ui/SearchBar';
 import FilterDropdown from '@/components/ui/FilterDropdown';
+import CompanyCarousel from '@/components/ui/CompanyCarousel';
 
 export default function CompaniesPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,13 +38,18 @@ export default function CompaniesPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-semibold text-gray-900 mb-4">
             Hawaii's Top Employers
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover companies that are hiring Hawaii's best talent. 
             From startups to established corporations, find your next opportunity.
           </p>
+        </div>
+
+        {/* Company Carousel */}
+        <div className="mb-12">
+          <CompanyCarousel />
         </div>
 
         {/* Search and Filters */}

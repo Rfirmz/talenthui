@@ -1,3 +1,8 @@
 {
+  "/profiles/page": "app/profiles/page.js",
+  "/companies/page": "app/companies/page.js",
+  "/schools/page": "app/schools/page.js",
+  "/about/page": "app/about/page.js",
+  "/cities/page": "app/cities/page.js",
   "/page": "app/page.js"
 }

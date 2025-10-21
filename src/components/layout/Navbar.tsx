@@ -2,14 +2,19 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { supabase } from '@/lib/supabase';
+import { signOut } from '@/lib/auth';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [user, setUser] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
 
   // Handle scroll behavior
   useEffect(() => {
@@ -29,6 +34,36 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  // Handle authentication state
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+      setIsLoading(false);
+    };
+
+    getUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+        setIsLoading(false);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      setUser(null);
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const isActive = (path: string) => {
     return pathname === path || pathname.startsWith(path + '/');
@@ -93,18 +128,41 @@ export default function Navbar() {
 
             {/* Auth Buttons */}
             <div className="hidden md:flex items-center space-x-4">
-              <Link 
-                href="/login" 
-                className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black"
-              >
-                Login
-              </Link>
-              <Link 
-                href="/signup" 
-                className="bg-primary-600 text-white px-6 py-3 rounded-lg text-base font-black hover:bg-primary-700 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-lg"
-              >
-                Sign Up
-              </Link>
+              {isLoading ? (
+                <div className="text-primary-600 px-5 py-3 text-base font-semibold">
+                  Loading...
+                </div>
+              ) : user ? (
+                <>
+                  <Link 
+                    href="/profile/edit" 
+                    className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black"
+                  >
+                    My Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white px-6 py-3 rounded-lg text-base font-black hover:bg-red-700 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-lg"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link 
+                    href="/login" 
+                    className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black"
+                  >
+                    Login
+                  </Link>
+                  <Link 
+                    href="/signup" 
+                    className="bg-primary-600 text-white px-6 py-3 rounded-lg text-base font-black hover:bg-primary-700 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-lg"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -161,20 +219,47 @@ export default function Navbar() {
                 About
               </Link>
               <div className="border-t border-primary-200 pt-4">
-                <Link 
-                  href="/login" 
-                  className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/login') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login
-                </Link>
-                <Link 
-                  href="/signup" 
-                  className="bg-primary-600 text-white block px-5 py-4 rounded-lg text-lg font-black hover:bg-primary-700 mt-2 transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Sign Up
-                </Link>
+                {isLoading ? (
+                  <div className="text-primary-600 px-5 py-4 text-lg font-semibold">
+                    Loading...
+                  </div>
+                ) : user ? (
+                  <>
+                    <Link 
+                      href="/profile/edit" 
+                      className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/profile/edit') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      My Profile
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                      className="bg-red-600 text-white block px-5 py-4 rounded-lg text-lg font-black hover:bg-red-700 mt-2 transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-lg w-full"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link 
+                      href="/login" 
+                      className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/login') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                    <Link 
+                      href="/signup" 
+                      className="bg-primary-600 text-white block px-5 py-4 rounded-lg text-lg font-black hover:bg-primary-700 mt-2 transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black text-shadow-lg"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

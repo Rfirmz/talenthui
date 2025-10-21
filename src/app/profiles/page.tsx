@@ -1,29 +1,80 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
 import { mockProfiles } from '@/data/profiles';
 import ProfileCard from '@/components/cards/ProfileCard';
+import ProfileModal from '@/components/modals/ProfileModal';
 import SearchBar from '@/components/ui/SearchBar';
 import FilterDropdown from '@/components/ui/FilterDropdown';
+import Link from 'next/link';
 
 export default function ProfilesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [islandFilter, setIslandFilter] = useState('');
   const [cityFilter, setCityFilter] = useState('');
   const [schoolFilter, setSchoolFilter] = useState('');
+  const [profiles, setProfiles] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [useRealData, setUseRealData] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Load profiles from Supabase
+  useEffect(() => {
+    const loadProfiles = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('visibility', true)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Error loading profiles:', error);
+          setError('Failed to load profiles');
+          setUseRealData(false);
+        } else {
+          setProfiles(data || []);
+          setUseRealData(true);
+        }
+      } catch (err) {
+        console.error('Error loading profiles:', err);
+        setError('Failed to load profiles');
+        setUseRealData(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProfiles();
+  }, []);
+
+  const handleProfileClick = (profile: any) => {
+    setSelectedProfile(profile);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProfile(null);
+  };
 
   // Get unique values for filters
-  const islands = Array.from(new Set(mockProfiles.map(p => p.island))).sort();
-  const cities = Array.from(new Set(mockProfiles.map(p => p.city))).sort();
-  const schools = Array.from(new Set(mockProfiles.map(p => p.school))).sort();
+  const currentProfiles = useRealData ? profiles : mockProfiles;
+  const islands = Array.from(new Set(currentProfiles.map(p => p.island).filter(Boolean))).sort();
+  const cities = Array.from(new Set(currentProfiles.map(p => p.city).filter(Boolean))).sort();
+  const schools = Array.from(new Set(currentProfiles.map(p => p.school).filter(Boolean))).sort();
 
   // Filter profiles based on search and filters
   const filteredProfiles = useMemo(() => {
-    return mockProfiles.filter(profile => {
-      const matchesSearch = profile.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           profile.current_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           profile.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           profile.bio.toLowerCase().includes(searchTerm.toLowerCase());
+    return currentProfiles.filter(profile => {
+      const matchesSearch = profile.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           profile.current_title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           profile.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           profile.bio?.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesIsland = !islandFilter || profile.island === islandFilter;
       const matchesCity = !cityFilter || profile.city === cityFilter;
@@ -31,7 +82,7 @@ export default function ProfilesPage() {
 
       return matchesSearch && matchesIsland && matchesCity && matchesSchool;
     });
-  }, [searchTerm, islandFilter, cityFilter, schoolFilter]);
+  }, [currentProfiles, searchTerm, islandFilter, cityFilter, schoolFilter]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -92,29 +143,79 @@ export default function ProfilesPage() {
           </div>
         </div>
 
-        {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-gray-600">
-            Showing {filteredProfiles.length} of {mockProfiles.length} professionals
-          </p>
+        {/* Data Source Toggle and Results Count */}
+        <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="flex items-center space-x-4">
+            <p className="text-gray-600">
+              Showing {filteredProfiles.length} of {currentProfiles.length} professionals
+            </p>
+            {error && (
+              <span className="text-red-600 text-sm">({error})</span>
+            )}
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-600">Data source:</span>
+            <span className={`px-2 py-1 rounded text-xs font-medium ${
+              useRealData 
+                ? 'bg-green-100 text-green-800' 
+                : 'bg-yellow-100 text-yellow-800'
+            }`}>
+              {useRealData ? 'Supabase' : 'Mock Data'}
+            </span>
+            {!useRealData && (
+              <Link 
+                href="/profile/edit"
+                className="text-primary-600 hover:text-primary-800 text-sm font-medium"
+              >
+                Create your profile →
+              </Link>
+            )}
+          </div>
         </div>
 
-        {/* Profiles Grid */}
-        {filteredProfiles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProfiles.map((profile) => (
-              <ProfileCard key={profile.id} profile={profile} />
-            ))}
+        {/* Loading State */}
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="text-primary-600 text-lg">Loading profiles...</div>
           </div>
         ) : (
-          <div className="text-center py-12">
-            <div className="text-gray-400 text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No profiles found</h3>
-            <p className="text-gray-600">
-              Try adjusting your search terms or filters to find more professionals.
-            </p>
-          </div>
+          /* Profiles Grid */
+          filteredProfiles.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredProfiles.map((profile) => (
+                <ProfileCard 
+                  key={profile.id} 
+                  profile={profile} 
+                  onClick={handleProfileClick}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="text-gray-400 text-6xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No profiles found</h3>
+              <p className="text-gray-600 mb-4">
+                Try adjusting your search terms or filters to find more professionals.
+              </p>
+              {!useRealData && (
+                <Link 
+                  href="/profile/edit"
+                  className="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                >
+                  Be the first to create a profile
+                </Link>
+              )}
+            </div>
+          )
         )}
+
+        {/* Profile Modal */}
+        <ProfileModal
+          profile={selectedProfile}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
       </div>
     </div>
   );

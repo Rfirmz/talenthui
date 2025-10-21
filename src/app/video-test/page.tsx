@@ -10,7 +10,7 @@ export default function VideoTest() {
           className="w-full max-w-md"
           preload="metadata"
         >
-          <source src="/videos/hawaii-background.mp4" type="video/mp4" />
+          <source src="https://ns0rtrmcit3lcpie.public.blob.vercel-storage.com/hawaii-background-fMboP8pkQRztVKij7SIPG0iLonCfeK.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -26,7 +26,7 @@ export default function VideoTest() {
             autoPlay
             preload="auto"
           >
-            <source src="/videos/hawaii-background.mp4" type="video/mp4" />
+            <source src="https://ns0rtrmcit3lcpie.public.blob.vercel-storage.com/hawaii-background-fMboP8pkQRztVKij7SIPG0iLonCfeK.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-blue-500 bg-opacity-30"></div>
           <div className="relative z-10 flex items-center justify-center h-full">

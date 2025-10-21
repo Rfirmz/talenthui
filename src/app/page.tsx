@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { mockProfiles } from '@/data/profiles';
 import { mockCompanies } from '@/data/companies';
 import ProfileCard from '@/components/cards/ProfileCard';
@@ -22,8 +23,11 @@ export default function HomePage() {
           loop 
           playsInline
           preload="auto"
+          poster="/images/hawaii.png"
         >
-          <source src="/videos/hawaii-background.mp4" type="video/mp4" />
+          <source src="https://ns0rtrmcit3lcpie.public.blob.vercel-storage.com/hawaii-background-fMboP8pkQRztVKij7SIPG0iLonCfeK.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          Your browser does not support the video tag.
         </video>
         
         {/* Stronger light blue overlay for better text visibility */}
@@ -74,17 +78,21 @@ export default function HomePage() {
           {/* Mission Images */}
           <div className="flex flex-col md:flex-row gap-8 mb-16">
             <div className="flex-1 relative">
-              <img 
+              <Image 
                 src="/images/photo1.png" 
                 alt="Hawaii landscape" 
+                width={400}
+                height={256}
                 className="w-full h-64 object-cover rounded-lg shadow-xl"
               />
               <div className="absolute inset-0 bg-primary-600 bg-opacity-40 rounded-lg"></div>
             </div>
             <div className="flex-1 relative">
-              <img 
+              <Image 
                 src="/images/photo2.png" 
                 alt="Hawaii landscape" 
+                width={400}
+                height={256}
                 className="w-full h-64 object-cover rounded-lg shadow-xl"
               />
               <div className="absolute inset-0 bg-primary-600 bg-opacity-40 rounded-lg"></div>

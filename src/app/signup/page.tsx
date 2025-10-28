@@ -11,12 +11,18 @@ export default function SignupPage() {
     email: '',
     password: '',
     confirmPassword: '',
+    linkedinUrl: '',
+    currentTitle: '',
+    company: '',
+    city: '',
+    island: '',
+    school: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -41,6 +47,13 @@ export default function SignupPage() {
       setIsLoading(false);
       return;
     }
+
+    // Validate LinkedIn URL
+    if (!formData.linkedinUrl.includes('linkedin.com')) {
+      setError('Please provide a valid LinkedIn URL');
+      setIsLoading(false);
+      return;
+    }
     
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -49,6 +62,12 @@ export default function SignupPage() {
         options: {
           data: {
             full_name: formData.fullName,
+            linkedin_url: formData.linkedinUrl,
+            current_title: formData.currentTitle,
+            company: formData.company,
+            city: formData.city,
+            island: formData.island,
+            school: formData.school,
           }
         }
       });
@@ -135,6 +154,121 @@ export default function SignupPage() {
                   autoComplete="email"
                   required
                   value={formData.email}
+                  onChange={handleChange}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="linkedinUrl" className="block text-sm font-medium text-gray-700">
+                LinkedIn Profile URL <span className="text-red-500">*</span>
+              </label>
+              <div className="mt-1">
+                <input
+                  id="linkedinUrl"
+                  name="linkedinUrl"
+                  type="url"
+                  required
+                  placeholder="https://www.linkedin.com/in/yourprofile"
+                  value={formData.linkedinUrl}
+                  onChange={handleChange}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="currentTitle" className="block text-sm font-medium text-gray-700">
+                Current Job Title <span className="text-red-500">*</span>
+              </label>
+              <div className="mt-1">
+                <input
+                  id="currentTitle"
+                  name="currentTitle"
+                  type="text"
+                  required
+                  placeholder="e.g. Software Engineer"
+                  value={formData.currentTitle}
+                  onChange={handleChange}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="company" className="block text-sm font-medium text-gray-700">
+                Company
+              </label>
+              <div className="mt-1">
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  placeholder="e.g. Reef.ai"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="island" className="block text-sm font-medium text-gray-700">
+                  Island <span className="text-red-500">*</span>
+                </label>
+                <div className="mt-1">
+                  <select
+                    id="island"
+                    name="island"
+                    required
+                    value={formData.island}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  >
+                    <option value="">Select Island</option>
+                    <option value="Oahu">Oahu</option>
+                    <option value="Maui">Maui</option>
+                    <option value="Hawaii">Hawaii Island</option>
+                    <option value="Kauai">Kauai</option>
+                    <option value="Molokai">Molokai</option>
+                    <option value="Lanai">Lanai</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                  City <span className="text-red-500">*</span>
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    required
+                    placeholder="e.g. Honolulu"
+                    value={formData.city}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="school" className="block text-sm font-medium text-gray-700">
+                School/University <span className="text-red-500">*</span>
+              </label>
+              <div className="mt-1">
+                <input
+                  id="school"
+                  name="school"
+                  type="text"
+                  required
+                  placeholder="e.g. University of Hawaii"
+                  value={formData.school}
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 />

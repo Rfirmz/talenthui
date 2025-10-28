@@ -3,12 +3,24 @@
 import { mockCompanies } from '@/data/companies';
 
 export default function CompanyCarousel() {
-  // Get companies with real logos (not placeholder)
-  const companiesWithLogos = mockCompanies.filter(company => 
+  // Featured client companies (prioritize these)
+  const featuredClientNames = ['Reef.ai', 'Vannevar Labs', 'One Brief', 'Kentik', 'SOSi', 'Pacific Impact Zone'];
+  const featuredClients = mockCompanies.filter(company => 
+    featuredClientNames.includes(company.name) &&
+    company.logo_url && 
+    company.logo_url !== '/avatars/placeholder.svg'
+  );
+
+  // Get other companies with real logos (not placeholder)
+  const otherCompaniesWithLogos = mockCompanies.filter(company => 
+    !featuredClientNames.includes(company.name) &&
     company.logo_url && 
     company.logo_url !== '/avatars/placeholder.svg' &&
     company.logo_url.startsWith('http')
   );
+
+  // Prioritize featured clients, then add others
+  const companiesWithLogos = [...featuredClients, ...otherCompaniesWithLogos.slice(0, 10)];
 
   // Duplicate companies for seamless loop
   const duplicatedCompanies = [...companiesWithLogos, ...companiesWithLogos, ...companiesWithLogos];

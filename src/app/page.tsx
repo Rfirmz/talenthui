@@ -9,7 +9,10 @@ import CompanyCarousel from '@/components/ui/CompanyCarousel';
 
 export default function HomePage() {
   const featuredProfiles = mockProfiles.slice(0, 6);
-  const featuredCompanies = mockCompanies.slice(0, 6);
+  
+  // Feature specific client companies
+  const clientCompanyNames = ['Reef.ai', 'Vannevar Labs', 'One Brief', 'Kentik', 'SOSi', 'Pacific Impact Zone'];
+  const featuredCompanies = mockCompanies.filter(c => clientCompanyNames.includes(c.name));
 
   return (
     <div className="bg-gradient-to-b from-primary-50 to-white">
@@ -160,15 +163,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Top Employers */}
+      {/* Featured Clients & Employers */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-              Top Employers
+              Our Clients & Partners
             </h2>
             <p className="text-lg text-gray-600">
-              Leading companies hiring Hawaii's best talent
+              Leading defense and technology companies working with Hawaii's best talent
             </p>
           </div>
 

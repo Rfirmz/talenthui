@@ -4,7 +4,17 @@ import { mockCompanies } from '@/data/companies';
 
 export default function CompanyCarousel() {
   // Featured client companies (prioritize these)
-  const featuredClientNames = ['Reef.ai', 'Vannevar Labs', 'One Brief', 'Kentik', 'SOSi', 'Pacific Impact Zone'];
+  const featuredClientNames = [
+    'Reef.ai', 
+    'AEP Hawaii', 
+    'Hawaii Technology Development Corporation',
+    'Bayze',
+    'Honolulu Tech Week',
+    'Hawaii Technology Academy',
+    'Hawaii Techies',
+    'SAVON',
+    'NogaTech IT Solutions'
+  ];
   const featuredClients = mockCompanies.filter(company => 
     featuredClientNames.includes(company.name) &&
     company.logo_url && 

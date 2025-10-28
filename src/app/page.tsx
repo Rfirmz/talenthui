@@ -11,7 +11,17 @@ export default function HomePage() {
   const featuredProfiles = mockProfiles.slice(0, 6);
   
   // Feature specific client companies
-  const clientCompanyNames = ['Reef.ai', 'Vannevar Labs', 'One Brief', 'Kentik', 'SOSi', 'Pacific Impact Zone'];
+  const clientCompanyNames = [
+    'Reef.ai', 
+    'AEP Hawaii', 
+    'Hawaii Technology Development Corporation',
+    'Bayze',
+    'Honolulu Tech Week',
+    'Hawaii Technology Academy',
+    'Hawaii Techies',
+    'SAVON',
+    'NogaTech IT Solutions'
+  ];
   const featuredCompanies = mockCompanies.filter(c => clientCompanyNames.includes(c.name));
 
   return (

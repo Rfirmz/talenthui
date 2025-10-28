@@ -20,17 +20,42 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
     ? mockCompanies.find(c => c.name === profile.company)?.logo_url || null
     : null;
 
+  // Check if we have a real avatar (not placeholder)
+  const hasRealAvatar = profile.avatar_url && 
+    profile.avatar_url !== '/avatars/placeholder.svg' && 
+    !profile.avatar_url.includes('placeholder');
+
   return (
     <div 
       className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 cursor-pointer hover:scale-105"
       onClick={handleClick}
     >
       <div className="flex items-center space-x-4">
-        <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
-          <span className="text-primary-600 font-bold text-xl">
-            {profile.full_name?.split(' ').map(n => n[0]).join('') || '?'}
-          </span>
-        </div>
+        {hasRealAvatar ? (
+          <img 
+            src={profile.avatar_url} 
+            alt={profile.full_name || 'Profile'}
+            className="w-16 h-16 rounded-full object-cover border-2 border-primary-100"
+            onError={(e) => {
+              // Fallback to initials if image fails to load
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              const parent = target.parentElement;
+              if (parent) {
+                const initialsDiv = document.createElement('div');
+                initialsDiv.className = 'w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center';
+                initialsDiv.innerHTML = `<span class="text-primary-600 font-bold text-xl">${profile.full_name?.split(' ').map(n => n[0]).join('') || '?'}</span>`;
+                parent.appendChild(initialsDiv);
+              }
+            }}
+          />
+        ) : (
+          <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <span className="text-primary-600 font-bold text-xl">
+              {profile.full_name?.split(' ').map(n => n[0]).join('') || '?'}
+            </span>
+          </div>
+        )}
         <div className="flex-1">
           <h3 className="text-lg font-medium text-gray-900">{profile.full_name || 'No name'}</h3>
           <p className="text-primary-600 font-normal">{profile.current_title || 'No title'}</p>

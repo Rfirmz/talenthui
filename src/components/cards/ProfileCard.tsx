@@ -17,7 +17,7 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
 
   // Find the company logo for this profile's company
   const companyLogo = profile.company 
-    ? mockCompanies.find(c => c.name.toLowerCase() === profile.company?.toLowerCase())?.logo_url
+    ? mockCompanies.find(c => c.name === profile.company)?.logo_url || null
     : null;
 
   return (

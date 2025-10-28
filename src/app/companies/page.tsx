@@ -6,12 +6,15 @@ import CompanyCard from '@/components/cards/CompanyCard';
 import SearchBar from '@/components/ui/SearchBar';
 import FilterDropdown from '@/components/ui/FilterDropdown';
 import CompanyCarousel from '@/components/ui/CompanyCarousel';
+import Pagination from '@/components/ui/Pagination';
 
 export default function CompaniesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [industryFilter, setIndustryFilter] = useState('');
   const [islandFilter, setIslandFilter] = useState('');
   const [sizeFilter, setSizeFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12; // Show 12 companies per page
 
   // Get unique values for filters
   const industries = Array.from(new Set(mockCompanies.map(c => c.industry))).sort();
@@ -32,6 +35,19 @@ export default function CompaniesPage() {
       return matchesSearch && matchesIndustry && matchesIsland && matchesSize;
     });
   }, [searchTerm, industryFilter, islandFilter, sizeFilter]);
+
+  // Paginate filtered companies
+  const paginatedCompanies = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredCompanies.slice(startIndex, endIndex);
+  }, [filteredCompanies, currentPage, itemsPerPage]);
+
+  // Reset to first page when filters change
+  const handleFilterChange = (setter: (value: string) => void) => (value: string) => {
+    setter(value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -66,13 +82,13 @@ export default function CompaniesPage() {
               label="Industry"
               options={industries}
               value={industryFilter}
-              onChange={setIndustryFilter}
+              onChange={handleFilterChange(setIndustryFilter)}
             />
             <FilterDropdown
               label="Island"
               options={islands}
               value={islandFilter}
-              onChange={setIslandFilter}
+              onChange={handleFilterChange(setIslandFilter)}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -80,7 +96,7 @@ export default function CompaniesPage() {
               label="Company Size"
               options={sizes}
               value={sizeFilter}
-              onChange={setSizeFilter}
+              onChange={handleFilterChange(setSizeFilter)}
             />
             <div className="flex items-end">
               <button
@@ -89,6 +105,7 @@ export default function CompaniesPage() {
                   setIndustryFilter('');
                   setIslandFilter('');
                   setSizeFilter('');
+                  setCurrentPage(1);
                 }}
                 className="w-full bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
               >
@@ -101,17 +118,28 @@ export default function CompaniesPage() {
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-gray-600">
-            Showing {filteredCompanies.length} of {mockCompanies.length} companies
+            Showing {paginatedCompanies.length} of {filteredCompanies.length} companies
+            {filteredCompanies.length !== mockCompanies.length && ` (${mockCompanies.length} total)`}
           </p>
         </div>
 
         {/* Companies Grid */}
-        {filteredCompanies.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCompanies.map((company) => (
-              <CompanyCard key={company.id} company={company} />
-            ))}
-          </div>
+        {paginatedCompanies.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paginatedCompanies.map((company) => (
+                <CompanyCard key={company.id} company={company} />
+              ))}
+            </div>
+            
+            {/* Pagination */}
+            <Pagination
+              totalItems={filteredCompanies.length}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          </>
         ) : (
           <div className="text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">🏢</div>

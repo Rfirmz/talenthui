@@ -26,8 +26,12 @@ export interface Company {
   island: string;
   city: string;
   website: string;
-  employee_count: number;
-  avg_salary: number;
+  linkedin_url?: string;
+  type?: string;
+  contacts?: Array<{
+    text: string;
+    href: string;
+  }>;
 }
 
 export interface School {

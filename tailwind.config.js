@@ -21,6 +21,7 @@ module.exports = {
           700: '#155e75',
         },
         secondary: {
+          100: '#fef3c7',
           500: '#fbbf24', // Sunset gold
           600: '#f59e0b',
         },

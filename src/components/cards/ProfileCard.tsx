@@ -1,6 +1,7 @@
 'use client';
 
 import { Profile } from '@/types';
+import { mockCompanies } from '@/data/companies';
 
 interface ProfileCardProps {
   profile: Profile;
@@ -13,6 +14,11 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
       onClick(profile);
     }
   };
+
+  // Find the company logo for this profile's company
+  const companyLogo = profile.company 
+    ? mockCompanies.find(c => c.name.toLowerCase() === profile.company?.toLowerCase())?.logo_url
+    : null;
 
   return (
     <div 
@@ -28,7 +34,20 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
         <div className="flex-1">
           <h3 className="text-lg font-medium text-gray-900">{profile.full_name || 'No name'}</h3>
           <p className="text-primary-600 font-normal">{profile.current_title || 'No title'}</p>
-          <p className="text-gray-600 text-sm">{profile.company || 'No company'}</p>
+          <div className="flex items-center space-x-2">
+            {companyLogo && companyLogo !== '/avatars/placeholder.svg' && companyLogo.startsWith('http') ? (
+              <img 
+                src={companyLogo} 
+                alt={`${profile.company} logo`}
+                className="w-4 h-4 object-contain"
+                onError={(e) => {
+                  // Hide logo if it fails to load
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            ) : null}
+            <p className="text-gray-600 text-sm">{profile.company || 'No company'}</p>
+          </div>
           <p className="text-gray-500 text-sm">
             {[profile.city, profile.island].filter(Boolean).join(', ') || 'No location'}
           </p>

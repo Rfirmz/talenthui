@@ -58,7 +58,6 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
         )}
         <div className="flex-1">
           <h3 className="text-lg font-medium text-gray-900">{profile.full_name || 'No name'}</h3>
-          <p className="text-primary-600 font-normal">{profile.current_title || 'No title'}</p>
           <div className="flex items-center space-x-2">
             {companyLogo && companyLogo !== '/avatars/placeholder.svg' && companyLogo.startsWith('http') ? (
               <img 
@@ -71,8 +70,9 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
                 }}
               />
             ) : null}
-            <p className="text-gray-600 text-sm">{profile.company || 'No company'}</p>
+            <p className="text-gray-600 text-sm font-medium">{profile.company || 'No company'}</p>
           </div>
+          <p className="text-primary-600 font-normal text-sm">{profile.current_title || 'No title'}</p>
           <p className="text-gray-500 text-sm">
             {[profile.city, profile.island].filter(Boolean).join(', ') || 'No location'}
           </p>

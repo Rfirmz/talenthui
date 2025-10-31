@@ -7,6 +7,7 @@ import ProfileCard from '@/components/cards/ProfileCard';
 import ProfileModal from '@/components/modals/ProfileModal';
 import SearchBar from '@/components/ui/SearchBar';
 import FilterDropdown from '@/components/ui/FilterDropdown';
+import Pagination from '@/components/ui/Pagination';
 import Link from 'next/link';
 
 export default function ProfilesPage() {
@@ -20,6 +21,8 @@ export default function ProfilesPage() {
   const [useRealData, setUseRealData] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 24; // Show 24 profiles per page
 
   // Load profiles from Supabase
   useEffect(() => {
@@ -37,7 +40,13 @@ export default function ProfilesPage() {
           setError('Failed to load profiles');
           setUseRealData(false);
         } else {
-          setProfiles(data || []);
+          // Sort to put Rafael Firme first
+          const sortedData = (data || []).sort((a, b) => {
+            if (a.full_name?.toLowerCase().includes('rafael firme')) return -1;
+            if (b.full_name?.toLowerCase().includes('rafael firme')) return 1;
+            return 0;
+          });
+          setProfiles(sortedData);
           setUseRealData(true);
         }
       } catch (err) {
@@ -83,6 +92,23 @@ export default function ProfilesPage() {
       return matchesSearch && matchesIsland && matchesCity && matchesSchool;
     });
   }, [currentProfiles, searchTerm, islandFilter, cityFilter, schoolFilter]);
+
+  // Paginate filtered profiles
+  const paginatedProfiles = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredProfiles.slice(startIndex, endIndex);
+  }, [filteredProfiles, currentPage, itemsPerPage]);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, islandFilter, cityFilter, schoolFilter]);
+
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -147,7 +173,8 @@ export default function ProfilesPage() {
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex items-center space-x-4">
             <p className="text-gray-600">
-              Showing {filteredProfiles.length} of {currentProfiles.length} professionals
+              Showing {paginatedProfiles.length} of {filteredProfiles.length} professionals
+              {filteredProfiles.length !== currentProfiles.length && ` (${currentProfiles.length} total)`}
             </p>
             {error && (
               <span className="text-red-600 text-sm">({error})</span>
@@ -182,15 +209,27 @@ export default function ProfilesPage() {
         ) : (
           /* Profiles Grid */
           filteredProfiles.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProfiles.map((profile) => (
-                <ProfileCard 
-                  key={profile.id} 
-                  profile={profile} 
-                  onClick={handleProfileClick}
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {paginatedProfiles.map((profile) => (
+                  <ProfileCard 
+                    key={profile.id} 
+                    profile={profile} 
+                    onClick={handleProfileClick}
+                  />
+                ))}
+              </div>
+              
+              {/* Pagination */}
+              {filteredProfiles.length > itemsPerPage && (
+                <Pagination
+                  totalItems={filteredProfiles.length}
+                  itemsPerPage={itemsPerPage}
+                  currentPage={currentPage}
+                  onPageChange={setCurrentPage}
                 />
-              ))}
-            </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-12">
               <div className="text-gray-400 text-6xl mb-4">🔍</div>

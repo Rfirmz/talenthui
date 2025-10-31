@@ -1,5 +1,9 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { supabase } from '@/lib/supabase';
 import { mockProfiles } from '@/data/profiles';
 import { mockCompanies } from '@/data/companies';
 import ProfileCard from '@/components/cards/ProfileCard';
@@ -8,7 +12,43 @@ import VideoBackground from '@/components/ui/VideoBackground';
 import CompanyCarousel from '@/components/ui/CompanyCarousel';
 
 export default function HomePage() {
-  const featuredProfiles = mockProfiles.slice(0, 6);
+  const [featuredProfiles, setFeaturedProfiles] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load real featured profiles from Supabase
+  useEffect(() => {
+    const loadFeaturedProfiles = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('visibility', true)
+          .not('bio', 'is', null)
+          .limit(6);
+
+        if (error) {
+          console.error('Error loading featured profiles:', error);
+          setFeaturedProfiles(mockProfiles.slice(0, 6));
+        } else {
+          // Prioritize Rafael Firme if he exists
+          const sortedData = (data || []).sort((a, b) => {
+            if (a.full_name?.toLowerCase().includes('rafael firme')) return -1;
+            if (b.full_name?.toLowerCase().includes('rafael firme')) return 1;
+            return 0;
+          });
+          setFeaturedProfiles(sortedData.slice(0, 6));
+        }
+      } catch (err) {
+        console.error('Error loading featured profiles:', err);
+        setFeaturedProfiles(mockProfiles.slice(0, 6));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadFeaturedProfiles();
+  }, []);
   
   // Feature specific client companies
   const clientCompanyNames = [
@@ -156,20 +196,28 @@ export default function HomePage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredProfiles.map((profile) => (
-              <ProfileCard key={profile.id} profile={profile} />
-            ))}
-          </div>
-          
-          <div className="text-center">
-            <Link 
-              href="/profiles" 
-              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
-            >
-              View All Talent →
-            </Link>
-          </div>
+          {isLoading ? (
+            <div className="text-center py-12">
+              <div className="text-primary-600 text-lg">Loading featured talent...</div>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {featuredProfiles.map((profile) => (
+                  <ProfileCard key={profile.id} profile={profile} />
+                ))}
+              </div>
+              
+              <div className="text-center">
+                <Link 
+                  href="/profiles" 
+                  className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+                >
+                  View All Talent →
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

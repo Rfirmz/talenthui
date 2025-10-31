@@ -56,27 +56,59 @@ export default function SignupPage() {
     }
     
     try {
+      // Sign up the user
       const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
-        options: {
-          data: {
+      });
+
+      if (error) {
+        setError(error.message);
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.user) {
+        // Create profile entry
+        const nameParts = formData.fullName.split(' ');
+        const firstName = nameParts[0];
+        const lastName = nameParts.slice(1).join(' ');
+        const username = `${firstName.toLowerCase()}-${lastName.toLowerCase()}`.replace(/[^a-z0-9-]/g, '');
+
+        // Generate a bio
+        const title = formData.currentTitle || 'Professional';
+        const company = formData.company || 'Hawaii Tech';
+        const school = formData.school || 'University';
+        const island = formData.island || 'Hawaii';
+        const bio = `${title} at ${company}. ${school} alumni based in ${island}.`;
+
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            user_id: data.user.id,
             full_name: formData.fullName,
+            first_name: firstName,
+            last_name: lastName,
+            username: username,
+            email: formData.email,
             linkedin_url: formData.linkedinUrl,
             current_title: formData.currentTitle,
             company: formData.company,
             city: formData.city,
             island: formData.island,
             school: formData.school,
-          }
-        }
-      });
+            bio: bio,
+            avatar_url: '/avatars/placeholder.svg',
+            visibility: true,
+          });
 
-      if (error) {
-        setError(error.message);
-      } else {
-        // Redirect to profiles page
-        router.push('/profiles');
+        if (profileError) {
+          console.error('Error creating profile:', profileError);
+          setError('Account created but profile setup failed. Please complete your profile.');
+        }
+
+        // Redirect to profile edit page
+        router.push('/profile/edit');
       }
     } catch (err) {
       setError('An unexpected error occurred');

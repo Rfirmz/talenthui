@@ -27,11 +27,15 @@ CREATE TABLE IF NOT EXISTS profiles (
   country TEXT DEFAULT 'United States',
   state TEXT DEFAULT 'Hawaii',
   city TEXT,
+  current_city TEXT,
+  hometown TEXT,
   island TEXT,
   location TEXT,
   
   -- Education
   school TEXT,
+  high_school TEXT,
+  college TEXT,
   education TEXT[], -- Array of schools
   education_websites TEXT[],
   education_linkedin TEXT[],

@@ -13,6 +13,12 @@ export interface Profile {
   github_url?: string;
   twitter_url?: string;
   pay_band: number;
+  // Education fields
+  high_school?: string;
+  college?: string;
+  // Location fields
+  hometown?: string;
+  current_city?: string;
 }
 
 export interface Company {

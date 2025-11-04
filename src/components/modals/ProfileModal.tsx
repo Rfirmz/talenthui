@@ -102,12 +102,15 @@ export default function ProfileModal({ profile, isOpen, onClose }: ProfileModalP
                     {displayProfile.current_title && (
                       <p className="text-lg text-gray-600">{displayProfile.current_title}</p>
                     )}
-                    {displayProfile.company && (
-                      <p className="text-gray-500">{displayProfile.company}</p>
+                    {(displayProfile.company || displayProfile.current_company) && (
+                      <p className="text-gray-500">{displayProfile.company || displayProfile.current_company}</p>
                     )}
-                    {(displayProfile.island || displayProfile.city) && (
+                    {(displayProfile.current_city || displayProfile.island || displayProfile.city || displayProfile.hometown) && (
                       <p className="text-sm text-gray-500">
-                        {[displayProfile.city, displayProfile.island].filter(Boolean).join(', ')}
+                        {displayProfile.current_city || [displayProfile.city, displayProfile.island].filter(Boolean).join(', ')}
+                        {displayProfile.hometown && displayProfile.hometown !== displayProfile.current_city && (
+                          <span className="text-gray-400"> (from {displayProfile.hometown})</span>
+                        )}
                       </p>
                     )}
                   </div>
@@ -123,10 +126,18 @@ export default function ProfileModal({ profile, isOpen, onClose }: ProfileModalP
 
                 {/* Professional Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {displayProfile.school && (
+                  {(displayProfile.college || displayProfile.school || displayProfile.high_school) && (
                     <div>
                       <h4 className="text-sm font-semibold text-gray-900 mb-1">Education</h4>
-                      <p className="text-gray-700">{displayProfile.school}</p>
+                      {displayProfile.college && (
+                        <p className="text-gray-700 font-medium">{displayProfile.college}</p>
+                      )}
+                      {!displayProfile.college && displayProfile.school && (
+                        <p className="text-gray-700 font-medium">{displayProfile.school}</p>
+                      )}
+                      {displayProfile.high_school && (
+                        <p className="text-gray-600 text-sm mt-1">High School: {displayProfile.high_school}</p>
+                      )}
                     </div>
                   )}
                   

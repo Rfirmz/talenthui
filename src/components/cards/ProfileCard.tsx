@@ -15,9 +15,12 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
     }
   };
 
+  // Get company name - check both current_company and company fields
+  const companyName = profile.company || (profile as any).current_company || '';
+  
   // Find the company logo for this profile's company
-  const companyLogo = profile.company 
-    ? mockCompanies.find(c => c.name === profile.company)?.logo_url || null
+  const companyLogo = companyName
+    ? mockCompanies.find(c => c.name === companyName)?.logo_url || null
     : null;
 
   // Check if we have a real avatar (not placeholder)
@@ -62,7 +65,7 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
             {companyLogo && companyLogo !== '/avatars/placeholder.svg' && companyLogo.startsWith('http') ? (
               <img 
                 src={companyLogo} 
-                alt={`${profile.company} logo`}
+                alt={`${companyName} logo`}
                 className="w-4 h-4 object-contain"
                 onError={(e) => {
                   // Hide logo if it fails to load
@@ -70,13 +73,29 @@ export default function ProfileCard({ profile, onClick }: ProfileCardProps) {
                 }}
               />
             ) : null}
-            <p className="text-gray-600 text-sm font-medium">{profile.company || 'No company'}</p>
+            <p className="text-gray-600 text-sm font-medium">{companyName || 'No company'}</p>
           </div>
           <p className="text-primary-600 font-normal text-sm">{profile.current_title || 'No title'}</p>
-          <p className="text-gray-500 text-sm">
-            {[profile.city, profile.island].filter(Boolean).join(', ') || 'No location'}
-          </p>
-          <p className="text-gray-500 text-sm">{profile.school || 'No school'}</p>
+          
+          {/* Location - Show current_city or fallback to city/island */}
+          {(profile.current_city || profile.city || profile.island) && (
+            <p className="text-gray-500 text-sm">
+              {profile.current_city || [profile.city, profile.island].filter(Boolean).join(', ')}
+              {profile.hometown && profile.hometown !== profile.current_city && (
+                <span className="text-gray-400"> (from {profile.hometown})</span>
+              )}
+            </p>
+          )}
+          
+          {/* Education - Show college or fallback to school, with high school if available */}
+          {(profile.college || profile.school || profile.high_school) && (
+            <p className="text-gray-500 text-sm">
+              {profile.college || profile.school}
+              {profile.high_school && (
+                <span className="text-gray-400 text-xs block ml-4">High School: {profile.high_school}</span>
+              )}
+            </p>
+          )}
         </div>
       </div>
       <div className="mt-4">

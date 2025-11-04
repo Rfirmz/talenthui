@@ -15,8 +15,12 @@ export default function SignupPage() {
     currentTitle: '',
     company: '',
     city: '',
+    currentCity: '',
+    hometown: '',
     island: '',
     school: '',
+    highSchool: '',
+    college: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -78,33 +82,64 @@ export default function SignupPage() {
         // Generate a bio
         const title = formData.currentTitle || 'Professional';
         const company = formData.company || 'Hawaii Tech';
-        const school = formData.school || 'University';
-        const island = formData.island || 'Hawaii';
-        const bio = `${title} at ${company}. ${school} alumni based in ${island}.`;
+        const school = formData.college || formData.school || 'University';
+        const location = formData.currentCity || formData.city || formData.island || 'Hawaii';
+        const bio = `${title} at ${company}. ${school} alumni based in ${location}.`;
 
-        const { error: profileError } = await supabase
+        // Build profile data, excluding fields that might not exist in schema
+        const profileData: any = {
+          id: data.user.id, // Use auth user id as profile id
+          user_id: data.user.id,
+          full_name: formData.fullName,
+          first_name: firstName,
+          last_name: lastName,
+          username: username,
+          email: formData.email,
+          linkedin_url: formData.linkedinUrl || '',
+          current_title: formData.currentTitle || '',
+          current_company: formData.company || '',
+          city: formData.city || '',
+          bio: bio,
+          avatar_url: '/avatars/placeholder.svg',
+          visibility: true,
+        };
+        
+        // Add optional location fields if they exist
+        if (formData.currentCity || formData.city) {
+          profileData.current_city = formData.currentCity || formData.city;
+        }
+        if (formData.hometown) {
+          profileData.hometown = formData.hometown;
+        }
+        if (formData.island) {
+          profileData.island = formData.island;
+        }
+        if (formData.school || formData.college) {
+          profileData.school = formData.school || formData.college || '';
+        }
+        // Only add these if they exist in schema (may not exist if migration not run)
+        if (formData.highSchool) {
+          profileData.high_school = formData.highSchool;
+        }
+        if (formData.college) {
+          profileData.college = formData.college;
+        }
+
+        const { error: profileError, data: profileResult } = await supabase
           .from('profiles')
-          .insert({
-            user_id: data.user.id,
-            full_name: formData.fullName,
-            first_name: firstName,
-            last_name: lastName,
-            username: username,
-            email: formData.email,
-            linkedin_url: formData.linkedinUrl,
-            current_title: formData.currentTitle,
-            company: formData.company,
-            city: formData.city,
-            island: formData.island,
-            school: formData.school,
-            bio: bio,
-            avatar_url: '/avatars/placeholder.svg',
-            visibility: true,
-          });
+          .upsert(profileData)
+          .select();
 
         if (profileError) {
           console.error('Error creating profile:', profileError);
-          setError('Account created but profile setup failed. Please complete your profile.');
+          // If it's a column error, give helpful message
+          if (profileError.message && profileError.message.includes('column')) {
+            setError(`Profile creation failed: ${profileError.message}. Please run the migration: migration-add-education-location-fields.sql`);
+          } else {
+            setError('Account created but profile setup failed. Please complete your profile.');
+          }
+        } else {
+          console.log('Profile created successfully:', profileResult);
         }
 
         // Redirect to profile edit page
@@ -245,43 +280,60 @@ export default function SignupPage() {
               </div>
             </div>
 
+            <div>
+              <label htmlFor="island" className="block text-sm font-medium text-gray-700">
+                Island <span className="text-red-500">*</span>
+              </label>
+              <div className="mt-1">
+                <select
+                  id="island"
+                  name="island"
+                  required
+                  value={formData.island}
+                  onChange={handleChange}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                >
+                  <option value="">Select Island</option>
+                  <option value="Oahu">Oahu</option>
+                  <option value="Maui">Maui</option>
+                  <option value="Hawaii">Hawaii Island</option>
+                  <option value="Kauai">Kauai</option>
+                  <option value="Molokai">Molokai</option>
+                  <option value="Lanai">Lanai</option>
+                </select>
+              </div>
+            </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="island" className="block text-sm font-medium text-gray-700">
-                  Island <span className="text-red-500">*</span>
+                <label htmlFor="hometown" className="block text-sm font-medium text-gray-700">
+                  Hometown
                 </label>
                 <div className="mt-1">
-                  <select
-                    id="island"
-                    name="island"
-                    required
-                    value={formData.island}
+                  <input
+                    id="hometown"
+                    name="hometown"
+                    type="text"
+                    placeholder="e.g. Hilo"
+                    value={formData.hometown}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                  >
-                    <option value="">Select Island</option>
-                    <option value="Oahu">Oahu</option>
-                    <option value="Maui">Maui</option>
-                    <option value="Hawaii">Hawaii Island</option>
-                    <option value="Kauai">Kauai</option>
-                    <option value="Molokai">Molokai</option>
-                    <option value="Lanai">Lanai</option>
-                  </select>
+                  />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                  City <span className="text-red-500">*</span>
+                <label htmlFor="currentCity" className="block text-sm font-medium text-gray-700">
+                  Current City <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-1">
                   <input
-                    id="city"
-                    name="city"
+                    id="currentCity"
+                    name="currentCity"
                     type="text"
                     required
                     placeholder="e.g. Honolulu"
-                    value={formData.city}
+                    value={formData.currentCity}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                   />
@@ -289,21 +341,40 @@ export default function SignupPage() {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="school" className="block text-sm font-medium text-gray-700">
-                School/University <span className="text-red-500">*</span>
-              </label>
-              <div className="mt-1">
-                <input
-                  id="school"
-                  name="school"
-                  type="text"
-                  required
-                  placeholder="e.g. University of Hawaii"
-                  value={formData.school}
-                  onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="highSchool" className="block text-sm font-medium text-gray-700">
+                  High School
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="highSchool"
+                    name="highSchool"
+                    type="text"
+                    placeholder="e.g. Punahou School"
+                    value={formData.highSchool}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="college" className="block text-sm font-medium text-gray-700">
+                  College <span className="text-red-500">*</span>
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="college"
+                    name="college"
+                    type="text"
+                    required
+                    placeholder="e.g. University of Hawaii at Manoa"
+                    value={formData.college}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  />
+                </div>
               </div>
             </div>
 

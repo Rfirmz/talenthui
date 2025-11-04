@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { getCurrentUser } from '@/lib/auth';
 
-interface ProfileData {
+export interface ProfileData {
   full_name: string;
   avatar_url: string;
   bio: string;
@@ -14,7 +14,11 @@ interface ProfileData {
   email: string;
   island: string;
   city: string;
+  current_city: string;
+  hometown: string;
   school: string;
+  high_school: string;
+  college: string;
   current_title: string;
   company: string;
   pay_band: number | null;
@@ -34,7 +38,15 @@ const PAY_BANDS = [
   { value: 8, label: '$150k+' },
 ];
 
-export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void; onCancel?: () => void }) {
+export default function ProfileForm({ 
+  onSave, 
+  onCancel, 
+  onFormDataChange 
+}: { 
+  onSave?: () => void; 
+  onCancel?: () => void;
+  onFormDataChange?: (data: ProfileData) => void;
+}) {
   const [formData, setFormData] = useState<ProfileData>({
     full_name: '',
     avatar_url: '',
@@ -45,7 +57,11 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
     email: '',
     island: '',
     city: '',
+    current_city: '',
+    hometown: '',
     school: '',
+    high_school: '',
+    college: '',
     current_title: '',
     company: '',
     pay_band: null,
@@ -54,7 +70,16 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [user, setUser] = useState<any>(null);
+
+  // Notify parent component of form data changes
+  useEffect(() => {
+    if (onFormDataChange) {
+      onFormDataChange(formData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData]);
 
   useEffect(() => {
     const loadUserAndProfile = async () => {
@@ -63,37 +88,67 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
         setUser(currentUser);
         
         if (currentUser) {
-          // Try to load existing profile
+          // Try to load existing profile by user_id (more reliable than id)
           const { data: profile, error } = await supabase
             .from('profiles')
             .select('*')
-            .eq('id', currentUser.id)
-            .single();
+            .eq('user_id', currentUser.id)
+            .maybeSingle();
+          
+          // If no profile found by user_id, try by id as fallback
+          let profileData = profile;
+          if (!profileData && !error) {
+            const { data: profileById, error: errorById } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', currentUser.id)
+              .maybeSingle();
+            profileData = profileById;
+          }
 
-          if (profile && !error) {
-            setFormData({
-              full_name: profile.full_name || '',
-              avatar_url: profile.avatar_url || '',
-              bio: profile.bio || '',
-              linkedin_url: profile.linkedin_url || '',
-              github_url: profile.github_url || '',
-              twitter_url: profile.twitter_url || '',
-              email: profile.email || currentUser.email || '',
-              island: profile.island || '',
-              city: profile.city || '',
-              school: profile.school || '',
-              current_title: profile.current_title || '',
-              company: profile.company || '',
-              pay_band: profile.pay_band || null,
-              visibility: profile.visibility ?? true,
-            });
+          if (profileData) {
+            console.log('Loaded profile:', profileData);
+            const newFormData = {
+              full_name: profileData.full_name || '',
+              avatar_url: profileData.avatar_url || '',
+              bio: profileData.bio || '',
+              linkedin_url: profileData.linkedin_url || '',
+              github_url: profileData.github_url || '',
+              twitter_url: profileData.twitter_url || '',
+              email: profileData.email || currentUser.email || '',
+              island: profileData.island || '',
+              city: profileData.city || '',
+              current_city: profileData.current_city || '',
+              hometown: profileData.hometown || '',
+              school: profileData.school || '',
+              high_school: profileData.high_school || '',
+              college: profileData.college || '',
+              current_title: profileData.current_title || '',
+              company: profileData.current_company || '',
+              pay_band: profileData.pay_band || null,
+              visibility: profileData.visibility ?? true,
+            };
+            setFormData(newFormData);
+            // Immediately trigger preview update
+            if (onFormDataChange) {
+              onFormDataChange(newFormData);
+            }
           } else {
+            console.log('No existing profile found, creating new profile');
+            if (error) {
+              console.error('Error loading profile:', error);
+            }
             // Set default values for new profile
-            setFormData(prev => ({
-              ...prev,
+            const newFormData = {
+              ...formData,
               full_name: currentUser.user_metadata?.full_name || '',
               email: currentUser.email || '',
-            }));
+            };
+            setFormData(newFormData);
+            // Immediately trigger preview update
+            if (onFormDataChange) {
+              onFormDataChange(newFormData);
+            }
           }
         }
       } catch (err) {
@@ -120,6 +175,7 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
     e.preventDefault();
     setIsSaving(true);
     setError('');
+    setSuccessMessage('');
 
     if (!user) {
       setError('You must be logged in to save your profile');
@@ -128,24 +184,76 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
     }
 
     try {
-      const { error } = await supabase
-        .from('profiles')
-        .upsert({
-          id: user.id,
-          ...formData,
-          updated_at: new Date().toISOString(),
-        });
-
-      if (error) {
-        throw error;
+      // Map form data to database schema
+      const { company, school, ...restFormData } = formData;
+      
+      // Build the upsert payload, explicitly mapping fields
+      const upsertData: any = {
+        id: user.id,
+        user_id: user.id,
+        full_name: restFormData.full_name || '',
+        avatar_url: restFormData.avatar_url || '',
+        bio: restFormData.bio || '',
+        linkedin_url: restFormData.linkedin_url || '',
+        github_url: restFormData.github_url || '',
+        twitter_url: restFormData.twitter_url || '',
+        email: restFormData.email || user.email || '',
+        island: restFormData.island || '',
+        city: restFormData.city || '',
+        current_company: company || '',
+        current_title: restFormData.current_title || '',
+        pay_band: restFormData.pay_band || null,
+        visibility: restFormData.visibility ?? true,
+        updated_at: new Date().toISOString(),
+      };
+      
+      // Add optional location fields
+      if (restFormData.current_city) {
+        upsertData.current_city = restFormData.current_city;
       }
+      if (restFormData.hometown) {
+        upsertData.hometown = restFormData.hometown;
+      }
+      
+      // Add education fields - try to include them, but handle gracefully if they don't exist
+      if (restFormData.high_school) {
+        upsertData.high_school = restFormData.high_school;
+      }
+      if (restFormData.college) {
+        upsertData.college = restFormData.college;
+      }
+      // Keep school for backward compatibility
+      if (school || restFormData.school) {
+        upsertData.school = school || restFormData.school || '';
+      }
+      
+      const { error: saveError, data } = await supabase
+        .from('profiles')
+        .upsert(upsertData)
+        .select();
+
+      if (saveError) {
+        // Check if it's a column not found error
+        if (saveError.message && saveError.message.includes('column') && saveError.message.includes('does not exist')) {
+          throw new Error(`Database schema is missing required columns. Please run the migration in your Supabase SQL Editor: migration-add-education-location-fields.sql\n\nOriginal error: ${saveError.message}`);
+        }
+        throw saveError;
+      }
+
+      setSuccessMessage('Profile saved successfully!');
+      console.log('Profile saved:', data);
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
 
       if (onSave) {
         onSave();
       }
     } catch (err: any) {
       console.error('Error saving profile:', err);
-      setError(err.message || 'Failed to save profile');
+      setError(err.message || 'Failed to save profile. Please check the console for details.');
     } finally {
       setIsSaving(false);
     }
@@ -164,6 +272,11 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
           {error}
+        </div>
+      )}
+      {successMessage && (
+        <div className="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-md text-sm">
+          {successMessage}
         </div>
       )}
 
@@ -247,16 +360,31 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
           </div>
 
           <div>
-            <label htmlFor="school" className="block text-sm font-medium text-gray-700 mb-1">
-              School
+            <label htmlFor="high_school" className="block text-sm font-medium text-gray-700 mb-1">
+              High School
             </label>
             <input
               type="text"
-              id="school"
-              name="school"
-              value={formData.school}
+              id="high_school"
+              name="high_school"
+              value={formData.high_school}
               onChange={handleChange}
-              placeholder="e.g. University of Hawaii, Punahou School"
+              placeholder="e.g. Punahou School, Iolani School"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="college" className="block text-sm font-medium text-gray-700 mb-1">
+              College / University
+            </label>
+            <input
+              type="text"
+              id="college"
+              name="college"
+              value={formData.college}
+              onChange={handleChange}
+              placeholder="e.g. University of Hawaii at Manoa"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
@@ -302,14 +430,29 @@ export default function ProfileForm({ onSave, onCancel }: { onSave?: () => void;
           </div>
 
           <div>
-            <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-              City
+            <label htmlFor="hometown" className="block text-sm font-medium text-gray-700 mb-1">
+              Hometown
             </label>
             <input
               type="text"
-              id="city"
-              name="city"
-              value={formData.city}
+              id="hometown"
+              name="hometown"
+              value={formData.hometown}
+              onChange={handleChange}
+              placeholder="e.g. Hilo, Kailua"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="current_city" className="block text-sm font-medium text-gray-700 mb-1">
+              Current City
+            </label>
+            <input
+              type="text"
+              id="current_city"
+              name="current_city"
+              value={formData.current_city}
               onChange={handleChange}
               placeholder="e.g. Honolulu, Hilo, Kahului"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"

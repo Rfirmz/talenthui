@@ -40,8 +40,14 @@ export default function ProfilesPage() {
           setError('Failed to load profiles');
           setUseRealData(false);
         } else {
+          // Map current_company to company for compatibility
+          const mappedData = (data || []).map(profile => ({
+            ...profile,
+            company: profile.current_company || profile.company || '',
+          }));
+          
           // Sort to put Rafael Firme first
-          const sortedData = (data || []).sort((a, b) => {
+          const sortedData = mappedData.sort((a, b) => {
             if (a.full_name?.toLowerCase().includes('rafael firme')) return -1;
             if (b.full_name?.toLowerCase().includes('rafael firme')) return 1;
             return 0;

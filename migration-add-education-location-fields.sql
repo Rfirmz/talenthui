@@ -21,3 +21,4 @@ FROM information_schema.columns
 WHERE table_name = 'profiles' 
 AND column_name IN ('high_school', 'college', 'current_city', 'hometown');
 
+

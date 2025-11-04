@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { mockCompanies } from '@/data/companies';
 
 export default function CompanyCarousel() {
@@ -41,9 +42,11 @@ export default function CompanyCarousel() {
         {duplicatedCompanies.map((company, index) => (
           <div key={`${company.id}-${index}`} className="flex-shrink-0">
             <div className="relative w-32 h-32 bg-white rounded-lg shadow-lg border border-gray-200 flex items-center justify-center p-4 hover:shadow-xl transition-shadow duration-300">
-              <img
+              <Image
                 src={company.logo_url}
                 alt={`${company.name} logo`}
+                width={96}
+                height={96}
                 className="w-full h-full object-contain"
                 onError={(e) => {
                   // Fallback to initials if image fails to load

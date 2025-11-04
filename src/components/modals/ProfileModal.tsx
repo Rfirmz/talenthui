@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 
 interface ProfileModalProps {
@@ -17,6 +18,7 @@ export default function ProfileModal({ profile, isOpen, onClose }: ProfileModalP
     if (isOpen && profile) {
       loadFullProfile();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, profile]);
 
   const loadFullProfile = async () => {
@@ -82,9 +84,11 @@ export default function ProfileModal({ profile, isOpen, onClose }: ProfileModalP
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
                     {displayProfile.avatar_url ? (
-                      <img
+                      <Image
                         src={displayProfile.avatar_url}
                         alt={displayProfile.full_name}
+                        width={80}
+                        height={80}
                         className="w-20 h-20 rounded-full object-cover"
                       />
                     ) : (

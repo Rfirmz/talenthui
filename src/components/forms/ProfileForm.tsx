@@ -78,8 +78,7 @@ export default function ProfileForm({
     if (onFormDataChange) {
       onFormDataChange(formData);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData]);
+  }, [formData, onFormDataChange]);
 
   useEffect(() => {
     const loadUserAndProfile = async () => {
@@ -160,6 +159,7 @@ export default function ProfileForm({
     };
 
     loadUserAndProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -223,8 +223,8 @@ export default function ProfileForm({
         upsertData.college = restFormData.college;
       }
       // Keep school for backward compatibility
-      if (school || restFormData.school) {
-        upsertData.school = school || restFormData.school || '';
+      if (school) {
+        upsertData.school = school;
       }
       
       const { error: saveError, data } = await supabase

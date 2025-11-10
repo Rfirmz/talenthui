@@ -47,12 +47,21 @@ export default function ProfilesPage() {
           }));
           
           // Sort to put Rafael Firme first
-          const sortedData = mappedData.sort((a, b) => {
-            if (a.full_name?.toLowerCase().includes('rafael firme')) return -1;
-            if (b.full_name?.toLowerCase().includes('rafael firme')) return 1;
-            return 0;
-          });
-          setProfiles(sortedData);
+          const rafaelIndex = mappedData.findIndex(
+            (profile) => profile.full_name?.toLowerCase().includes('rafael firme')
+          );
+
+          if (rafaelIndex > -1) {
+            const rafaelProfile = mappedData[rafaelIndex];
+            const withoutRafael = [
+              ...mappedData.slice(0, rafaelIndex),
+              ...mappedData.slice(rafaelIndex + 1),
+            ];
+            withoutRafael.splice(2, 0, rafaelProfile);
+            setProfiles(withoutRafael);
+          } else {
+            setProfiles(mappedData);
+          }
           setUseRealData(true);
         }
       } catch (err) {

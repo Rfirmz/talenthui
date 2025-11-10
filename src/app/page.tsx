@@ -32,16 +32,32 @@ export default function HomePage() {
           setFeaturedProfiles(mockProfiles.slice(0, 6));
         } else {
           // Prioritize Rafael Firme if he exists
-          const sortedData = (data || [])
-            .filter((profile) => {
-              const name = profile.full_name?.toLowerCase() || '';
-              return !name.includes('ryan inouye') && !name.includes('ryan dude');
-            })
-            .sort((a, b) => {
-            if (a.full_name?.toLowerCase().includes('rafael firme')) return -1;
-            if (b.full_name?.toLowerCase().includes('rafael firme')) return 1;
-            return 0;
+          const filteredData = (data || []).filter((profile) => {
+            const name = profile.full_name?.toLowerCase() || '';
+            return !name.includes('ryan dude');
           });
+
+          // Ensure newly created profiles show up by sorting by created_at desc
+          const sortedData = filteredData.sort((a, b) => {
+            const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
+            const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
+            if (aDate !== bDate) {
+              return bDate - aDate;
+            }
+
+            const aName = a.full_name?.toLowerCase() || '';
+            const bName = b.full_name?.toLowerCase() || '';
+
+            if (aName.includes('zack hernandez')) return -1;
+            if (bName.includes('zack hernandez')) return 1;
+            if (aName.includes('rafael firme')) return -1;
+            if (bName.includes('rafael firme')) return 1;
+            if (aName.includes('gigi dawn')) return 1;
+            if (bName.includes('gigi dawn')) return -1;
+
+            return aName.localeCompare(bName);
+          });
+
           setFeaturedProfiles(sortedData.slice(0, 6));
         }
       } catch (err) {

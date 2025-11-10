@@ -72,6 +72,16 @@ export default function ProfileForm({
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [user, setUser] = useState<any>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string>('');
+
+  useEffect(() => {
+    return () => {
+      if (avatarPreview && avatarPreview.startsWith('blob:')) {
+        URL.revokeObjectURL(avatarPreview);
+      }
+    };
+  }, [avatarPreview]);
 
   // Notify parent component of form data changes
   useEffect(() => {
@@ -128,6 +138,7 @@ export default function ProfileForm({
               visibility: profileData.visibility ?? true,
             };
             setFormData(newFormData);
+            setAvatarPreview(profileData.avatar_url || '');
             // Immediately trigger preview update
             if (onFormDataChange) {
               onFormDataChange(newFormData);
@@ -144,6 +155,7 @@ export default function ProfileForm({
               email: currentUser.email || '',
             };
             setFormData(newFormData);
+            setAvatarPreview(currentUser.user_metadata?.avatar_url || '');
             // Immediately trigger preview update
             if (onFormDataChange) {
               onFormDataChange(newFormData);
@@ -171,6 +183,27 @@ export default function ProfileForm({
     }));
   };
 
+  const handleAvatarFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Profile photo must be 5MB or less.');
+        return;
+      }
+      setAvatarFile(file);
+      const objectUrl = URL.createObjectURL(file);
+      setAvatarPreview(objectUrl);
+      setFormData(prev => ({
+        ...prev,
+        avatar_url: objectUrl,
+      }));
+      setError('');
+    } else {
+      setAvatarFile(null);
+      setAvatarPreview(formData.avatar_url);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
@@ -187,12 +220,47 @@ export default function ProfileForm({
       // Map form data to database schema
       const { company, school, ...restFormData } = formData;
       
+      let avatarUrlToSave = restFormData.avatar_url || '';
+
+      if (avatarFile && user) {
+        const fileExt = avatarFile.name.split('.').pop() || 'jpg';
+        const safeExt = fileExt.toLowerCase();
+        const filePath = `${user.id}/avatar.${safeExt}`;
+        const fallbackContentType = safeExt === 'jpg' ? 'image/jpeg' : `image/${safeExt}`;
+
+        const bucket = supabase.storage.from('avatars');
+        const { error: uploadError } = await bucket.upload(filePath, avatarFile, {
+          upsert: true,
+          cacheControl: '3600',
+          contentType: avatarFile.type || fallbackContentType,
+        });
+
+        if (uploadError) {
+          setAvatarPreview(formData.avatar_url || '');
+          setAvatarFile(null);
+          throw new Error(`Failed to upload profile photo: ${uploadError.message || 'Unknown error'}. Please verify storage permissions and try again.`);
+        }
+
+        const { data: publicUrlData } = bucket.getPublicUrl(filePath);
+        if (!publicUrlData?.publicUrl) {
+          throw new Error('Unable to retrieve profile photo URL after upload.');
+        }
+
+        avatarUrlToSave = publicUrlData.publicUrl;
+        setFormData(prev => ({
+          ...prev,
+          avatar_url: avatarUrlToSave,
+        }));
+        setAvatarPreview(avatarUrlToSave);
+        setAvatarFile(null);
+      }
+
       // Build the upsert payload, explicitly mapping fields
       const upsertData: any = {
         id: user.id,
         user_id: user.id,
         full_name: restFormData.full_name || '',
-        avatar_url: restFormData.avatar_url || '',
+        avatar_url: avatarUrlToSave || '',
         bio: restFormData.bio || '',
         linkedin_url: restFormData.linkedin_url || '',
         github_url: restFormData.github_url || '',
@@ -315,18 +383,34 @@ export default function ProfileForm({
           </div>
 
           <div>
-            <label htmlFor="avatar_url" className="block text-sm font-medium text-gray-700 mb-1">
-              Avatar URL
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Profile Photo
             </label>
-            <input
-              type="url"
-              id="avatar_url"
-              name="avatar_url"
-              value={formData.avatar_url}
-              onChange={handleChange}
-              placeholder="https://example.com/avatar.jpg"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-            />
+            <div className="flex items-center gap-4">
+              <div className="h-16 w-16 rounded-full bg-gray-100 overflow-hidden flex items-center justify-center border border-gray-200">
+                {avatarPreview ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={avatarPreview}
+                    alt="Profile preview"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="text-gray-400 text-xs text-center px-2">No photo</span>
+                )}
+              </div>
+              <div className="flex-1">
+                <input
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/png,image/jpeg,image/jpg,image/webp"
+                  onChange={handleAvatarFileChange}
+                  className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary-50 file:text-primary-600 hover:file:bg-primary-100"
+                />
+                <p className="mt-1 text-xs text-gray-500">PNG, JPG, or WEBP up to 5MB.</p>
+              </div>
+            </div>
           </div>
 
           <div>

@@ -32,7 +32,12 @@ export default function HomePage() {
           setFeaturedProfiles(mockProfiles.slice(0, 6));
         } else {
           // Prioritize Rafael Firme if he exists
-          const sortedData = (data || []).sort((a, b) => {
+          const sortedData = (data || [])
+            .filter((profile) => {
+              const name = profile.full_name?.toLowerCase() || '';
+              return !name.includes('ryan inouye') && !name.includes('ryan dude');
+            })
+            .sort((a, b) => {
             if (a.full_name?.toLowerCase().includes('rafael firme')) return -1;
             if (b.full_name?.toLowerCase().includes('rafael firme')) return 1;
             return 0;
@@ -41,7 +46,11 @@ export default function HomePage() {
         }
       } catch (err) {
         console.error('Error loading featured profiles:', err);
-        setFeaturedProfiles(mockProfiles.slice(0, 6));
+        const filteredMockProfiles = mockProfiles.filter((profile) => {
+          const name = profile.full_name?.toLowerCase() || '';
+          return !name.includes('ryan inouye') && !name.includes('ryan dude');
+        });
+        setFeaturedProfiles(filteredMockProfiles.slice(0, 6));
       } finally {
         setIsLoading(false);
       }

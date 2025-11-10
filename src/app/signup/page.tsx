@@ -24,7 +24,6 @@ export default function SignupPage() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -32,20 +31,6 @@ export default function SignupPage() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        setError('Profile photo must be 5MB or less.');
-        return;
-      }
-      setAvatarFile(file);
-      setError('');
-    } else {
-      setAvatarFile(null);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -87,7 +72,6 @@ export default function SignupPage() {
         hometown: formData.hometown || '',
         high_school: formData.highSchool || '',
         college: formData.college || '',
-        avatar_filename: avatarFile?.name || '',
       };
 
       // Sign up the user with metadata so the values are stored even if profile creation is delayed.
@@ -133,32 +117,6 @@ export default function SignupPage() {
       }
 
       if (userId) {
-        let avatarUrl = '/avatars/placeholder.svg';
-        const bucket = supabase.storage.from('avatars');
-
-        if (avatarFile) {
-          const fileExt = avatarFile.name.split('.').pop() || 'jpg';
-          const safeExt = fileExt.toLowerCase();
-          const filePath = `${userId}/avatar.${safeExt}`;
-          const fallbackContentType = safeExt === 'jpg' ? 'image/jpeg' : `image/${safeExt}`;
-
-          const { error: uploadError } = await bucket.upload(filePath, avatarFile, {
-            upsert: true,
-            cacheControl: '3600',
-            contentType: avatarFile.type || fallbackContentType,
-          });
-
-          if (uploadError) {
-            console.error('Avatar upload failed:', uploadError);
-            setError('Profile created but photo upload failed. Please try uploading your photo again from profile settings.');
-          } else {
-            const { data: publicUrlData } = bucket.getPublicUrl(filePath);
-            if (publicUrlData?.publicUrl) {
-              avatarUrl = publicUrlData.publicUrl;
-            }
-          }
-        }
-
         // Create profile entry
         const nameParts = formData.fullName.split(' ');
         const firstName = nameParts[0];
@@ -186,7 +144,7 @@ export default function SignupPage() {
           current_company: formData.company || '',
           city: formData.city || '',
           bio: bio,
-          avatar_url: avatarUrl,
+          avatar_url: '/avatars/placeholder.svg',
           visibility: true,
         };
         
@@ -276,23 +234,6 @@ export default function SignupPage() {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 />
               </div>
-            </div>
-
-            <div>
-              <label htmlFor="avatar" className="block text-sm font-medium text-gray-700">
-                Profile photo
-              </label>
-              <div className="mt-1">
-                <input
-                  id="avatar"
-                  name="avatar"
-                  type="file"
-                  accept="image/png,image/jpeg,image/jpg,image/webp"
-                  onChange={handleFileChange}
-                  className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary-50 file:text-primary-600 hover:file:bg-primary-100"
-                />
-              </div>
-              <p className="mt-1 text-xs text-gray-500">PNG, JPG, or WEBP up to 5MB.</p>
             </div>
 
             <div>

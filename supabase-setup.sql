@@ -129,6 +129,38 @@ CREATE POLICY "Users can delete their own profile"
   ON profiles FOR DELETE
   USING (auth.uid() = user_id);
 
+-- === Storage bucket for profile photos ===
+
+-- Create avatars bucket if it doesn't exist
+INSERT INTO storage.buckets (id, name, public)
+SELECT 'avatars', 'avatars', true
+WHERE NOT EXISTS (
+  SELECT 1 FROM storage.buckets WHERE id = 'avatars'
+);
+
+-- Allow public read access to avatars
+CREATE POLICY IF NOT EXISTS "Public read access for avatars"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'avatars');
+
+-- Allow authenticated users to upload avatars
+CREATE POLICY IF NOT EXISTS "Authenticated users can upload avatars"
+ON storage.objects FOR INSERT
+TO authenticated
+WITH CHECK (bucket_id = 'avatars');
+
+-- Allow users to update/delete their own avatars
+CREATE POLICY IF NOT EXISTS "Users can manage own avatars"
+ON storage.objects FOR UPDATE
+TO authenticated
+USING (bucket_id = 'avatars' AND auth.uid() = owner)
+WITH CHECK (bucket_id = 'avatars' AND auth.uid() = owner);
+
+CREATE POLICY IF NOT EXISTS "Users can delete own avatars"
+ON storage.objects FOR DELETE
+TO authenticated
+USING (bucket_id = 'avatars' AND auth.uid() = owner);
+
 -- Create companies table (if not exists)
 CREATE TABLE IF NOT EXISTS companies (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,

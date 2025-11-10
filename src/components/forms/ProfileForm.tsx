@@ -149,13 +149,27 @@ export default function ProfileForm({
               console.error('Error loading profile:', error);
             }
             // Set default values for new profile
+            const metadata = currentUser.user_metadata || {};
             const newFormData = {
               ...formData,
-              full_name: currentUser.user_metadata?.full_name || '',
+              full_name: metadata.full_name || '',
               email: currentUser.email || '',
+              current_title: metadata.current_title || '',
+              company: metadata.current_company || '',
+              island: metadata.island || '',
+              city: metadata.city || '',
+              current_city: metadata.current_city || '',
+              hometown: metadata.hometown || '',
+              school: metadata.school || '',
+              high_school: metadata.high_school || '',
+              college: metadata.college || '',
+              bio: metadata.bio || '',
+              linkedin_url: metadata.linkedin_url || '',
+              github_url: metadata.github_url || '',
+              twitter_url: metadata.twitter_url || '',
             };
             setFormData(newFormData);
-            setAvatarPreview(currentUser.user_metadata?.avatar_url || '');
+            setAvatarPreview(metadata.avatar_url || '');
             // Immediately trigger preview update
             if (onFormDataChange) {
               onFormDataChange(newFormData);

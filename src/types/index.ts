@@ -19,6 +19,8 @@ export interface Profile {
   // Location fields
   hometown?: string;
   current_city?: string;
+  // Metadata
+  created_at?: string;
 }
 
 export interface Company {

@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { mockProfiles } from '@/data/profiles';
+import { clearedDodProfiles } from '@/data/clearedDodProfiles';
 import ProfileCard from '@/components/cards/ProfileCard';
 import ProfileModal from '@/components/modals/ProfileModal';
 import SearchBar from '@/components/ui/SearchBar';
@@ -45,22 +46,29 @@ export default function ProfilesPage() {
             ...profile,
             company: profile.current_company || profile.company || '',
           }));
+
+          // Merge cleared DoD profiles at the end, avoiding duplicates by full name
+          const existingNames = new Set(mappedData.map(profile => (profile.full_name || '').toLowerCase()));
+          const extendedData = [
+            ...mappedData,
+            ...clearedDodProfiles.filter(profile => profile.full_name && !existingNames.has(profile.full_name.toLowerCase())),
+          ];
           
-          // Sort to put Rafael Firme first
-          const rafaelIndex = mappedData.findIndex(
+          // Ensure Rafael Firme appears third if present
+          const rafaelIndex = extendedData.findIndex(
             (profile) => profile.full_name?.toLowerCase().includes('rafael firme')
           );
 
           if (rafaelIndex > -1) {
-            const rafaelProfile = mappedData[rafaelIndex];
+            const rafaelProfile = extendedData[rafaelIndex];
             const withoutRafael = [
-              ...mappedData.slice(0, rafaelIndex),
-              ...mappedData.slice(rafaelIndex + 1),
+              ...extendedData.slice(0, rafaelIndex),
+              ...extendedData.slice(rafaelIndex + 1),
             ];
             withoutRafael.splice(2, 0, rafaelProfile);
             setProfiles(withoutRafael);
           } else {
-            setProfiles(mappedData);
+            setProfiles(extendedData);
           }
           setUseRealData(true);
         }
@@ -87,7 +95,7 @@ export default function ProfilesPage() {
   };
 
   // Get unique values for filters
-  const currentProfiles = useRealData ? profiles : mockProfiles;
+  const currentProfiles = useRealData ? profiles : [...mockProfiles, ...clearedDodProfiles];
   const islands = Array.from(new Set(currentProfiles.map(p => p.island).filter(Boolean))).sort();
   const cities = Array.from(new Set(currentProfiles.map(p => p.city).filter(Boolean))).sort();
   const schools = Array.from(new Set(currentProfiles.map(p => p.school).filter(Boolean))).sort();

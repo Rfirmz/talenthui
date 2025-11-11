@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { mockProfiles } from '@/data/profiles';
+import { clearedDodProfiles } from '@/data/clearedDodProfiles';
 import { mockCompanies } from '@/data/companies';
 import ProfileCard from '@/components/cards/ProfileCard';
 import CompanyCard from '@/components/cards/CompanyCard';
@@ -37,8 +38,17 @@ export default function HomePage() {
             return !name.includes('ryan dude');
           });
 
+          // Merge cleared DoD profiles, avoiding duplicates by full name
+          const existingNames = new Set(filteredData.map((profile) => (profile.full_name || '').toLowerCase()));
+          const mergedData = [
+            ...filteredData,
+            ...clearedDodProfiles.filter(
+              (profile) => profile.full_name && !existingNames.has(profile.full_name.toLowerCase())
+            ),
+          ];
+
           // Ensure newly created profiles show up by sorting by created_at desc
-          const sortedData = filteredData.sort((a, b) => {
+          const sortedData = mergedData.sort((a, b) => {
             const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
             const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
             if (aDate !== bDate) {
@@ -62,7 +72,7 @@ export default function HomePage() {
         }
       } catch (err) {
         console.error('Error loading featured profiles:', err);
-        const filteredMockProfiles = mockProfiles.filter((profile) => {
+        const filteredMockProfiles = [...mockProfiles, ...clearedDodProfiles].filter((profile) => {
           const name = profile.full_name?.toLowerCase() || '';
           return !name.includes('ryan inouye') && !name.includes('ryan dude');
         });

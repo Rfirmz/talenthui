@@ -54,21 +54,43 @@ export default function ProfilesPage() {
             ...clearedDodProfiles.filter(profile => profile.full_name && !existingNames.has(profile.full_name.toLowerCase())),
           ];
           
+          // Identify newly imported founders (created in the last 2 hours and have founder/CEO titles)
+          const isNewlyImportedFounder = (profile: any) => {
+            if (!profile.created_at) return false;
+            const createdDate = new Date(profile.created_at).getTime();
+            const twoHoursAgo = Date.now() - (2 * 60 * 60 * 1000);
+            if (createdDate < twoHoursAgo) return false;
+            
+            const title = (profile.current_title || '').toLowerCase();
+            return title.includes('founder') || 
+                   title.includes('ceo') || 
+                   title.includes('chief executive officer') ||
+                   title.includes('co-founder') ||
+                   title.includes('cofounder');
+          };
+          
+          // Separate newly imported founders from the rest
+          const newlyImportedFounders = extendedData.filter(isNewlyImportedFounder);
+          const otherProfiles = extendedData.filter(profile => !isNewlyImportedFounder(profile));
+          
+          // Combine: original list first, then newly imported founders at the end
+          const sortedData = [...otherProfiles, ...newlyImportedFounders];
+          
           // Ensure Rafael Firme appears third if present
-          const rafaelIndex = extendedData.findIndex(
+          const rafaelIndex = sortedData.findIndex(
             (profile) => profile.full_name?.toLowerCase().includes('rafael firme')
           );
 
           if (rafaelIndex > -1) {
-            const rafaelProfile = extendedData[rafaelIndex];
+            const rafaelProfile = sortedData[rafaelIndex];
             const withoutRafael = [
-              ...extendedData.slice(0, rafaelIndex),
-              ...extendedData.slice(rafaelIndex + 1),
+              ...sortedData.slice(0, rafaelIndex),
+              ...sortedData.slice(rafaelIndex + 1),
             ];
             withoutRafael.splice(2, 0, rafaelProfile);
             setProfiles(withoutRafael);
           } else {
-            setProfiles(extendedData);
+            setProfiles(sortedData);
           }
           setUseRealData(true);
         }

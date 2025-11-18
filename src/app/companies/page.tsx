@@ -5,6 +5,7 @@ import { mockCompanies } from '@/data/companies';
 import SearchBar from '@/components/ui/SearchBar';
 import FilterDropdown from '@/components/ui/FilterDropdown';
 import Pagination from '@/components/ui/Pagination';
+import CompanyLogo from '@/components/ui/CompanyLogo';
 import Link from 'next/link';
 
 export default function CompaniesPage() {
@@ -16,10 +17,81 @@ export default function CompaniesPage() {
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('grid');
   const itemsPerPage = 20; // Show 20 companies per page
 
+  // Standardized company size ranges
+  const standardizedSizes = ['1-10', '11-50', '51-200', '201-500', '501-1000', '1000+'];
+  
+  // Helper to normalize company size to standard ranges
+  const normalizeSize = (size: string): string => {
+    if (!size) return '';
+    const sizeLower = size.toLowerCase().trim();
+    
+    // Extract numbers if present
+    const numbers = sizeLower.match(/\d+/);
+    if (!numbers) {
+      // Handle text-based sizes
+      if (sizeLower.includes('startup') || sizeLower.includes('1-10')) return '1-10';
+      if (sizeLower.includes('small') || sizeLower.includes('11-50')) return '11-50';
+      if (sizeLower.includes('medium') || sizeLower.includes('51-200')) return '51-200';
+      if (sizeLower.includes('large') || sizeLower.includes('201-500')) return '201-500';
+      if (sizeLower.includes('enterprise') || sizeLower.includes('501-1000')) return '501-1000';
+      if (sizeLower.includes('500+') || sizeLower.includes('1000+')) return '1000+';
+      return size;
+    }
+    
+    const num = parseInt(numbers[0]);
+    if (num <= 10) return '1-10';
+    if (num <= 50) return '11-50';
+    if (num <= 200) return '51-200';
+    if (num <= 500) return '201-500';
+    if (num <= 1000) return '501-1000';
+    return '1000+';
+  };
+
+  // Better industry categorization
+  const categorizeIndustry = (industry: string): string => {
+    if (!industry) return 'Other';
+    const ind = industry.toLowerCase().trim();
+    
+    // Technology
+    if (ind.includes('tech') || ind.includes('software') || ind.includes('ai') || 
+        ind.includes('data') || ind.includes('cloud') || ind.includes('saas') ||
+        ind.includes('internet') || ind.includes('digital')) return 'Technology';
+    
+    // Healthcare
+    if (ind.includes('health') || ind.includes('medical') || ind.includes('hospital') ||
+        ind.includes('pharma') || ind.includes('biotech')) return 'Healthcare';
+    
+    // Finance
+    if (ind.includes('finance') || ind.includes('banking') || ind.includes('insurance') ||
+        ind.includes('financial') || ind.includes('fintech')) return 'Finance';
+    
+    // Education
+    if (ind.includes('education') || ind.includes('school') || ind.includes('university') ||
+        ind.includes('learning') || ind.includes('training')) return 'Education';
+    
+    // Hospitality & Tourism
+    if (ind.includes('hospitality') || ind.includes('tourism') || ind.includes('hotel') ||
+        ind.includes('resort') || ind.includes('travel')) return 'Hospitality & Tourism';
+    
+    // Government & Defense
+    if (ind.includes('government') || ind.includes('defense') || ind.includes('federal') ||
+        ind.includes('military')) return 'Government & Defense';
+    
+    // Engineering & Construction
+    if (ind.includes('engineering') || ind.includes('construction') || ind.includes('architecture')) 
+      return 'Engineering & Construction';
+    
+    // Non-profit
+    if (ind.includes('non-profit') || ind.includes('nonprofit') || ind.includes('foundation')) 
+      return 'Non-profit';
+    
+    return industry; // Keep original if no match
+  };
+
   // Get unique values for filters
-  const industries = Array.from(new Set(mockCompanies.map(c => c.industry))).sort();
-  const islands = Array.from(new Set(mockCompanies.map(c => c.island))).sort();
-  const sizes = Array.from(new Set(mockCompanies.map(c => c.size))).sort();
+  const industries = Array.from(new Set(mockCompanies.map(c => categorizeIndustry(c.industry)))).sort();
+  const islands = Array.from(new Set(mockCompanies.map(c => c.island).filter((island): island is string => island !== null))).sort();
+  const sizes = standardizedSizes;
 
   // Filter companies based on search and filters
   const filteredCompanies = useMemo(() => {
@@ -28,9 +100,12 @@ export default function CompaniesPage() {
                            company.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            company.industry.toLowerCase().includes(searchTerm.toLowerCase());
       
-      const matchesIndustry = !industryFilter || company.industry === industryFilter;
+      const normalizedIndustry = categorizeIndustry(company.industry);
+      const normalizedSize = normalizeSize(company.size);
+      
+      const matchesIndustry = !industryFilter || normalizedIndustry === industryFilter;
       const matchesIsland = !islandFilter || company.island === islandFilter;
-      const matchesSize = !sizeFilter || company.size === sizeFilter;
+      const matchesSize = !sizeFilter || normalizedSize === sizeFilter;
 
       return matchesSearch && matchesIndustry && matchesIsland && matchesSize;
     });
@@ -170,16 +245,14 @@ export default function CompaniesPage() {
                       <tr key={company.id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <Link href={`/companies/${company.slug}`} className="flex items-center group">
-                            {company.logo_url && (
-                              <img
-                                src={company.logo_url}
-                                alt={company.name}
-                                className="h-10 w-10 rounded-lg object-cover mr-3"
-                                onError={(e) => {
-                                  e.currentTarget.style.display = 'none';
-                                }}
+                            <div className="mr-3">
+                              <CompanyLogo 
+                                logoUrl={company.logo_url} 
+                                companyName={company.name}
+                                size="sm"
+                                className="h-10 w-10"
                               />
-                            )}
+                            </div>
                             <div>
                               <div className="text-sm font-medium text-gray-900 group-hover:text-primary-600">
                                 {company.name}
@@ -192,14 +265,16 @@ export default function CompaniesPage() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                            {company.industry}
+                            {categorizeIndustry(company.industry)}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {company.city}, {company.island}
+                          {company.city && company.island 
+                            ? `${company.city}, ${company.island}`
+                            : company.city || company.island || 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {company.size}
+                          {normalizeSize(company.size)} employees
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           <div className="flex space-x-3">
@@ -244,27 +319,29 @@ export default function CompaniesPage() {
                     href={`/companies/${company.slug}`}
                     className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
                   >
-                    {company.logo_url && (
-                      <img
-                        src={company.logo_url}
-                        alt={company.name}
-                        className="h-16 w-16 rounded-lg object-cover mb-4"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
+                    <div className="mb-4">
+                      <CompanyLogo 
+                        logoUrl={company.logo_url} 
+                        companyName={company.name}
+                        size="sm"
+                        className="h-16 w-16"
                       />
-                    )}
+                    </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">{company.name}</h3>
                     <p className="text-sm text-gray-600 mb-4 line-clamp-2">{company.description}</p>
                     <div className="flex flex-wrap gap-2 mb-2">
                       <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                        {company.industry}
+                        {categorizeIndustry(company.industry)}
                       </span>
                       <span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">
-                        {company.size}
+                        {normalizeSize(company.size)} employees
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500">{company.city}, {company.island}</p>
+                    <p className="text-sm text-gray-500">
+                      {company.city && company.island 
+                        ? `${company.city}, ${company.island}`
+                        : company.city || company.island || 'Location not specified'}
+                    </p>
                   </Link>
                 ))}
               </div>

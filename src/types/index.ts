@@ -31,8 +31,8 @@ export interface Company {
   logo_url: string;
   industry: string;
   size: string;
-  island: string;
-  city: string;
+  island: string | null;
+  city: string | null;
   website: string;
   linkedin_url?: string;
   type?: string;

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -15,6 +15,14 @@ export async function GET(request: NextRequest) {
   const limit = parseInt(searchParams.get('limit') || '10');
 
   try {
+    // Check if Supabase is configured
+    if (!supabaseUrl || !supabaseKey) {
+      return NextResponse.json(
+        { error: 'Database not configured', results: [], count: 0 },
+        { status: 200 }
+      );
+    }
+
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Start timer for performance tracking
@@ -113,6 +121,14 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { query, filters, limit = 10 } = body;
+
+    // Check if Supabase is configured
+    if (!supabaseUrl || !supabaseKey) {
+      return NextResponse.json(
+        { error: 'Database not configured', results: [], count: 0 },
+        { status: 200 }
+      );
+    }
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const startTime = Date.now();

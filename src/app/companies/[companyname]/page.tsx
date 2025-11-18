@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { mockCompanies } from '@/data/companies';
 import { Company } from '@/types';
 import Link from 'next/link';
+import CompanyLogo from '@/components/ui/CompanyLogo';
 
 export default function CompanyDetailPage() {
   const params = useParams();
@@ -68,28 +69,12 @@ export default function CompanyDetailPage() {
         {/* Company Header */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:space-x-6">
-            <div className="w-24 h-24 bg-white rounded-lg flex items-center justify-center border border-gray-200 overflow-hidden mb-4 md:mb-0">
-              {company.logo_url && company.logo_url !== '/avatars/placeholder.svg' ? (
-                <img 
-                  src={company.logo_url} 
-                  alt={`${company.name} logo`}
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    // Fallback to initials if image fails to load
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.innerHTML = `<span class="text-secondary-600 font-bold text-2xl">${company.name.split(' ').map(n => n[0]).join('')}</span>`;
-                      parent.className = 'w-24 h-24 bg-secondary-100 rounded-lg flex items-center justify-center';
-                    }
-                  }}
-                />
-              ) : (
-                <span className="text-secondary-600 font-bold text-2xl">
-                  {company.name.split(' ').map(n => n[0]).join('')}
-                </span>
-              )}
+            <div className="mb-4 md:mb-0">
+              <CompanyLogo 
+                logoUrl={company.logo_url} 
+                companyName={company.name}
+                size="md"
+              />
             </div>
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{company.name}</h1>
@@ -97,7 +82,13 @@ export default function CompanyDetailPage() {
                 <span className="bg-gray-100 px-3 py-1 rounded-full">{company.industry}</span>
                 <span className="bg-gray-100 px-3 py-1 rounded-full">{company.type}</span>
                 <span className="bg-gray-100 px-3 py-1 rounded-full">{company.size} employees</span>
-                <span className="bg-gray-100 px-3 py-1 rounded-full">{company.city}, {company.island}</span>
+                {(company.city || company.island) && (
+                  <span className="bg-gray-100 px-3 py-1 rounded-full">
+                    {company.city && company.island 
+                      ? `${company.city}, ${company.island}`
+                      : company.city || company.island}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -182,10 +173,16 @@ export default function CompanyDetailPage() {
                   <span className="text-gray-600">Size:</span>
                   <span className="text-gray-900 font-medium">{company.size} employees</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Location:</span>
-                  <span className="text-gray-900 font-medium">{company.city}, {company.island}</span>
-                </div>
+                {(company.city || company.island) && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Location:</span>
+                    <span className="text-gray-900 font-medium">
+                      {company.city && company.island 
+                        ? `${company.city}, ${company.island}`
+                        : company.city || company.island}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

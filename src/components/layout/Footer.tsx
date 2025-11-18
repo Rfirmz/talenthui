@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -78,12 +79,31 @@ export default function Footer() {
             <p className="text-gray-400 text-sm">
               © 2024 Talent Hui. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 Privacy Policy
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 Terms of Service
+              </a>
+            </div>
+          </div>
+          <div className="mt-6 pt-6 border-t border-gray-800">
+            <div className="flex items-center justify-center space-x-2 text-white text-sm">
+              <span>Powered by</span>
+              <a 
+                href="https://www.aephawaii.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src="https://oihana.org/wp-content/uploads/group-avatars/180/686efa5068c7e-bpfull.png"
+                  alt="AEP Hawaii"
+                  width={60}
+                  height={60}
+                  className="h-8 w-auto object-contain"
+                />
               </a>
             </div>
           </div>

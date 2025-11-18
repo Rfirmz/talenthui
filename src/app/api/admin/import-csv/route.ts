@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || '';
 
 // Helper function to parse location
 function parseLocation(location: string) {
@@ -84,10 +84,10 @@ function estimateYearsExperience(skills: string[]) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Check if Supabase credentials are available
+    // Check if Supabase is configured
     if (!supabaseUrl || !supabaseServiceKey) {
       return NextResponse.json(
-        { error: 'Supabase credentials not configured' },
+        { error: 'Database not configured. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_KEY environment variables.' },
         { status: 500 }
       );
     }
@@ -116,8 +116,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Parse CSV header
-    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+    // Parse CSV header - handle quoted fields
+    const parseCSVLine = (line: string): string[] => {
+      const values: string[] = [];
+      let current = '';
+      let inQuotes = false;
+      
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          values.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      values.push(current.trim());
+      return values.map(v => v.replace(/^"|"$/g, ''));
+    };
+    
+    const headers = parseCSVLine(lines[0]);
     
     // Parse CSV rows
     const candidates = [];
@@ -128,74 +148,105 @@ export async function POST(request: NextRequest) {
       if (!line) continue;
 
       try {
-        // Simple CSV parsing (for complex CSVs, use a library)
-        const values = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g) || [];
+        const values = parseCSVLine(line);
         const row: { [key: string]: string } = {};
         
         headers.forEach((header, index) => {
-          row[header] = values[index]?.replace(/^"|"$/g, '').trim() || '';
+          row[header] = values[index] || '';
         });
 
-        const location = parseLocation(row['Location'] || '');
+        const firstName = (row['First name'] || '').trim();
+        const lastName = (row['Last name'] || '').trim();
+        const fullName = `${firstName} ${lastName}`.trim();
         
-        // Only import if Hawaii location
-        if (location.state === 'Hawaii' || location.island) {
-          const firstName = row['First name'] || '';
-          const lastName = row['Last name'] || '';
-          const fullName = `${firstName} ${lastName}`.trim();
-          
-          if (!firstName || !lastName) {
-            errors.push(`Row ${i}: Missing first or last name`);
-            continue;
-          }
-
-          const skills = parseSkills(row['Skills'] || '');
-          const education = parseEducation(row['Education'] || '');
-          const educationWebsites = parseEducation(row['Education Website'] || '');
-          const educationLinkedin = parseEducation(row['Education LinkedIn'] || '');
-          
-          const candidate = {
-            first_name: firstName,
-            last_name: lastName,
-            full_name: fullName,
-            username: createUsername(firstName, lastName),
-            email: row['Personal Email'] || row['Work Email'] || null,
-            personal_email: row['Personal Email'] || null,
-            work_email: row['Work Email'] || null,
-            phone: row['Phone Numbers'] || null,
-            
-            current_title: row['Current Title'] || null,
-            current_company: row['Current Org Name'] || null,
-            company_location: row['Current Org Location'] || null,
-            company_address: row['Current Org Street Address'] || null,
-            company_website: row['Current Org Website'] || null,
-            company_linkedin: row['Current Org LinkedIn'] || null,
-            category: row['Category'] || null,
-            
-            country: row['Country'] || 'United States',
-            state: location.state || 'Hawaii',
-            city: location.city,
-            island: location.island,
-            location: row['Location'] || null,
-            
-            school: education[0] || null,
-            education: education.length > 0 ? education : null,
-            education_websites: educationWebsites.length > 0 ? educationWebsites : null,
-            education_linkedin: educationLinkedin.length > 0 ? educationLinkedin : null,
-            
-            skills: skills.length > 0 ? skills : null,
-            years_experience: estimateYearsExperience(skills),
-            
-            linkedin_url: row['LinkedIn'] || null,
-            github_url: row['GitHub'] || null,
-            twitter_url: row['X'] || null,
-            
-            avatar_url: '/avatars/placeholder.svg',
-            visibility: true,
-          };
-          
-          candidates.push(candidate);
+        if (!fullName || fullName.length < 2) {
+          errors.push(`Row ${i}: Missing or invalid name`);
+          continue;
         }
+
+        const location = parseLocation(row['Location'] || row['City'] || '');
+        const skills = parseSkills(row['Skills'] || '');
+        const education = parseEducation(row['Education'] || '');
+        
+        // Extract school - prioritize Hawaii schools, but include any school
+        let school = education[0] || null;
+        const hawaiiSchools = ['University of Hawaii', 'Hawaii Pacific', 'Chaminade', 'Brigham Young University Hawaii'];
+        for (const edu of education) {
+          for (const hs of hawaiiSchools) {
+            if (edu.includes(hs)) {
+              school = edu;
+              break;
+            }
+          }
+          if (school) break;
+        }
+        
+        // Determine island - if not in Hawaii, default to Oahu or use location
+        let island = location.island;
+        if (!island) {
+          // Check if they have Hawaii education or connection
+          const hasHawaiiEducation = education.some(edu => 
+            hawaiiSchools.some(hs => edu.includes(hs))
+          );
+          const locationStr = (row['Location'] || row['City'] || '').toLowerCase();
+          if (hasHawaiiEducation || locationStr.includes('hawaii')) {
+            island = 'Oahu'; // Default to Oahu for Hawaii-connected people
+          } else {
+            island = 'Oahu'; // Default to Oahu for all
+          }
+        }
+        
+        // Create bio from available info
+        let bio = '';
+        const title = (row['Current Title'] || '').trim();
+        const company = (row['Current Org Name'] || '').trim();
+        
+        if (title && company) {
+          bio = `${title} at ${company}`;
+        } else if (title) {
+          bio = title;
+        } else if (company) {
+          bio = `Professional at ${company}`;
+        }
+        
+        if (skills.length > 0 && skills[0] !== 'N/A') {
+          const skillList = skills.slice(0, 3).join(', ');
+          if (bio) {
+            bio += `. Skills: ${skillList}`;
+          } else {
+            bio = `Skills: ${skillList}`;
+          }
+        }
+        
+        if (!bio) {
+          bio = 'Professional';
+        }
+        
+        // Build candidate object - only include fields that exist
+        const candidate: any = {
+          full_name: fullName,
+          current_title: title || null,
+          current_company: company || null,
+          island: island,
+          city: location.city || null,
+          school: school || null,
+          bio: bio,
+          avatar_url: '/avatars/placeholder.svg',
+          pay_band: 0,
+          visibility: true,
+        };
+        
+        // Only add these if they exist
+        const linkedin = (row['LinkedIn'] || '').trim();
+        if (linkedin) candidate.linkedin_url = linkedin;
+        
+        const github = (row['GitHub'] || '').trim();
+        if (github) candidate.github_url = github;
+        
+        const twitter = (row['X'] || '').trim();
+        if (twitter) candidate.twitter_url = twitter;
+        
+        candidates.push(candidate);
       } catch (err: any) {
         errors.push(`Row ${i}: ${err.message}`);
       }
@@ -216,17 +267,33 @@ export async function POST(request: NextRequest) {
     for (let i = 0; i < candidates.length; i += batchSize) {
       const batch = candidates.slice(i, i + batchSize);
       
-      const { data, error } = await supabase
-        .from('profiles')
-        .upsert(batch, { 
-          onConflict: 'username',
-          ignoreDuplicates: false 
-        });
-      
-      if (error) {
-        importErrors.push(`Batch ${Math.floor(i / batchSize) + 1}: ${error.message}`);
-      } else {
-        imported += batch.length;
+      // Try to insert each profile individually to handle errors gracefully
+      for (const candidate of batch) {
+        try {
+          const { error } = await supabase
+            .from('profiles')
+            .upsert(candidate, { 
+              onConflict: 'full_name',
+              ignoreDuplicates: false 
+            });
+          
+          if (error) {
+            // If full_name conflict doesn't work, try without conflict resolution
+            const { error: insertError } = await supabase
+              .from('profiles')
+              .insert(candidate);
+            
+            if (insertError) {
+              importErrors.push(`${candidate.full_name}: ${insertError.message}`);
+            } else {
+              imported++;
+            }
+          } else {
+            imported++;
+          }
+        } catch (err: any) {
+          importErrors.push(`${candidate.full_name}: ${err.message}`);
+        }
       }
     }
 

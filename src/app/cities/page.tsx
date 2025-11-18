@@ -10,6 +10,7 @@ import FilterDropdown from '@/components/ui/FilterDropdown';
 export default function CitiesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [islandFilter, setIslandFilter] = useState('');
+  const [sortBy, setSortBy] = useState<'name' | 'talent' | 'companies'>('talent');
   const [cities, setCities] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [useRealData, setUseRealData] = useState(false);
@@ -67,8 +68,8 @@ export default function CitiesPage() {
               island: island,
               talent_count: data.count,
               company_count: data.companies.size,
-              avg_salary: 75000, // Placeholder
-              description: `Discover ${data.count} talented professionals in ${cityName}, ${island}.`
+              avg_salary: 0, // Removed generic salary
+              description: `Discover ${data.count} talented professional${data.count !== 1 ? 's' : ''} and ${data.companies.size} compan${data.companies.size !== 1 ? 'ies' : 'y'} in ${cityName}, ${island}.`
             };
           });
 
@@ -95,15 +96,29 @@ export default function CitiesPage() {
   // Get unique values for filters
   const islands = Array.from(new Set(displayCities.map(c => c.island))).sort();
 
-  // Filter cities based on search and filters
+  // Filter and sort cities
   const filteredCities = useMemo(() => {
-    return displayCities.filter(city => {
+    let filtered = displayCities.filter(city => {
       const matchesSearch = city.name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesIsland = !islandFilter || city.island === islandFilter;
 
       return matchesSearch && matchesIsland;
     });
-  }, [searchTerm, islandFilter, displayCities]);
+
+    // Sort cities
+    filtered = [...filtered].sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === 'talent') {
+        return b.talent_count - a.talent_count;
+      } else if (sortBy === 'companies') {
+        return b.company_count - a.company_count;
+      }
+      return 0;
+    });
+
+    return filtered;
+  }, [searchTerm, islandFilter, sortBy, displayCities]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -121,7 +136,7 @@ export default function CitiesPage() {
 
         {/* Search and Filters */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="lg:col-span-2">
               <SearchBar
                 placeholder="Search by city name..."
@@ -135,12 +150,23 @@ export default function CitiesPage() {
               value={islandFilter}
               onChange={setIslandFilter}
             />
+            <FilterDropdown
+              label="Sort By"
+              options={['Name', 'Talent Count', 'Company Count']}
+              value={sortBy === 'name' ? 'Name' : sortBy === 'talent' ? 'Talent Count' : 'Company Count'}
+              onChange={(value) => {
+                if (value === 'Name') setSortBy('name');
+                else if (value === 'Talent Count') setSortBy('talent');
+                else if (value === 'Company Count') setSortBy('companies');
+              }}
+            />
           </div>
           <div className="mt-4">
             <button
               onClick={() => {
                 setSearchTerm('');
                 setIslandFilter('');
+                setSortBy('talent');
               }}
               className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
             >

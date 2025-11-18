@@ -83,20 +83,30 @@ export default function ProfileModal({ profile, isOpen, onClose }: ProfileModalP
                 {/* Profile Header */}
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    {displayProfile.avatar_url ? (
+                    {displayProfile.avatar_url && 
+                     displayProfile.avatar_url !== '/avatars/placeholder.svg' &&
+                     !displayProfile.avatar_url.includes('placeholder') ? (
                       <Image
                         src={displayProfile.avatar_url}
                         alt={displayProfile.full_name}
                         width={80}
                         height={80}
                         className="w-20 h-20 rounded-full object-cover"
+                        onError={(e) => {
+                          // Fallback to placeholder
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/avatars/placeholder.svg';
+                          target.onerror = null;
+                        }}
                       />
                     ) : (
-                      <div className="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center">
-                        <span className="text-2xl font-bold text-primary-600">
-                          {displayProfile.full_name?.charAt(0) || '?'}
-                        </span>
-                      </div>
+                      <Image
+                        src="/avatars/placeholder.svg"
+                        alt={displayProfile.full_name || 'Profile placeholder'}
+                        width={80}
+                        height={80}
+                        className="w-20 h-20 rounded-full object-cover bg-gray-100"
+                      />
                     )}
                   </div>
                   <div className="flex-1">

@@ -20,11 +20,26 @@ export default function ProfilePage({ params }: ProfilePageProps) {
         {/* Profile Header */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
-            <div className="w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center">
-              <span className="text-primary-600 font-bold text-2xl">
-                {profile.full_name.split(' ').map(n => n[0]).join('')}
-              </span>
-            </div>
+            {profile.avatar_url && 
+             profile.avatar_url !== '/avatars/placeholder.svg' &&
+             !profile.avatar_url.includes('placeholder') ? (
+              <img
+                src={profile.avatar_url}
+                alt={profile.full_name}
+                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/avatars/placeholder.svg';
+                  target.onerror = null;
+                }}
+              />
+            ) : (
+              <img
+                src="/avatars/placeholder.svg"
+                alt={profile.full_name}
+                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200 bg-gray-100"
+              />
+            )}
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">{profile.full_name}</h1>
               <p className="text-xl text-primary-600 font-semibold mb-2">{profile.current_title}</p>

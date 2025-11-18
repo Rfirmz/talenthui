@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { mockCompanies } from '@/data/companies';
 
@@ -40,28 +41,37 @@ export default function CompanyCarousel() {
     <div className="relative w-full overflow-hidden bg-gray-50 py-8">
       <div className="flex gap-8 animate-scroll">
         {duplicatedCompanies.map((company, index) => (
-          <div key={`${company.id}-${index}`} className="flex-shrink-0">
-            <div className="relative w-32 h-32 bg-white rounded-lg shadow-lg border border-gray-200 flex items-center justify-center p-4 hover:shadow-xl transition-shadow duration-300">
-              <Image
-                src={company.logo_url}
-                alt={`${company.name} logo`}
-                width={96}
-                height={96}
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  // Fallback to initials if image fails to load
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const parent = target.parentElement;
-                  if (parent) {
-                    parent.innerHTML = `<span class="text-secondary-600 font-bold text-2xl">${company.name.split(' ').map(n => n[0]).join('')}</span>`;
-                    parent.className = 'relative w-32 h-32 bg-secondary-100 rounded-lg shadow-lg border border-gray-200 flex items-center justify-center p-4 hover:shadow-xl transition-shadow duration-300';
-                  }
-                }}
-              />
-            </div>
-          </div>
+          <CompanyLogoItem key={`${company.id}-${index}`} company={company} />
         ))}
+      </div>
+    </div>
+  );
+}
+
+function CompanyLogoItem({ company }: { company: any }) {
+  const [imageError, setImageError] = useState(false);
+  const initials = company.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2);
+  const hasLogo = company.logo_url && company.logo_url !== '' && company.logo_url !== '/avatars/placeholder.svg';
+
+  if (imageError || !hasLogo) {
+    return (
+      <div className="flex-shrink-0">
+        <div className="relative w-32 h-32 bg-gray-200 rounded-lg shadow-lg border border-gray-200 flex items-center justify-center p-4 hover:shadow-xl transition-shadow duration-300">
+          <span className="text-gray-600 font-bold text-2xl">{initials}</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex-shrink-0">
+      <div className="relative w-32 h-32 bg-white rounded-lg shadow-lg border border-gray-200 flex items-center justify-center p-4 hover:shadow-xl transition-shadow duration-300">
+        <img
+          src={company.logo_url}
+          alt={`${company.name} logo`}
+          className="w-full h-full object-contain"
+          onError={() => setImageError(true)}
+        />
       </div>
     </div>
   );

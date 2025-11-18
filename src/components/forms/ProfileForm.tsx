@@ -274,7 +274,7 @@ export default function ProfileForm({
         id: user.id,
         user_id: user.id,
         full_name: restFormData.full_name || '',
-        avatar_url: avatarUrlToSave || '',
+        avatar_url: avatarUrlToSave || '/avatars/placeholder.svg',
         bio: restFormData.bio || '',
         linkedin_url: restFormData.linkedin_url || '',
         github_url: restFormData.github_url || '',

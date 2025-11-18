@@ -24,11 +24,14 @@ export default function CityCard({ city }: CityCardProps) {
             </div>
           </div>
           
-          <div className="text-center">
-            <span className="text-accent-600 font-normal">
-              Avg Salary: ${city.avg_salary.toLocaleString()}
-            </span>
-          </div>
+          {city.talent_count > 0 && (
+            <div className="text-center mt-2">
+              <span className="text-gray-500 text-xs">
+                {city.talent_count} professional{city.talent_count !== 1 ? 's' : ''}
+                {city.company_count > 0 && ` • ${city.company_count} compan${city.company_count !== 1 ? 'ies' : 'y'}`}
+              </span>
+            </div>
+          )}
         </div>
       </Link>
     </div>

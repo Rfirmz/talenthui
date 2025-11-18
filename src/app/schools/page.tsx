@@ -218,12 +218,8 @@ export default function SchoolsPage() {
                 Showing {paginatedSchools.length} of {filteredSchools.length} schools
                 {filteredSchools.length !== currentSchools.length && ` (${currentSchools.length} total)`}
               </p>
-              <span className={`px-2 py-1 rounded text-xs font-medium ${
-                useRealData 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-yellow-100 text-yellow-800'
-              }`}>
-                {useRealData ? 'Real Data (No High Schools)' : 'Mock Data'}
+              <span className="px-2 py-1 rounded text-xs font-medium text-gray-600">
+                {filteredSchools.length} school{filteredSchools.length !== 1 ? 's' : ''}
               </span>
             </div>
 
@@ -298,10 +294,10 @@ export default function SchoolsPage() {
                           {school.name}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {school.city}, {school.island}
+                          School Location: {school.city}, {school.island}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {school.alumni_count} alumni
+                          {school.alumni_count} alumn{school.alumni_count !== 1 ? 'i' : 'us'}
                         </td>
                       </tr>
                     ))}

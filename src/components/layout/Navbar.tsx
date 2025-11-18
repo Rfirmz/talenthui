@@ -72,14 +72,14 @@ export default function Navbar() {
   return (
     <>
       {/* Solid Color Header with Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-gray-200 transition-transform duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-50 to-primary-100 shadow-lg border-b-2 border-primary-300 transition-transform duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-20 py-4">
             <div className="flex items-center">
               <Link href="/" className="flex-shrink-0 flex items-center">
-                <div className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold text-xl shadow-md">
+                <div className="flex items-center space-x-2 bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold text-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
                   <Image
                     src="/images/hawaii.png"
                     alt="Hawaii"
@@ -93,56 +93,76 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden md:flex items-center space-x-4">
               <Link 
                 href="/profiles" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/profiles') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold rounded-lg transition-all duration-200 ${
+                  isActive('/profiles') 
+                    ? 'bg-primary-600 text-white shadow-lg scale-105' 
+                    : 'bg-white text-primary-700 hover:bg-primary-100 hover:text-primary-900 shadow-md hover:shadow-lg hover:scale-105 border border-primary-200'
+                }`}
               >
                 Talent
               </Link>
               <Link 
                 href="/companies" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/companies') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold rounded-lg transition-all duration-200 ${
+                  isActive('/companies') 
+                    ? 'bg-primary-600 text-white shadow-lg scale-105' 
+                    : 'bg-white text-primary-700 hover:bg-primary-100 hover:text-primary-900 shadow-md hover:shadow-lg hover:scale-105 border border-primary-200'
+                }`}
               >
                 Companies
               </Link>
               <Link 
                 href="/schools" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/schools') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold rounded-lg transition-all duration-200 ${
+                  isActive('/schools') 
+                    ? 'bg-primary-600 text-white shadow-lg scale-105' 
+                    : 'bg-white text-primary-700 hover:bg-primary-100 hover:text-primary-900 shadow-md hover:shadow-lg hover:scale-105 border border-primary-200'
+                }`}
               >
                 Schools
               </Link>
               <Link 
                 href="/cities" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/cities') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold rounded-lg transition-all duration-200 ${
+                  isActive('/cities') 
+                    ? 'bg-primary-600 text-white shadow-lg scale-105' 
+                    : 'bg-white text-primary-700 hover:bg-primary-100 hover:text-primary-900 shadow-md hover:shadow-lg hover:scale-105 border border-primary-200'
+                }`}
               >
                 Cities
               </Link>
               <Link 
                 href="/about" 
-                className={`px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black ${isActive('/about') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                className={`px-5 py-3 text-base font-semibold rounded-lg transition-all duration-200 ${
+                  isActive('/about') 
+                    ? 'bg-primary-600 text-white shadow-lg scale-105' 
+                    : 'bg-white text-primary-700 hover:bg-primary-100 hover:text-primary-900 shadow-md hover:shadow-lg hover:scale-105 border border-primary-200'
+                }`}
               >
                 About
               </Link>
             </div>
 
             {/* Auth Buttons */}
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-3">
               {isLoading ? (
-                <div className="text-primary-600 px-5 py-3 text-base font-semibold">
+                <div className="text-primary-700 px-5 py-3 text-base font-semibold bg-white rounded-lg shadow-md">
                   Loading...
                 </div>
               ) : user ? (
                 <>
                   <Link 
                     href="/profile/edit" 
-                    className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black"
+                    className="text-primary-700 hover:text-primary-900 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 border border-primary-200 hover:bg-primary-50"
                   >
                     My Profile
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="bg-red-600 text-white px-6 py-3 rounded-lg text-base font-black hover:bg-red-700 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-lg"
+                    className="bg-red-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
                   >
                     Logout
                   </button>
@@ -151,13 +171,13 @@ export default function Navbar() {
                 <>
                   <Link 
                     href="/login" 
-                    className="text-primary-600 hover:text-primary-800 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white shadow-md hover:shadow-lg hover:scale-105 border-2 border-black"
+                    className="text-primary-700 hover:text-primary-900 px-5 py-3 text-base font-semibold transition-all duration-200 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 border border-primary-200 hover:bg-primary-50"
                   >
                     Login
                   </Link>
                   <Link 
                     href="/signup" 
-                    className="bg-primary-600 text-white px-6 py-3 rounded-lg text-base font-black hover:bg-primary-700 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 border-2 border-black text-shadow-lg"
+                    className="bg-primary-600 text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-primary-700 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
                   >
                     Sign Up
                   </Link>

@@ -17,8 +17,10 @@ export default function SchoolCard({ school }: SchoolCardProps) {
           </div>
           <div className="flex-1">
             <h3 className="text-lg font-medium text-gray-900">{school.name}</h3>
-            <p className="text-gray-600 text-sm">{school.city}, {school.island}</p>
-            <p className="text-gray-500 text-sm">{school.alumni_count} alumni on platform</p>
+            <p className="text-gray-600 text-sm">
+              School Location: {school.city}, {school.island}
+            </p>
+            <p className="text-gray-500 text-sm">{school.alumni_count} alumn{school.alumni_count !== 1 ? 'i' : 'us'} on platform</p>
           </div>
         </div>
         <div className="mt-4">
@@ -27,7 +29,7 @@ export default function SchoolCard({ school }: SchoolCardProps) {
       </Link>
       <div className="mt-4">
         <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-normal bg-accent-100 text-accent-800">
-          {school.alumni_count} Alumni
+          {school.alumni_count} Alumn{school.alumni_count !== 1 ? 'i' : 'us'}
         </span>
       </div>
     </div>

@@ -1,3 +1,6 @@
+import AdvisorCard from '@/components/ui/AdvisorCard';
+import Image from 'next/image';
+
 export default function AboutPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -34,42 +37,41 @@ export default function AboutPage() {
         {/* Team Section */}
         <div className="mb-16" id="team">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-primary-600 font-bold text-2xl">Z</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Zack</h3>
-              <p className="text-primary-600 font-medium mb-2">Project Owner</p>
-              <p className="text-gray-600">AEP Hawaii</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <AdvisorCard
+              name="Zack"
+              role="Advisor"
+              imageSrc="https://xoazqxmfxsxyqnakzkab.supabase.co/storage/v1/object/public/avatars/2f69c640-284f-40c3-9585-f8644018f043/avatar.png"
+              description="Founder & CEO of AEP Hawai'i, born and raised in Honolulu. Columbia graduate and former Division 1 wrestling captain with extensive experience in talent recruitment on Wall Street. Founded AEP Hawai'i in 2016 to bridge Hawaii's talent with leading organizations nationwide."
+              fallbackInitial="Z"
+              colorVariant="primary"
+            />
             
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="w-20 h-20 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-secondary-600 font-bold text-2xl">D</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Darius</h3>
-              <p className="text-secondary-600 font-medium mb-2">Collaborator</p>
-              <p className="text-gray-600">Development Team</p>
-            </div>
+            <AdvisorCard
+              name="Gigi"
+              role="Advisor"
+              imageSrc="/images/team/gigi-headshot.jpg"
+              description="CEO of Setting the Record Straight, LLC (STRS Live), a native New Yorker with extensive experience in event marketing, entertainment, and the public sector. Passionate advocate for community equity, education, and social change through culturally-based content and media."
+              fallbackInitial="G"
+              colorVariant="secondary"
+            />
             
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="w-20 h-20 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-accent-600 font-bold text-2xl">R</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Reid</h3>
-              <p className="text-accent-600 font-medium mb-2">Collaborator</p>
-              <p className="text-gray-600">Development Team</p>
-            </div>
+            <AdvisorCard
+              name="Darius"
+              role="Advisor"
+              description="Serial entrepreneur with impressive track record, including 3 successful YC exits."
+              highlight="3x Y Combinator Exits"
+              fallbackInitial="D"
+              colorVariant="accent"
+            />
             
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-primary-600 font-bold text-2xl">AS</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Auston Stewart</h3>
-              <p className="text-primary-600 font-medium mb-2">Partner</p>
-              <p className="text-gray-600">Nalukai.org</p>
-            </div>
+            <AdvisorCard
+              name="Reid"
+              role="Advisor"
+              description="Contributing strategic insights and expertise to Talent Hui."
+              fallbackInitial="R"
+              colorVariant="primary"
+            />
           </div>
         </div>
 
@@ -77,30 +79,74 @@ export default function AboutPage() {
         <div className="mb-16" id="partners">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Partners</h2>
           <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-              <div className="text-center">
-                <div className="bg-primary-100 rounded-lg p-4 mb-2">
-                  <span className="text-primary-600 font-bold text-lg">AEP</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex justify-center mb-4">
+                  <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
+                    <Image
+                      src="/images/company_photos/aephawaii_logo.jpeg"
+                      alt="AEP Hawaii logo"
+                      width={128}
+                      height={128}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600">AEP Hawaii</p>
+                <h3 className="font-semibold text-gray-900 mb-2">AEP Hawaii</h3>
+                <p className="text-sm text-gray-600">
+                  Supporting Hawaii's economic development through talent initiatives and ecosystem building.
+                </p>
               </div>
-              <div className="text-center">
-                <div className="bg-accent-100 rounded-lg p-4 mb-2">
-                  <span className="text-accent-600 font-bold text-lg">NLK</span>
+              <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex justify-center mb-4">
+                  <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
+                    <Image
+                      src="/images/company_photos/Logo1.webp"
+                      alt="Nalukai logo"
+                      width={128}
+                      height={128}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600">Nalukai.org</p>
+                <h3 className="font-semibold text-gray-900 mb-2">Nalukai.org</h3>
+                <p className="text-sm text-gray-600">
+                  Empowering Hawaii's youth with technology skills and entrepreneurial opportunities.
+                </p>
               </div>
-              <div className="text-center">
-                <div className="bg-secondary-100 rounded-lg p-4 mb-2">
-                  <span className="text-secondary-600 font-bold text-lg">UH</span>
+              <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex justify-center mb-4">
+                  <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
+                    <Image
+                      src="/images/company_photos/hpu_valueslockup_color.png"
+                      alt="Hawaii Pacific University logo"
+                      width={128}
+                      height={128}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600">University of Hawaii</p>
+                <h3 className="font-semibold text-gray-900 mb-2">Hawaii Pacific University</h3>
+                <p className="text-sm text-gray-600">
+                  Preparing students for global careers while maintaining strong ties to Hawaii's community.
+                </p>
               </div>
-              <div className="text-center">
-                <div className="bg-gray-100 rounded-lg p-4 mb-2">
-                  <span className="text-gray-600 font-bold text-lg">HPU</span>
+              <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex justify-center mb-4">
+                  <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
+                    <Image
+                      src="/images/company_photos/0x0.webp"
+                      alt="University of Hawaii at Manoa logo"
+                      width={128}
+                      height={128}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600">Hawaii Pacific University</p>
+                <h3 className="font-semibold text-gray-900 mb-2">University of Hawaii at Manoa</h3>
+                <p className="text-sm text-gray-600">
+                  Hawaii's flagship university connecting students and alumni with career opportunities.
+                </p>
               </div>
             </div>
           </div>
@@ -116,13 +162,10 @@ export default function AboutPage() {
             </p>
             <div className="space-y-4">
               <p className="text-gray-600">
-                <strong>Email:</strong> contact@talenthui.com
+                <strong>Email:</strong> talent@aephawaii.com
               </p>
               <p className="text-gray-600">
-                <strong>Phone:</strong> (808) 555-TALENT
-              </p>
-              <p className="text-gray-600">
-                <strong>Address:</strong> Honolulu, Hawaii
+                <strong>Phone:</strong> 808-349-1611
               </p>
             </div>
           </div>

@@ -42,7 +42,7 @@ export default function AboutPage() {
               name="Zack"
               role="Advisor"
               imageSrc="https://xoazqxmfxsxyqnakzkab.supabase.co/storage/v1/object/public/avatars/2f69c640-284f-40c3-9585-f8644018f043/avatar.png"
-              description="Founder & CEO of AEP Hawai'i, born and raised in Honolulu. Columbia graduate and former Division 1 wrestling captain with extensive experience in talent recruitment on Wall Street. Founded AEP Hawai'i in 2016 to bridge Hawaii's talent with leading organizations nationwide."
+              description="Founder & CEO of AEP Hawai'i."
               fallbackInitial="Z"
               colorVariant="primary"
             />
@@ -51,7 +51,7 @@ export default function AboutPage() {
               name="Gigi"
               role="Advisor"
               imageSrc="/images/team/gigi-headshot.jpg"
-              description="CEO of Setting the Record Straight, LLC (STRS Live), a native New Yorker with extensive experience in event marketing, entertainment, and the public sector. Passionate advocate for community equity, education, and social change through culturally-based content and media."
+              description="CEO of Setting the Record Straight, LLC."
               fallbackInitial="G"
               colorVariant="secondary"
             />

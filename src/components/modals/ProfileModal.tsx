@@ -159,7 +159,8 @@ export default function ProfileModal({ profile, isOpen, onClose }: ProfileModalP
                     <div>
                       <h4 className="text-sm font-semibold text-gray-900 mb-1">Pay Band</h4>
                       <p className="text-gray-700">
-                        {displayProfile.pay_band === 0 && 'Unemployed'}
+                        {displayProfile.pay_band === 0 && !displayProfile.current_company && !displayProfile.company && 'Unemployed'}
+                        {displayProfile.pay_band === 0 && (displayProfile.current_company || displayProfile.company) && 'Not specified'}
                         {displayProfile.pay_band === 1 && '$10k - $20k'}
                         {displayProfile.pay_band === 2 && '$30k - $50k'}
                         {displayProfile.pay_band === 3 && '$50k - $70k'}

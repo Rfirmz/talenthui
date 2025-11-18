@@ -21,24 +21,45 @@ export default function HomePage() {
     const loadFeaturedProfiles = async () => {
       try {
         setIsLoading(true);
+        
+        // Fetch Zack and Gigi specifically
+        const { data: zackDataArray } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('visibility', true)
+          .ilike('full_name', '%zack hernandez%')
+          .limit(1);
+        const zackData = zackDataArray && zackDataArray.length > 0 ? zackDataArray[0] : null;
+
+        const { data: gigiDataArray } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('visibility', true)
+          .ilike('full_name', '%gigi dawn%')
+          .limit(1);
+        const gigiData = gigiDataArray && gigiDataArray.length > 0 ? gigiDataArray[0] : null;
+
+        // Get other profiles (excluding Zack and Gigi)
         const { data, error } = await supabase
           .from('profiles')
           .select('*')
           .eq('visibility', true)
           .not('bio', 'is', null)
-          .limit(6);
+          .limit(20);
 
         if (error) {
           console.error('Error loading featured profiles:', error);
-          setFeaturedProfiles(mockProfiles.slice(0, 6));
+          setFeaturedProfiles(mockProfiles.slice(0, 9));
         } else {
-          // Prioritize Rafael Firme if he exists
+          // Filter out Zack, Gigi, and unwanted profiles
           const filteredData = (data || []).filter((profile) => {
             const name = profile.full_name?.toLowerCase() || '';
-            return !name.includes('ryan dude');
+            return !name.includes('ryan dude') && 
+                   !name.includes('zack hernandez') && 
+                   !name.includes('gigi dawn');
           });
 
-          // Merge cleared DoD profiles, avoiding duplicates by full name
+          // Merge cleared DoD profiles, avoiding duplicates
           const existingNames = new Set(filteredData.map((profile) => (profile.full_name || '').toLowerCase()));
           const mergedData = [
             ...filteredData,
@@ -47,28 +68,61 @@ export default function HomePage() {
             ),
           ];
 
-          // Ensure newly created profiles show up by sorting by created_at desc
-          const sortedData = mergedData.sort((a, b) => {
-            const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
-            const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
-            if (aDate !== bDate) {
-              return bDate - aDate;
-            }
-
-            const aName = a.full_name?.toLowerCase() || '';
-            const bName = b.full_name?.toLowerCase() || '';
-
-            if (aName.includes('zack hernandez')) return -1;
-            if (bName.includes('zack hernandez')) return 1;
-            if (aName.includes('rafael firme')) return -1;
-            if (bName.includes('rafael firme')) return 1;
-            if (aName.includes('gigi dawn')) return 1;
-            if (bName.includes('gigi dawn')) return -1;
-
-            return aName.localeCompare(bName);
+          // Find Rafael Firme
+          const rafaelProfile = mergedData.find(p => {
+            const name = (p.full_name || '').toLowerCase();
+            return name.includes('rafael firme');
           });
 
-          setFeaturedProfiles(sortedData.slice(0, 6));
+          // Get other profiles (excluding Rafael)
+          const otherProfiles = mergedData.filter(p => {
+            const name = (p.full_name || '').toLowerCase();
+            return !name.includes('rafael firme');
+          });
+
+          // Sort other profiles by created_at desc
+          const sortedOthers = otherProfiles.sort((a, b) => {
+            const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
+            const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
+            return bDate - aDate;
+          });
+
+          // Build final list: 9 profiles total
+          // Row 1 (positions 1-3): Rafael + 2 others
+          // Row 2 (positions 4-6): 3 others
+          // Row 3 (positions 7-9): 1 other + Zack + Gigi
+          const finalProfiles: any[] = [];
+          
+          // Position 1: Rafael if exists
+          if (rafaelProfile) {
+            finalProfiles.push(rafaelProfile);
+          }
+          
+          // Positions 2-6: Other profiles (5 more for rows 1-2)
+          finalProfiles.push(...sortedOthers.slice(0, 5));
+          
+          // Position 7: One more other profile
+          if (sortedOthers.length > 5) {
+            finalProfiles.push(sortedOthers[5]);
+          }
+          
+          // Positions 8-9: Zack and Gigi (3rd row)
+          if (zackData) {
+            finalProfiles.push(zackData);
+          }
+          if (gigiData) {
+            finalProfiles.push(gigiData);
+          }
+          
+          // Fill remaining slots if needed (in case we don't have enough)
+          if (finalProfiles.length < 9 && sortedOthers.length > 6) {
+            const remaining = sortedOthers.slice(6).filter(p => 
+              !finalProfiles.includes(p)
+            );
+            finalProfiles.push(...remaining.slice(0, 9 - finalProfiles.length));
+          }
+
+          setFeaturedProfiles(finalProfiles.slice(0, 9));
         }
       } catch (err) {
         console.error('Error loading featured profiles:', err);
@@ -76,7 +130,7 @@ export default function HomePage() {
           const name = profile.full_name?.toLowerCase() || '';
           return !name.includes('ryan inouye') && !name.includes('ryan dude');
         });
-        setFeaturedProfiles(filteredMockProfiles.slice(0, 6));
+        setFeaturedProfiles(filteredMockProfiles.slice(0, 9));
       } finally {
         setIsLoading(false);
       }

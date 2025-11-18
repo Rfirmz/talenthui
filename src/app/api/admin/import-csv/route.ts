@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { estimatePayBand } from '@/lib/payBandEstimator';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || '';
@@ -222,6 +223,9 @@ export async function POST(request: NextRequest) {
           bio = 'Professional';
         }
         
+        // Estimate pay band based on title and company
+        const estimatedPayBand = estimatePayBand(title, company);
+        
         // Build candidate object - only include fields that exist
         const candidate: any = {
           full_name: fullName,
@@ -232,7 +236,7 @@ export async function POST(request: NextRequest) {
           school: school || null,
           bio: bio,
           avatar_url: '/avatars/placeholder.svg',
-          pay_band: 0,
+          pay_band: estimatedPayBand,
           visibility: true,
         };
         

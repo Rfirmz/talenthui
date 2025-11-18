@@ -13,7 +13,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.reef.ai/",
     linkedin_url: "https://www.linkedin.com/company/reef-ai/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -28,7 +28,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.aephawaii.com/",
     linkedin_url: "https://www.linkedin.com/company/aephawaii",
-    type: "Public Company",
+    type: "Startup",
     contacts: [{"text":"Marcela Gama","href":""},{"text":"zackhernandez","href":""},{"text":"Gigi Dawn","href":""}]
   },
   {
@@ -43,7 +43,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.rehabhospital.org/",
     linkedin_url: "https://www.linkedin.com/company/rehabilitation-hospital-of-the-pacific/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -58,7 +58,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.edia.ai/",
     linkedin_url: "https://www.linkedin.com/company/edia-ai/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -73,7 +73,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.coffman.com/",
     linkedin_url: "https://www.linkedin.com/company/coffman-engineers/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -88,7 +88,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.owner.com/",
     linkedin_url: "https://www.linkedin.com/company/owner-inc/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -103,7 +103,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.jairosoft.com/",
     linkedin_url: "https://www.linkedin.com/company/jairosoft/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -133,7 +133,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.ezra.com/",
     linkedin_url: "https://www.linkedin.com/company/ezra-coaching/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -148,7 +148,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.alphaconstructors.com/",
     linkedin_url: "https://www.linkedin.com/company/alpha-inc/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -163,7 +163,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.abcstores.com/",
     linkedin_url: "https://www.linkedin.com/company/abc-stores/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -223,7 +223,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hawaiigas.com/",
     linkedin_url: "https://www.linkedin.com/company/hawaii-gas/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -238,7 +238,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.n8tivenightlife.com/",
     linkedin_url: "https://www.linkedin.com/company/n8tive-nightlife/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -253,7 +253,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.waymark.com/",
     linkedin_url: "https://www.linkedin.com/company/waymark/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -268,7 +268,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hightouch.com/",
     linkedin_url: "https://www.linkedin.com/company/hightouch/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -283,7 +283,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.brighthire.ai/",
     linkedin_url: "https://www.linkedin.com/company/brighthire/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -313,7 +313,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.alt.com/",
     linkedin_url: "https://www.linkedin.com/company/withalt/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -328,7 +328,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.wilsonokamoto.com/",
     linkedin_url: "https://www.linkedin.com/company/wilson-okamoto-corporation/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -343,7 +343,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.onipaa.org/",
     linkedin_url: "https://www.linkedin.com/company/queen-liliuokalani-trust/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -373,7 +373,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.ohanapacificmanagement.com/",
     linkedin_url: "https://www.linkedin.com/company/ohana-pacific-health/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -418,7 +418,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.centralpacificbank.com/",
     linkedin_url: "https://www.linkedin.com/company/central-pacific-bank/",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -433,7 +433,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hi.myhta.org/",
     linkedin_url: "https://www.linkedin.com/company/hawaii-technology-academy",
-    type: "Public Organization",
+    type: "Private",
     contacts: [{"text":"Marcela Gama","href":""},{"text":"Matt Zitello","href":""}]
   },
   {
@@ -463,7 +463,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hawaiitechies.com/",
     linkedin_url: "https://www.linkedin.com/company/oihana-org/",
-    type: "Public Community",
+    type: "Startup",
     contacts: [{"text":"Nam Vu","href":""},{"text":"Marcela Gama","href":""}]
   },
   {
@@ -493,7 +493,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.nogatechsolutions.com/",
     linkedin_url: "https://www.linkedin.com/company/nogatech-it-solutions",
-    type: "Public Company",
+    type: "Startup",
     contacts: [{"text":"Marcela Gama","href":""},{"text":"Seema Yadav","href":""}]
   },
   {
@@ -523,7 +523,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hobnob.app/",
     linkedin_url: "https://www.linkedin.com/company/hobnob-events",
-    type: "Public Company",
+    type: "Startup",
     contacts: [{"text":"Marcela Gama","href":""},{"text":"Tina Fitch","href":""}]
   },
   {
@@ -553,7 +553,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://voltacharging.com/",
     linkedin_url: "https://www.linkedin.com/company/shell",
-    type: "Public Company",
+    type: "Private",
     contacts: [{"text":"Marcela Gama","href":""},{"text":"Vince Cubbage","href":""}]
   },
   {
@@ -568,7 +568,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://manauphawaii.com/",
     linkedin_url: "https://www.linkedin.com/company/manaup/",
-    type: "Public Accelerator",
+    type: "Startup",
     contacts: [{"text":"Meli James","href":""},{"text":"Marcela Gama","href":""}]
   },
   {
@@ -583,7 +583,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hawaiiwomenintech.org/",
     linkedin_url: "https://www.linkedin.com/company/hawaii-women-in-tech",
-    type: "Public Nonprofit",
+    type: "Private",
     contacts: [{"text":"Marcela Gama","href":""},{"text":"Margaret Schmitt","href":""}]
   },
   {
@@ -613,7 +613,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.htdc.org/",
     linkedin_url: "https://www.linkedin.com/company/hawaii-technology-development-corporation/",
-    type: "Public Government",
+    type: "Private",
     contacts: [{"text":"Marcela Gama","href":""},{"text":"Sandi Kanemori","href":""},{"text":"Trung Lam","href":""}]
   },
   {
@@ -643,7 +643,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hawaiiangels.com",
     linkedin_url: "https://www.linkedin.com/company/oihana-org/",
-    type: "Public Venture Capital",
+    type: "Startup",
     contacts: [{"text":"Rob Robinson","href":""},{"text":"Marcela Gama","href":""},{"text":"Joey Katzen","href":""}]
   },
   {
@@ -673,7 +673,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.bluestartups.com/",
     linkedin_url: "https://www.linkedin.com/company/blue-startups-llc/",
-    type: "Public Accelerator",
+    type: "Startup",
     contacts: [{"text":"Chenoa Farnsworth","href":""},{"text":"Marcela Gama","href":""},{"text":"David Holt","href":""}]
   },
   {
@@ -688,7 +688,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.thrivehi.org/",
     linkedin_url: "https://www.linkedin.com/company/thrivehi",
-    type: "Public Community",
+    type: "Startup",
     contacts: [{"text":"Sonia Romero","href":""},{"text":"Johnny Chankhamany","href":""},{"text":"Trung Lam","href":""}]
   },
   {
@@ -703,7 +703,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.emwhawaii.com/",
     linkedin_url: "https://www.linkedin.com/company/oihana-org/",
-    type: "Public Event",
+    type: "Startup",
     contacts: []
   },
   {
@@ -718,7 +718,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://uxhi.community/",
     linkedin_url: "https://www.linkedin.com/company/uxhi",
-    type: "Public Community",
+    type: "Startup",
     contacts: []
   },
   {
@@ -733,7 +733,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://piiku.co/",
     linkedin_url: "https://www.linkedin.com/company/kaggledaysmeetupdelhincr",
-    type: "Public Community",
+    type: "Startup",
     contacts: []
   },
   {
@@ -748,7 +748,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://farmlinkhawaii.com/",
     linkedin_url: "https://www.linkedin.com/company/farmlinkhawaii",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -763,7 +763,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.privateer.com/",
     linkedin_url: "https://www.linkedin.com/company/privateerspace/",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -808,7 +808,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.paubox.com/",
     linkedin_url: "https://www.linkedin.com/company/paubox",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -823,7 +823,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.omvc.co/",
     linkedin_url: "https://www.linkedin.com/company/om-vc",
-    type: "Public Venture Capital",
+    type: "Startup",
     contacts: []
   },
   {
@@ -838,7 +838,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://oceanit.com/",
     linkedin_url: "https://www.linkedin.com/company/oceanit",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -883,7 +883,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.cochawaii.org/",
     linkedin_url: "https://www.linkedin.com/company/the-chamber-of-commerce-of-hawaii",
-    type: "Public Nonprofit",
+    type: "Private",
     contacts: []
   },
   {
@@ -913,7 +913,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://manamonitoring.com/",
     linkedin_url: "https://www.linkedin.com/company/mana-monitoring",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -928,7 +928,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.goalvy.com/",
     linkedin_url: "https://www.linkedin.com/company/goalvyhealth",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -943,7 +943,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.unrulr.com/",
     linkedin_url: "https://www.linkedin.com/company/unrulr",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -958,7 +958,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.lauleallc.com/",
     linkedin_url: "https://www.linkedin.com/company/laulea-engineering-llc",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -989,7 +989,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://gidens.com/",
     linkedin_url: "https://www.linkedin.com/company/gidens",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1004,7 +1004,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hawaii.edu/research/",
     linkedin_url: "https://www.linkedin.com/company/uhmanoa",
-    type: "Public Organization",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1019,7 +1019,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.protosure.com/",
     linkedin_url: "https://www.linkedin.com/company/protosure",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1034,7 +1034,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://parklinq.com/",
     linkedin_url: "https://www.linkedin.com/company/parklinq",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1049,7 +1049,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://scholarsapp.com/",
     linkedin_url: "https://www.linkedin.com/company/scholar's-app",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1064,7 +1064,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "http://vsihi.com/",
     linkedin_url: "https://www.linkedin.com/company/vsi-solutions-hawaii",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1079,7 +1079,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.decisivepoint.com/",
     linkedin_url: "https://www.linkedin.com/company/decisivepointllc",
-    type: "Public Venture Capital",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1124,7 +1124,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.matteroom.com/",
     linkedin_url: "https://www.linkedin.com/company/matteroomsoftware",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1169,7 +1169,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://ecoharvesthi.com/",
     linkedin_url: "https://www.linkedin.com/company/ecoharvest-llc",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1184,7 +1184,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.motivitysystems.com/",
     linkedin_url: "https://www.linkedin.com/company/motivity-systems",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1199,7 +1199,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.acquilingua.com/",
     linkedin_url: "https://www.linkedin.com/company/acquilingua",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1229,7 +1229,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hawaii.edu/innovation/",
     linkedin_url: "https://www.linkedin.com/company/uhmanoa",
-    type: "Public Venture Capital",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1244,7 +1244,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.intech-hawaii.com/",
     linkedin_url: "https://www.linkedin.com/company/intech-hawaii",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1259,7 +1259,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://nrdsdata.com/",
     linkedin_url: "https://www.linkedin.com/company/nrdsdata",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1274,7 +1274,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.codewithaloha.org/",
     linkedin_url: "https://www.linkedin.com/company/code-with-aloha",
-    type: "Public Nonprofit",
+    type: "Startup",
     contacts: []
   }
 ,
@@ -1290,7 +1290,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.alpacavc.com/",
     linkedin_url: "https://www.linkedin.com/company/alpacavc",
-    type: "Public Venture Capital",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1320,7 +1320,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.inttent.com/",
     linkedin_url: "https://www.linkedin.com/company/inttent-ai",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1410,7 +1410,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.adminnow.com/",
     linkedin_url: "https://www.linkedin.com/company/adminnow1",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1425,7 +1425,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.vantaesports.com/",
     linkedin_url: "https://www.linkedin.com/company/vantaesports",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1470,7 +1470,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.trueinitiative.org/",
     linkedin_url: "https://www.linkedin.com/company/true-initiative",
-    type: "Public Nonprofit",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1500,7 +1500,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hawaiicenterforai.org/",
     linkedin_url: "https://www.linkedin.com/company/hawaii-center-for-ai",
-    type: "Public Nonprofit",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1515,7 +1515,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.salesplayx.com/",
     linkedin_url: "https://www.linkedin.com/company/salesplay-x",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1560,7 +1560,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua-Kona",
     website: "https://www.cyanotech.com/",
     linkedin_url: "https://www.linkedin.com/company/cyanotech-corporation",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -1575,7 +1575,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.nimblebrain.com/",
     linkedin_url: "https://www.linkedin.com/company/nimblebrain",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   }
 ,
@@ -1606,7 +1606,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.trailheadcap.com/",
     linkedin_url: "https://www.linkedin.com/company/trailheadcapitalllc",
-    type: "Public Venture Capital",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1621,7 +1621,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.axesspoint.com/",
     linkedin_url: "https://www.linkedin.com/company/axesspoint",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1636,7 +1636,7 @@ export const mockCompanies: Company[] = [
     city: "Hilo",
     website: "https://www.startup-hawaii.com/",
     linkedin_url: "https://www.linkedin.com/company/startup-hawaii",
-    type: "Public Community",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1651,7 +1651,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hawaii.edu/arl/",
     linkedin_url: "https://www.linkedin.com/company/uhmanoa",
-    type: "Public Organization",
+    type: "Private",
     contacts: []
   },
   {
@@ -1726,7 +1726,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hawaiiinvestmentready.org/",
     linkedin_url: "https://www.linkedin.com/company/hawaiiinvestmentready",
-    type: "Public Accelerator",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1771,7 +1771,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://pacxa.com/",
     linkedin_url: "https://www.linkedin.com/company/pacxahawaii",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -1786,7 +1786,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.bemappy.com/",
     linkedin_url: "https://www.linkedin.com/company/bemappy",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1846,7 +1846,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.chelle.ai/",
     linkedin_url: "https://www.linkedin.com/company/chelle-ai",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1876,7 +1876,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.hulafish.com/",
     linkedin_url: "https://www.linkedin.com/company/hulafish-computer-services",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   }
 ,
@@ -1907,7 +1907,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://visionsafe.com/",
     linkedin_url: "https://www.linkedin.com/company/visionsafe-evas",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1937,7 +1937,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.bayze.com/",
     linkedin_url: "https://www.linkedin.com/company/bayze",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1952,7 +1952,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://nesteggguru.com/",
     linkedin_url: "https://www.linkedin.com/company/nest-egg-guru",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -1967,7 +1967,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://startupcv.com/",
     linkedin_url: "https://www.linkedin.com/company/startup-capital-ventures",
-    type: "Public Venture Capital",
+    type: "Startup",
     contacts: []
   },
   {
@@ -2057,7 +2057,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.b3software.com/",
     linkedin_url: "https://www.linkedin.com/company/b3software",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -2072,7 +2072,7 @@ export const mockCompanies: Company[] = [
     city: "Lihue",
     website: "https://commongroundkauai.com/accelerator",
     linkedin_url: "https://www.linkedin.com/company/commongroundkauai",
-    type: "Public Accelerator",
+    type: "Startup",
     contacts: []
   },
   {
@@ -2087,7 +2087,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://morphoptic.com/",
     linkedin_url: "https://www.linkedin.com/company/morphoptic-inc.",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -2117,7 +2117,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.waihome.com/",
     linkedin_url: "https://www.linkedin.com/company/waihome-llc",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -2132,7 +2132,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://dbedt.hawaii.gov/",
     linkedin_url: "https://www.linkedin.com/company/state-of-hawaii",
-    type: "Public Government",
+    type: "Private",
     contacts: []
   },
   {
@@ -2162,7 +2162,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.thequestaccelerator.com/",
     linkedin_url: "https://www.linkedin.com/company/thequestaccelerator",
-    type: "Public Accelerator",
+    type: "Startup",
     contacts: []
   },
   {
@@ -2177,7 +2177,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://www.naluscientific.com/",
     linkedin_url: "https://www.linkedin.com/company/naluscientific",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   }
 ,
@@ -2268,7 +2268,7 @@ export const mockCompanies: Company[] = [
     city: "Kamuela",
     website: "https://queens.org/locations/hospitals/north-hawaii",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2298,7 +2298,7 @@ export const mockCompanies: Company[] = [
     city: "Waikoloa",
     website: "https://waikoloamarriott.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2313,7 +2313,7 @@ export const mockCompanies: Company[] = [
     city: "Hilo",
     website: "https://hawaii.hawaii.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2328,7 +2328,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua-Kona",
     website: "https://royalkona.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2343,7 +2343,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua-Kona",
     website: "https://konabrewinghawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2358,7 +2358,7 @@ export const mockCompanies: Company[] = [
     city: "Kamuela",
     website: "https://hpa.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2373,7 +2373,7 @@ export const mockCompanies: Company[] = [
     city: "Hilo",
     website: "",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2388,7 +2388,7 @@ export const mockCompanies: Company[] = [
     city: "Hilo",
     website: "https://suisan.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2403,7 +2403,7 @@ export const mockCompanies: Company[] = [
     city: "Hilo",
     website: "https://hfsfcu.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2433,7 +2433,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua-Kona",
     website: "https://hicommfcu.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2613,7 +2613,7 @@ export const mockCompanies: Company[] = [
     city: "Koloa",
     website: "https://marriotthawaii.com/hotels/sheraton-kauai-resort",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2643,7 +2643,7 @@ export const mockCompanies: Company[] = [
     city: "Lihue",
     website: "https://kiuc.coop",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2658,7 +2658,7 @@ export const mockCompanies: Company[] = [
     city: "Koloa",
     website: "https://parrishkauai.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2673,7 +2673,7 @@ export const mockCompanies: Company[] = [
     city: "Koloa",
     website: "https://keokisparadise.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2688,7 +2688,7 @@ export const mockCompanies: Company[] = [
     city: "Pearl City",
     website: "https://shioihawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -2703,7 +2703,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://unlimitedhawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3033,7 +3033,7 @@ export const mockCompanies: Company[] = [
     city: "Wailuku",
     website: "https://meoinc.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3048,7 +3048,7 @@ export const mockCompanies: Company[] = [
     city: "Kahului",
     website: "https://kellerwilliamsrealtymaui.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3093,7 +3093,7 @@ export const mockCompanies: Company[] = [
     city: "Kahului",
     website: "https://vipfoodservice.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3108,7 +3108,7 @@ export const mockCompanies: Company[] = [
     city: "Lanai City",
     website: "https://fourseasons.com/koele",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3123,7 +3123,7 @@ export const mockCompanies: Company[] = [
     city: "Kahului",
     website: "https://mauiymca.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3138,7 +3138,7 @@ export const mockCompanies: Company[] = [
     city: "Wailuku",
     website: "https://mauioceancenter.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3153,7 +3153,7 @@ export const mockCompanies: Company[] = [
     city: "Makawao",
     website: "https://seaburyhall.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3258,7 +3258,7 @@ export const mockCompanies: Company[] = [
     city: "Kihei",
     website: "https://islandproperties.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3408,7 +3408,7 @@ export const mockCompanies: Company[] = [
     city: "Ewa Beach",
     website: "https://kroccenterhawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3438,7 +3438,7 @@ export const mockCompanies: Company[] = [
     city: "Ewa Beach",
     website: "https://queens.org/services/behavioral-health/kahi-mohala",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3468,7 +3468,7 @@ export const mockCompanies: Company[] = [
     city: "Ewa Beach",
     website: "https://childandfamilyservice.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3483,7 +3483,7 @@ export const mockCompanies: Company[] = [
     city: "Waianae",
     website: "https://hawaiiunified.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3543,7 +3543,7 @@ export const mockCompanies: Company[] = [
     city: "Kapolei",
     website: "https://alounfarms.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3573,7 +3573,7 @@ export const mockCompanies: Company[] = [
     city: "Kapolei",
     website: "https://marriott.com/en-us/hotels/hnlri-residence-inn-oahu-kapolei/overview",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3618,7 +3618,7 @@ export const mockCompanies: Company[] = [
     city: "Ewa Beach",
     website: "https://halekipa.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3633,7 +3633,7 @@ export const mockCompanies: Company[] = [
     city: "Kapolei",
     website: "https://ekfernandez.com; funfactorygames.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3678,7 +3678,7 @@ export const mockCompanies: Company[] = [
     city: "Kaneohe",
     website: "https://kualoa.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3693,7 +3693,7 @@ export const mockCompanies: Company[] = [
     city: "Kaneohe",
     website: "https://good-sam.com/locations/pohai-nani",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3708,7 +3708,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua",
     website: "https://lejardinacademy.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3723,7 +3723,7 @@ export const mockCompanies: Company[] = [
     city: "Kaneohe",
     website: "https://windward.hawaii.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3738,7 +3738,7 @@ export const mockCompanies: Company[] = [
     city: "Kaneohe",
     website: "https://alohanursing.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3753,7 +3753,7 @@ export const mockCompanies: Company[] = [
     city: "Kaneohe",
     website: "https://hinamauka.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3768,7 +3768,7 @@ export const mockCompanies: Company[] = [
     city: "Kaneohe",
     website: "https://hondawindward.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -3798,7 +3798,7 @@ export const mockCompanies: Company[] = [
     city: "Kaneohe",
     website: "https://jerryforthepeople.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -4248,7 +4248,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://g70.design",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -4263,7 +4263,7 @@ export const mockCompanies: Company[] = [
     city: "Waipahu",
     website: "https://bowersandkubota.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -4503,7 +4503,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://tsbhawaii.bank",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -4518,7 +4518,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hawaiinational.bank",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -4533,7 +4533,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://financefactors.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -4968,7 +4968,7 @@ export const mockCompanies: Company[] = [
     city: "Wailuku",
     website: "https://thayercpa.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -4983,7 +4983,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://deloitte.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -4998,7 +4998,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://accuityllp.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -5103,7 +5103,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://aokcpas.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -5148,7 +5148,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://ocycpa.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -5358,7 +5358,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://drfortress.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -5388,7 +5388,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://pdcsystems.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -5403,7 +5403,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://techpartnershawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -5418,7 +5418,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://sos-hawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -5448,7 +5448,7 @@ export const mockCompanies: Company[] = [
     city: "Pearl City",
     website: "https://leeward.hawaii.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -5493,7 +5493,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://honolulu.hawaii.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -5508,7 +5508,7 @@ export const mockCompanies: Company[] = [
     city: "Laie",
     website: "https://byuh.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -5523,7 +5523,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://chaminade.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -5538,7 +5538,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://tuw.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -5553,7 +5553,7 @@ export const mockCompanies: Company[] = [
     city: "Lihue",
     website: "https://kauai.hawaii.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -5703,7 +5703,7 @@ export const mockCompanies: Company[] = [
     city: "Waipahu",
     website: "https://ifshi.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -6813,7 +6813,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hawaiiusafcu.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -6828,7 +6828,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hawaiistatefcu.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -6843,7 +6843,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://alohapacific.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -6858,7 +6858,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hificu.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -6888,7 +6888,7 @@ export const mockCompanies: Company[] = [
     city: "Pearl City",
     website: "https://hickamfcu.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -7383,7 +7383,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://yhata.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -7923,7 +7923,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://pacificguardian.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -7968,7 +7968,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://ficoh.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -7998,7 +7998,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hemic.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8013,7 +8013,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://islandinsurance.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8028,7 +8028,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://dtric.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8073,7 +8073,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://farmershawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8103,7 +8103,7 @@ export const mockCompanies: Company[] = [
     city: "Mililani",
     website: "https://americanelectric.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8433,7 +8433,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://insynergyeng.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8508,7 +8508,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://seaengineering.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8523,7 +8523,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://g70.design",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8538,7 +8538,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://interfaceengineering.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8598,7 +8598,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua",
     website: "https://intera.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8658,7 +8658,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://g70.design",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8703,7 +8703,7 @@ export const mockCompanies: Company[] = [
     city: "Aiea",
     website: "https://integral-corp.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8868,7 +8868,7 @@ export const mockCompanies: Company[] = [
     city: "Waipahu",
     website: "https://tonygroup.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8883,7 +8883,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://nahoku.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8898,7 +8898,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://arancino.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8913,7 +8913,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://betterhawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8928,7 +8928,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://pacificaircargo.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -8943,7 +8943,7 @@ export const mockCompanies: Company[] = [
     city: "Waipahu",
     website: "https://kapiliroof.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -9813,7 +9813,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://sause.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -9888,7 +9888,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://nordicpcl.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -9918,7 +9918,7 @@ export const mockCompanies: Company[] = [
     city: "Waipahu",
     website: "https://ack-inc.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -9963,7 +9963,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://coasthi.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -9978,7 +9978,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://armstrongbuilders.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -9993,7 +9993,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://groupbuilders.net",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10128,7 +10128,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://alohacare.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10143,7 +10143,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://uhahealth.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10698,7 +10698,7 @@ export const mockCompanies: Company[] = [
     city: "Kealakekua",
     website: "https://kch.hhsc.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10713,7 +10713,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://rehabhospital.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10728,7 +10728,7 @@ export const mockCompanies: Company[] = [
     city: "Kapaa",
     website: "https://kauai.hhsc.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10773,7 +10773,7 @@ export const mockCompanies: Company[] = [
     city: "Waimea",
     website: "https://kauai.hhsc.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10863,7 +10863,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://datahouse.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -10878,7 +10878,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://intech-hawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -10893,7 +10893,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://banyannetworks.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -10908,7 +10908,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://sthi.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -10923,7 +10923,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://indevtech.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -11043,7 +11043,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://alohatone.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -11433,7 +11433,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://cades.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -11658,7 +11658,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://goodsill.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12273,7 +12273,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://candelalawgroup.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -12363,7 +12363,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://shidler.hawaii.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12498,7 +12498,7 @@ export const mockCompanies: Company[] = [
     city: "Wailea",
     website: "https://marriott.com/en-us/hotels/hnmmc-wailea-beach-resort-marriott-maui/overview",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12558,7 +12558,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://alohilaniresort.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12573,7 +12573,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://marriott.com/en-us/hotels/hnlmc-waikiki-beach-marriott-resort-and-spa/overview",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12603,7 +12603,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hilton.com/en/hotels/hnlwahf-hilton-waikiki-beach",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12618,7 +12618,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://princewaikiki.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12633,7 +12633,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://alamoanahotelhonolulu.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12648,7 +12648,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://kalakauagardens.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12663,7 +12663,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://priorvision.co",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12678,7 +12678,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://tanakarestaurants.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12693,7 +12693,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://royalcontracting.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12708,7 +12708,7 @@ export const mockCompanies: Company[] = [
     city: "Aiea",
     website: "https://executiveoneprotection.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12723,7 +12723,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://onekalakaua.net",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12738,7 +12738,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://iyasumehawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12828,7 +12828,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://catholiccharitieshawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12873,7 +12873,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://waikikihealth.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12888,7 +12888,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://parentsandchildrentogether.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12903,7 +12903,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://ihshawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12918,7 +12918,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hcapweb.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12933,7 +12933,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://bbh.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12948,7 +12948,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://eastersealshawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12978,7 +12978,7 @@ export const mockCompanies: Company[] = [
     city: "Waimanalo",
     website: "https://waimanalohealth.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -12993,7 +12993,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hawaiianhumane.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13008,7 +13008,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://mhkhawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13023,7 +13023,7 @@ export const mockCompanies: Company[] = [
     city: "Wahiawa",
     website: "https://ori-hawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13083,7 +13083,7 @@ export const mockCompanies: Company[] = [
     city: "Hilo",
     website: "https://hopeserviceshawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13098,7 +13098,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://lanakilapacific.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13158,7 +13158,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://alulike.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13188,7 +13188,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://bgch.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13218,7 +13218,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://wish.org/hawaii",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -13398,7 +13398,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://helpinghandshawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -13488,7 +13488,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://bbbshawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -13983,7 +13983,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://revolusun.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14058,7 +14058,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://mercury-solar.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -14088,7 +14088,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://iolani.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14103,7 +14103,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://midpac.edu",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14118,7 +14118,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hba.net",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14133,7 +14133,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://maryknollschool.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14148,7 +14148,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://SaintLouisHawaii.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14163,7 +14163,7 @@ export const mockCompanies: Company[] = [
     city: "Mililani",
     website: "https://hanalani.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14208,7 +14208,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://sacredhearts.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14223,7 +14223,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hongwanjimissionschool.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14238,7 +14238,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://standrewsschools.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14268,7 +14268,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://stepping-stones-academy.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14793,7 +14793,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hmcmgt.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14838,7 +14838,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://alexanderbaldwin.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -14868,7 +14868,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://brookfieldproperties.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -15243,7 +15243,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://kwhonolulu.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -15828,7 +15828,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://kahalanui.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -15948,7 +15948,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://palolohome.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -15978,7 +15978,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://maunalaninursing.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -16713,7 +16713,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -16788,7 +16788,7 @@ export const mockCompanies: Company[] = [
     city: "Kahului",
     website: "https://employersoptions.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -16803,7 +16803,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://kahumalama.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -16938,7 +16938,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://westpacwealthpartners.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -17073,7 +17073,7 @@ export const mockCompanies: Company[] = [
     city: "Lahaina",
     website: "https://marriott.com/en-us/hotels/hnmwi-the-westin-maui-resort-and-spa-kaanapali/overview",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -17433,7 +17433,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://blackhawksecurity.info",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -17703,7 +17703,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua",
     website: "https://energyadvisorshawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -17883,7 +17883,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hihealthcarehawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -17913,7 +17913,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hihealthcarehawaii.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -17943,7 +17943,7 @@ export const mockCompanies: Company[] = [
     city: "Kapaa",
     website: "https://signandprintmachine.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -18003,7 +18003,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://territorialsavings.net",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18078,7 +18078,7 @@ export const mockCompanies: Company[] = [
     city: "Kailua-Kona",
     website: "https://marriott.com/en-us/hotels/koacy-courtyard-king-kamehamehas-kona-beach-hotel/overview",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18138,7 +18138,7 @@ export const mockCompanies: Company[] = [
     city: "Kamuela",
     website: "https://marriott.com/hotels/travel/koawi-the-westin-hapuna-beach-resort",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18348,7 +18348,7 @@ export const mockCompanies: Company[] = [
     city: "Lihue",
     website: "https://outrigger.com/hawaii/kauai/outrigger-kauai-beach-resort-spa",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18543,7 +18543,7 @@ export const mockCompanies: Company[] = [
     city: "Koloa",
     website: "https://parrishkauai.com/kauai-condos/nihi-kai-villas",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18558,7 +18558,7 @@ export const mockCompanies: Company[] = [
     city: "Koloa",
     website: "https://parrishkauai.com/kauai-condos/poipu-kapili",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18573,7 +18573,7 @@ export const mockCompanies: Company[] = [
     city: "Koloa",
     website: "https://parrishkauai.com/kauai-condos/waikomo-stream-villas",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18648,7 +18648,7 @@ export const mockCompanies: Company[] = [
     city: "Lahaina",
     website: "https://marriott.com/hotels/travel/hnmsi-sheraton-maui-resort-and-spa",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -18693,7 +18693,7 @@ export const mockCompanies: Company[] = [
     city: "Lahaina",
     website: "https://kbhmaui.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -19113,7 +19113,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hyattplacewaikikibeach.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -19143,7 +19143,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://starofhonolulu.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -19233,7 +19233,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://dtlstudio.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -19278,7 +19278,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://serenityandmassage.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -19803,7 +19803,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://ussmissouri.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -19908,7 +19908,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://bishopmuseum.org",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -19923,7 +19923,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://atlantisadventures.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -20493,7 +20493,7 @@ export const mockCompanies: Company[] = [
     city: "Wailuku",
     website: "https://kamehamehagolf.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -20583,7 +20583,7 @@ export const mockCompanies: Company[] = [
     city: "Wailuku",
     website: "https://kahiligolf.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -20748,7 +20748,7 @@ export const mockCompanies: Company[] = [
     city: "Ewa Beach",
     website: "https://hoakaleicountryclub.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Private",
     contacts: []
   },
   {
@@ -21109,7 +21109,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://edia.app",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21124,7 +21124,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://cruxclimate.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21139,7 +21139,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://fluint.io",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21154,7 +21154,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://onebrief.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21169,7 +21169,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://vannevarlabs.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21184,7 +21184,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://clearview.ai",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21199,7 +21199,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://skymavis.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21214,7 +21214,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://hightouch.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21229,7 +21229,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://brighthire.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21259,7 +21259,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://waymark.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21274,7 +21274,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21304,7 +21304,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://anduril.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21334,7 +21334,7 @@ export const mockCompanies: Company[] = [
     city: null,
     website: "https://dbt-power-user.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21349,7 +21349,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://3r-water.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21364,7 +21364,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://40hammocks.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21394,7 +21394,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://activiter.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21409,7 +21409,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21424,7 +21424,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://axesspoint.net",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21454,7 +21454,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://celitech.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21484,7 +21484,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://cleverfi.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21499,7 +21499,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://crackedgaming.co",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21514,7 +21514,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://cruis.io",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21529,7 +21529,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://dataplor.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21544,7 +21544,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://draftfantasyfootball.co.uk",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21559,7 +21559,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://ekos.ai",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21589,7 +21589,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://feedcoyote.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21604,7 +21604,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://tankandbear.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21619,7 +21619,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21634,7 +21634,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://g-space.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21649,7 +21649,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://getgibi.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21664,7 +21664,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hohonu.io",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21679,7 +21679,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hokali.co",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21694,7 +21694,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://hostfully.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21709,7 +21709,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://instantteams.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21724,7 +21724,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://junction.ai",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21739,7 +21739,7 @@ export const mockCompanies: Company[] = [
     city: "San Francisco/Hawaii",
     website: "https://kentik.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21754,7 +21754,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://kindtraveler.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21769,7 +21769,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://landng.travel",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21784,7 +21784,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21799,7 +21799,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://liquidpresentation.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {
@@ -21814,7 +21814,7 @@ export const mockCompanies: Company[] = [
     city: "Honolulu",
     website: "https://liquidonate.com",
     linkedin_url: "",
-    type: "Public Company",
+    type: "Startup",
     contacts: []
   },
   {

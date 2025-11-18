@@ -12,17 +12,14 @@ export default function Footer() {
                 Talent Hui
               </div>
             </div>
-            <p className="text-gray-300 mb-4 max-w-md">
+            <p className="text-gray-300 max-w-md">
               Connecting Hawaii's talent with employers and ecosystem partners. 
               Building a stronger Hawaii through community-driven career discovery.
             </p>
-            <div className="bg-accent-600 text-white px-4 py-2 rounded-lg inline-block">
-              <span className="font-semibold">Gov — Sponsor This</span>
-            </div>
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="flex flex-col">
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
@@ -49,7 +46,7 @@ export default function Footer() {
           </div>
 
           {/* About */}
-          <div>
+          <div className="flex flex-col">
             <h3 className="text-lg font-semibold mb-4">About</h3>
             <ul className="space-y-2">
               <li>

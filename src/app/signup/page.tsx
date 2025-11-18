@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+
+const STORAGE_KEY = 'signup_form_data';
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -26,11 +28,33 @@ export default function SignupPage() {
   const [error, setError] = useState('');
   const router = useRouter();
 
+  // Restore form data from sessionStorage on mount
+  useEffect(() => {
+    const savedData = sessionStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData);
+        setFormData(parsed);
+        // Clear the stored data after restoring
+        sessionStorage.removeItem(STORAGE_KEY);
+      } catch (e) {
+        console.error('Error restoring form data:', e);
+      }
+    }
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleTermsClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    // Save form data to sessionStorage before navigating
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+    router.push('/terms');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -186,6 +210,8 @@ export default function SignupPage() {
           console.log('Profile created successfully:', profileResult);
         }
 
+        // Clear saved form data if it exists
+        sessionStorage.removeItem(STORAGE_KEY);
         // Redirect to profile edit page
         router.push('/profile/edit');
       }
@@ -451,12 +477,12 @@ export default function SignupPage() {
               />
               <label htmlFor="agree-terms" className="ml-2 block text-sm text-gray-900">
                 I agree to the{' '}
-                <a href="#" className="text-primary-600 hover:text-primary-500">
+                <a 
+                  href="/terms" 
+                  onClick={handleTermsClick}
+                  className="text-primary-600 hover:text-primary-500 underline"
+                >
                   Terms of Service
-                </a>{' '}
-                and{' '}
-                <a href="#" className="text-primary-600 hover:text-primary-500">
-                  Privacy Policy
                 </a>
               </label>
             </div>

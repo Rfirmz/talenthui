@@ -214,7 +214,7 @@ export default function ProfilesPage() {
           </div>
         </div>
 
-        {/* Data Source Toggle and Results Count */}
+        {/* Results Count */}
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex items-center space-x-4">
             <p className="text-gray-600">
@@ -223,25 +223,6 @@ export default function ProfilesPage() {
             </p>
             {error && (
               <span className="text-red-600 text-sm">({error})</span>
-            )}
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-600">Data source:</span>
-            <span className={`px-2 py-1 rounded text-xs font-medium ${
-              useRealData 
-                ? 'bg-green-100 text-green-800' 
-                : 'bg-yellow-100 text-yellow-800'
-            }`}>
-              {useRealData ? 'Supabase' : 'Mock Data'}
-            </span>
-            {!useRealData && (
-              <Link 
-                href="/profile/edit"
-                className="text-primary-600 hover:text-primary-800 text-sm font-medium"
-              >
-                Create your profile →
-              </Link>
             )}
           </div>
         </div>

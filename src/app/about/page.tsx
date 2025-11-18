@@ -51,7 +51,7 @@ export default function AboutPage() {
               name="Gigi"
               role="Advisor"
               imageSrc="/images/team/gigi-headshot.jpg"
-              description="CEO of Setting the Record Straight, LLC."
+              description="Director at AEP Hawaii."
               fallbackInitial="G"
               colorVariant="secondary"
             />

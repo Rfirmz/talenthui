@@ -6,7 +6,7 @@ export default function AboutPage() {
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
-        <div className="text-center mb-16">
+        <div className="bg-white rounded-lg shadow-md p-8 mb-16 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             About Talent Hui
           </h1>
@@ -42,7 +42,8 @@ export default function AboutPage() {
               name="Zack"
               role="Advisor"
               imageSrc="https://xoazqxmfxsxyqnakzkab.supabase.co/storage/v1/object/public/avatars/2f69c640-284f-40c3-9585-f8644018f043/avatar.png"
-              description="Founder & CEO of AEP Hawai'i."
+              description="Zack is passionate about growing Hawaii's economy through talent development. With deep roots in the local tech ecosystem, he brings strategic vision and community connections to help Talent Hui connect Hawaii's best talent with meaningful opportunities."
+              highlight="CEO & Founder of AEP Hawaii Founder of Talent Hui"
               fallbackInitial="Z"
               colorVariant="primary"
             />
@@ -51,7 +52,8 @@ export default function AboutPage() {
               name="Gigi"
               role="Advisor"
               imageSrc="/images/team/gigi-headshot.jpg"
-              description="Director at AEP Hawaii."
+              description="Gigi brings extensive experience in talent acquisition and community building. Her expertise in connecting professionals with opportunities and understanding of Hawaii's unique business landscape helps guide Talent Hui's mission to strengthen the local talent ecosystem."
+              highlight="Director of AEP Hawaii"
               fallbackInitial="G"
               colorVariant="secondary"
             />
@@ -59,7 +61,8 @@ export default function AboutPage() {
             <AdvisorCard
               name="Darius"
               role="Advisor"
-              description="Serial entrepreneur with impressive track record, including 3 successful YC exits."
+              imageSrc="/images/team/darius.png"
+              description="Darius is a serial entrepreneur with an exceptional track record of building and scaling successful startups. With three successful Y Combinator exits under his belt, he brings unparalleled expertise in product development, fundraising, and company growth. His deep understanding of the startup ecosystem and proven ability to execute at the highest level makes him an invaluable advisor to Talent Hui as we build Hawaii's premier talent platform."
               highlight="3x Y Combinator Exits"
               fallbackInitial="D"
               colorVariant="accent"
@@ -68,7 +71,10 @@ export default function AboutPage() {
             <AdvisorCard
               name="Reid"
               role="Advisor"
-              description="Contributing strategic insights and expertise to Talent Hui."
+              imageSrc="/images/team/reid.png"
+              description="As Chief Operating Officer of Pre (YC 24), Reid brings extensive operational expertise and strategic insights to Talent Hui. His experience in scaling Y Combinator-backed startups helps shape our approach to building a sustainable platform that serves both talent and employers across Hawaii."
+              highlight="Chief Operating Officer of Pre"
+              highlightLine2="(YC 24)"
               fallbackInitial="R"
               colorVariant="primary"
             />

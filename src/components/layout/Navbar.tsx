@@ -72,7 +72,7 @@ export default function Navbar() {
   return (
     <>
       {/* Solid Color Header with Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-50 to-primary-100 shadow-lg border-b-2 border-primary-300 transition-transform duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-lg border-b-2 border-gray-200 transition-transform duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

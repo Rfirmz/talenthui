@@ -29,7 +29,10 @@ export const mockCompanies: Company[] = [
     website: "https://www.aephawaii.com/",
     linkedin_url: "https://www.linkedin.com/company/aephawaii",
     type: "Startup",
-    contacts: [{"text":"Marcela Gama","href":""},{"text":"zackhernandez","href":""},{"text":"Gigi Dawn","href":""}]
+    contacts: [
+      {"text":"Zack Hernandez","email":"zack@aephawaii.com","href":"https://www.linkedin.com/in/zackhernandez/"},
+      {"text":"Gigi Dawn","email":"gigi@aephawaii.com","href":"https://www.linkedin.com/in/gigidawn/"}
+    ]
   },
   {
     id: "1396",

@@ -38,6 +38,7 @@ export interface Company {
   type?: string;
   contacts?: Array<{
     text: string;
+    email?: string;
     href: string;
   }>;
 }

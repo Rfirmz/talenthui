@@ -8,6 +8,7 @@ import { mockProfiles } from '@/data/profiles';
 import { clearedDodProfiles } from '@/data/clearedDodProfiles';
 import { mockCompanies } from '@/data/companies';
 import ProfileCard from '@/components/cards/ProfileCard';
+import ProfileModal from '@/components/modals/ProfileModal';
 import CompanyCard from '@/components/cards/CompanyCard';
 import VideoBackground from '@/components/ui/VideoBackground';
 import CompanyCarousel from '@/components/ui/CompanyCarousel';
@@ -15,6 +16,19 @@ import CompanyCarousel from '@/components/ui/CompanyCarousel';
 export default function HomePage() {
   const [featuredProfiles, setFeaturedProfiles] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedProfile, setSelectedProfile] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Handle profile card click - open modal
+  const handleProfileClick = (profile: any) => {
+    setSelectedProfile(profile);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProfile(null);
+  };
 
   // Load real featured profiles from Supabase
   useEffect(() => {
@@ -142,7 +156,10 @@ export default function HomePage() {
   // Feature specific client companies
   const clientCompanyNames = [
     'Reef.ai', 
-    'AEP Hawaii', 
+    'AEP Hawaii',
+    'Vannevar Labs (Series B)',
+    'One Brief (Series C)',
+    'Kentik',
     'Hawaii Technology Development Corporation',
     'Bayze',
     'Honolulu Tech Week',
@@ -151,7 +168,10 @@ export default function HomePage() {
     'SAVON',
     'NogaTech IT Solutions'
   ];
-  const featuredCompanies = mockCompanies.filter(c => clientCompanyNames.includes(c.name));
+  // Filter and sort companies to maintain the specified order
+  const featuredCompanies = clientCompanyNames
+    .map(name => mockCompanies.find(c => c.name === name))
+    .filter((c): c is typeof mockCompanies[0] => c !== undefined);
 
   return (
     <div className="bg-gradient-to-b from-primary-50 to-white">
@@ -293,7 +313,11 @@ export default function HomePage() {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {featuredProfiles.map((profile) => (
-                  <ProfileCard key={profile.id} profile={profile} />
+                  <ProfileCard 
+                    key={profile.id} 
+                    profile={profile} 
+                    onClick={handleProfileClick}
+                  />
                 ))}
               </div>
               
@@ -430,6 +454,13 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Profile Modal */}
+      <ProfileModal
+        profile={selectedProfile}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }

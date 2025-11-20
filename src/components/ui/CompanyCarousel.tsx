@@ -8,7 +8,10 @@ export default function CompanyCarousel() {
   // Featured client companies (prioritize these)
   const featuredClientNames = [
     'Reef.ai', 
-    'AEP Hawaii', 
+    'AEP Hawaii',
+    'Vannevar Labs (Series B)',
+    'One Brief (Series C)',
+    'Kentik',
     'Hawaii Technology Development Corporation',
     'Bayze',
     'Honolulu Tech Week',

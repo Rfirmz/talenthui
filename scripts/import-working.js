@@ -107,7 +107,7 @@ async function importCandidates(csvPath, limit = 1000) {
             twitter_url: row['X'] || null,
             bio: generateBio(title, company, school, island),
             avatar_url: '/avatars/placeholder.svg',
-            pay_band: null,
+            pay_band: 0, // Default to unemployed for imported profiles
             visibility: true,
           };
           

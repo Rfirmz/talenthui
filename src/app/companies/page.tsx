@@ -14,7 +14,7 @@ export default function CompaniesPage() {
   const [islandFilter, setIslandFilter] = useState('');
   const [sizeFilter, setSizeFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [viewMode, setViewMode] = useState<'table' | 'grid'>('grid');
+  const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
   const itemsPerPage = 20; // Show 20 companies per page
 
   // Standardized company size ranges

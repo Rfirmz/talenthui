@@ -201,5 +201,8 @@ async function updatePayBands() {
   console.log('='.repeat(50));
 }
 
-updatePayBands().catch(console.error);
+// DISABLED: This script was disabled to preserve original pay_band values.
+// Profiles that were originally set to 0 (unemployed) should remain as 0.
+// Do not run this script as it would change unemployed profiles incorrectly.
+// updatePayBands().catch(console.error);
 

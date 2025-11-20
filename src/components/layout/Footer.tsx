@@ -13,7 +13,7 @@ export default function Footer() {
                 Talent Hui
               </div>
             </div>
-            <p className="text-gray-300 max-w-md">
+            <p className="text-white max-w-md">
               Connecting Hawaii's talent with employers and ecosystem partners. 
               Building a stronger Hawaii through community-driven career discovery.
             </p>
@@ -24,22 +24,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/profiles" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/profiles" className="text-white hover:opacity-80 transition-opacity">
                   Browse Talent
                 </Link>
               </li>
               <li>
-                <Link href="/companies" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/companies" className="text-white hover:opacity-80 transition-opacity">
                   Companies
                 </Link>
               </li>
               <li>
-                <Link href="/schools" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/schools" className="text-white hover:opacity-80 transition-opacity">
                   Schools
                 </Link>
               </li>
               <li>
-                <Link href="/cities" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/cities" className="text-white hover:opacity-80 transition-opacity">
                   Cities
                 </Link>
               </li>
@@ -51,22 +51,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">About</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/about" className="text-white hover:opacity-80 transition-opacity">
                   Our Mission
                 </Link>
               </li>
               <li>
-                <Link href="/about#team" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/about#team" className="text-white hover:opacity-80 transition-opacity">
                   Team
                 </Link>
               </li>
               <li>
-                <Link href="/about#partners" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/about#partners" className="text-white hover:opacity-80 transition-opacity">
                   Partners
                 </Link>
               </li>
               <li>
-                <Link href="/about#contact" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/about#contact" className="text-white hover:opacity-80 transition-opacity">
                   Contact
                 </Link>
               </li>
@@ -76,14 +76,14 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-white text-sm">
               © 2024 Talent Hui. All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-white hover:opacity-80 transition-opacity">
                 Privacy Policy
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-white hover:opacity-80 transition-opacity">
                 Terms of Service
               </a>
             </div>
@@ -98,7 +98,7 @@ export default function Footer() {
                 className="flex items-center hover:opacity-80 transition-opacity"
               >
                 <Image
-                  src="https://oihana.org/wp-content/uploads/group-avatars/180/686efa5068c7e-bpfull.png"
+                  src="/images/company_photos/aep_hawaii.png"
                   alt="AEP Hawaii"
                   width={60}
                   height={60}

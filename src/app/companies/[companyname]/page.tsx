@@ -6,20 +6,68 @@ import { mockCompanies } from '@/data/companies';
 import { Company } from '@/types';
 import Link from 'next/link';
 import CompanyLogo from '@/components/ui/CompanyLogo';
+import { supabase } from '@/lib/supabase';
 
 export default function CompanyDetailPage() {
   const params = useParams();
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
+  const [contacts, setContacts] = useState<Array<{text: string, email?: string, href: string}>>([]);
 
   useEffect(() => {
-    if (params.companyname) {
-      const foundCompany = mockCompanies.find(
-        c => c.slug === params.companyname
-      );
-      setCompany(foundCompany || null);
-      setLoading(false);
-    }
+    const loadCompany = async () => {
+      if (params.companyname) {
+        const foundCompany = mockCompanies.find(
+          c => c.slug === params.companyname
+        );
+        
+        if (foundCompany) {
+          setCompany(foundCompany);
+          
+          // For AEP Hawaii, fetch contacts from profiles
+          if (foundCompany.name === 'AEP Hawaii') {
+            try {
+              const { data: profiles, error } = await supabase
+                .from('profiles')
+                .select('full_name, email, linkedin_url')
+                .or(`current_company.ilike.%AEP Hawaii%,company.ilike.%AEP Hawaii%`)
+                .eq('visibility', true)
+                .limit(10);
+              
+              if (!error && profiles && profiles.length > 0) {
+                const contactList = profiles
+                  .filter(p => p.full_name && !p.full_name.toLowerCase().includes('marcela gama'))
+                  .map(profile => {
+                    const name = profile.full_name || '';
+                    const email = profile.email || '';
+                    // Prioritize LinkedIn URL, then email, otherwise empty
+                    const href = profile.linkedin_url 
+                      ? profile.linkedin_url
+                      : email 
+                        ? `mailto:${email}`
+                        : '';
+                    return { text: name, email: email, href };
+                  });
+                setContacts(contactList);
+              } else {
+                // Fallback to company contacts from static data
+                setContacts(foundCompany.contacts || []);
+              }
+            } catch (err) {
+              console.error('Error loading contacts:', err);
+              // Fallback to company contacts from static data
+              setContacts(foundCompany.contacts || []);
+            }
+          } else {
+            // For other companies, use static contacts
+            setContacts(foundCompany.contacts || []);
+          }
+        }
+        setLoading(false);
+      }
+    };
+    
+    loadCompany();
   }, [params.companyname]);
 
   if (loading) {
@@ -105,16 +153,36 @@ export default function CompanyDetailPage() {
             </div>
 
             {/* Contact Information */}
-            {company.contacts && company.contacts.length > 0 && (
+            {contacts && contacts.length > 0 && (
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Key Contacts</h2>
-                <div className="space-y-2">
-                  {company.contacts.map((contact, index) => (
-                    <div key={index} className="flex items-center">
-                      <svg className="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="space-y-4">
+                  {contacts.map((contact, index) => (
+                    <div key={index} className="flex items-start">
+                      <svg className="w-5 h-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
-                      <span className="text-gray-700">{contact.text}</span>
+                      <div className="flex-1">
+                        <div>
+                          {contact.href ? (
+                            <a 
+                              href={contact.href}
+                              target={contact.href.startsWith('http') || contact.href.startsWith('mailto') ? '_blank' : undefined}
+                              rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              className="text-primary-600 hover:text-primary-700 hover:underline font-medium"
+                            >
+                              {contact.text}
+                            </a>
+                          ) : (
+                            <span className="text-gray-900 font-medium">{contact.text}</span>
+                          )}
+                        </div>
+                        {contact.email && (
+                          <div className="mt-1">
+                            <span className="text-gray-600 text-sm">{contact.email}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>

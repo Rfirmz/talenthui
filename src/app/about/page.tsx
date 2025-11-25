@@ -85,7 +85,8 @@ export default function AboutPage() {
         <div className="mb-16" id="partners">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Partners</h2>
           <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* First row: 2 partners */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex justify-center mb-4">
                   <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
@@ -107,51 +108,71 @@ export default function AboutPage() {
                 <div className="flex justify-center mb-4">
                   <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
                     <Image
-                      src="/images/company_photos/Logo1.webp"
-                      alt="Nalukai logo"
+                      src="/images/company_photos/pre_logo.svg"
+                      alt="Pre logo"
                       width={128}
                       height={128}
                       className="object-contain w-full h-full"
                     />
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Nalukai.org</h3>
+                <h3 className="font-semibold text-gray-900 mb-2">Pre (YC S24)</h3>
                 <p className="text-sm text-gray-600">
-                  Empowering Hawaii's youth with technology skills and entrepreneurial opportunities.
+                  Pre is an AI-powered execution system for startup founders who are serious about building real companies.
+                </p>
+              </div>
+            </div>
+            {/* Second row: 3 partners */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex justify-center mb-4">
+                  <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
+                    <Image
+                      src="/images/company_photos/thrivehi_logo.jpeg"
+                      alt="ThriveHi logo"
+                      width={128}
+                      height={128}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">ThriveHi</h3>
+                <p className="text-sm text-gray-600">
+                  Nonprofit organization on the mission to build Hawaii's startup and tech economy to create higher-quality jobs for local residents and strengthen our state's economic resilience.
                 </p>
               </div>
               <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex justify-center mb-4">
                   <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
                     <Image
-                      src="/images/company_photos/hpu_valueslockup_color.png"
-                      alt="Hawaii Pacific University logo"
+                      src="/images/company_photos/hitechweek_logo.jpeg"
+                      alt="Honolulu Tech Week logo"
                       width={128}
                       height={128}
                       className="object-contain w-full h-full"
                     />
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Hawaii Pacific University</h3>
+                <h3 className="font-semibold text-gray-900 mb-2">Honolulu Tech Week</h3>
                 <p className="text-sm text-gray-600">
-                  Preparing students for global careers while maintaining strong ties to Hawaii's community.
+                  Honolulu Tech Week is a week of inspiring events hosted by leaders across Hawaii's tech ecosystem and globally.
                 </p>
               </div>
               <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="flex justify-center mb-4">
                   <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
                     <Image
-                      src="/images/company_photos/0x0.webp"
-                      alt="University of Hawaii at Manoa logo"
+                      src="/images/company_photos/blue_startups_logo.png"
+                      alt="Blue Startups logo"
                       width={128}
                       height={128}
                       className="object-contain w-full h-full"
                     />
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">University of Hawaii at Manoa</h3>
+                <h3 className="font-semibold text-gray-900 mb-2">Blue Startups</h3>
                 <p className="text-sm text-gray-600">
-                  Hawaii's flagship university connecting students and alumni with career opportunities.
+                  Blue Startups is a venture accelerator based in Honolulu, Hawaiʻi, United States.
                 </p>
               </div>
             </div>

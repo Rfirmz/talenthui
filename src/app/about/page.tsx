@@ -162,7 +162,7 @@ export default function AboutPage() {
                 <div className="flex justify-center mb-4">
                   <div className="relative w-32 h-32 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-4">
                     <Image
-                      src="/images/company_photos/blue_startups_logo.png"
+                      src="/images/company_photos/Blue_Startups_logo.png"
                       alt="Blue Startups logo"
                       width={128}
                       height={128}

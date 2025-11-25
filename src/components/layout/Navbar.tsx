@@ -105,6 +105,16 @@ export default function Navbar() {
                 Talent
               </Link>
               <Link 
+                href="/salaries" 
+                className={`px-5 py-3 text-base font-semibold rounded-lg transition-all duration-200 ${
+                  isActive('/salaries') 
+                    ? 'bg-primary-600 text-white shadow-lg scale-105' 
+                    : 'bg-white text-primary-700 hover:bg-primary-100 hover:text-primary-900 shadow-md hover:shadow-lg hover:scale-105 border border-primary-200'
+                }`}
+              >
+                Salaries
+              </Link>
+              <Link 
                 href="/companies" 
                 className={`px-5 py-3 text-base font-semibold rounded-lg transition-all duration-200 ${
                   isActive('/companies') 
@@ -209,6 +219,13 @@ export default function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Talent
+              </Link>
+              <Link 
+                href="/salaries" 
+                className={`block px-5 py-4 rounded-lg text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg border-2 border-black ${isActive('/salaries') ? 'text-primary-800 border-b-8 border-b-primary-500' : 'text-primary-600 hover:text-primary-800'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Salaries
               </Link>
               <Link 
                 href="/companies" 

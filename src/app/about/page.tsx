@@ -40,7 +40,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <AdvisorCard
               name="Zack"
-              role="Advisor"
+              role="Founder"
               imageSrc="https://xoazqxmfxsxyqnakzkab.supabase.co/storage/v1/object/public/avatars/2f69c640-284f-40c3-9585-f8644018f043/avatar.png"
               description="Zack is passionate about growing Hawaii's economy through talent development. With deep roots in the local tech ecosystem, he brings strategic vision and community connections to help Talent Hui connect Hawaii's best talent with meaningful opportunities."
               highlight="CEO & Founder of AEP Hawaii Founder of Talent Hui"

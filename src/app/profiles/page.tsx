@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
-import { getSession } from '@/lib/auth';
 import { mockProfiles } from '@/data/profiles';
 import { clearedDodProfiles } from '@/data/clearedDodProfiles';
 import ProfileCard from '@/components/cards/ProfileCard';

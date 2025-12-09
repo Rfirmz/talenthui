@@ -20,8 +20,10 @@ export default function SubscriptionPaywall() {
 
     // Simple check - if promo code matches, grant access
     if (promoCode.trim().toLowerCase() === VALID_PROMO_CODE.toLowerCase()) {
-      // Store access in localStorage
-      localStorage.setItem('talent_access', 'granted');
+      // Store access in localStorage (client-side only)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('talent_access', 'granted');
+      }
       // Redirect to profiles immediately
       window.location.href = '/profiles';
     } else {

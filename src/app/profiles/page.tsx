@@ -31,10 +31,12 @@ export default function ProfilesPage() {
   const [hasAccess, setHasAccess] = useState(false);
   const [checkingAccess, setCheckingAccess] = useState(true);
 
-  // Check access from localStorage
+  // Check access from localStorage (client-side only)
   useEffect(() => {
-    const access = localStorage.getItem('talent_access') === 'granted';
-    setHasAccess(access);
+    if (typeof window !== 'undefined') {
+      const access = localStorage.getItem('talent_access') === 'granted';
+      setHasAccess(access);
+    }
     setCheckingAccess(false);
   }, []);
 

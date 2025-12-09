@@ -3,9 +3,16 @@ import Stripe from 'stripe';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-11-20.acacia',
-});
+// Only initialize Stripe if secret key is available (prevents build errors)
+const getStripe = () => {
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) {
+    return null;
+  }
+  return new Stripe(secretKey, {
+    apiVersion: '2024-11-20.acacia',
+  });
+};
 
 // Create server-side Supabase client with proper SSR support
 async function createServerSupabaseClient() {
@@ -38,7 +45,8 @@ async function createServerSupabaseClient() {
 export async function POST(request: NextRequest) {
   try {
     // Check if Stripe is configured
-    if (!process.env.STRIPE_SECRET_KEY) {
+    const stripe = getStripe();
+    if (!stripe) {
       return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 });
     }
 
@@ -62,7 +70,7 @@ export async function POST(request: NextRequest) {
       }, { status: 500 });
     }
 
-    const checkoutSession = await stripe.checkout.sessions.create({
+    const checkoutSession = await stripe!.checkout.sessions.create({
       mode: 'subscription',
       customer_email: user.email,
       line_items: [

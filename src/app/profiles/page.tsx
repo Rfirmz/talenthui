@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
+import { getSession } from '@/lib/auth';
 import { mockProfiles } from '@/data/profiles';
 import { clearedDodProfiles } from '@/data/clearedDodProfiles';
 import ProfileCard from '@/components/cards/ProfileCard';
@@ -9,6 +10,7 @@ import ProfileModal from '@/components/modals/ProfileModal';
 import SearchBar from '@/components/ui/SearchBar';
 import FilterDropdown from '@/components/ui/FilterDropdown';
 import Pagination from '@/components/ui/Pagination';
+import SubscriptionPaywall from '@/components/paywall/SubscriptionPaywall';
 import Link from 'next/link';
 
 export default function ProfilesPage() {
@@ -24,6 +26,17 @@ export default function ProfilesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 24; // Show 24 profiles per page
+  
+  // Subscription/paywall state - simple localStorage check
+  const [hasAccess, setHasAccess] = useState(false);
+  const [checkingAccess, setCheckingAccess] = useState(true);
+
+  // Check access from localStorage
+  useEffect(() => {
+    const access = localStorage.getItem('talent_access') === 'granted';
+    setHasAccess(access);
+    setCheckingAccess(false);
+  }, []);
 
   // Load profiles from Supabase
   useEffect(() => {
@@ -154,6 +167,22 @@ export default function ProfilesPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
+
+  // Show loading state while checking access
+  if (checkingAccess) {
+    return (
+      <div className="bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center text-primary-600 text-lg">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show paywall if no access
+  if (!hasAccess) {
+    return <SubscriptionPaywall />;
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen">

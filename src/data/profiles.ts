@@ -3,8 +3,8 @@ import { Profile } from '@/types';
 export const mockProfiles: Profile[] = [
   {
     id: "1",
-    username: "john-doe",
-    full_name: "John Doe",
+    username: "rafael-firme",
+    full_name: "Rafael Firme",
     avatar_url: "/avatars/placeholder.svg",
     current_title: "Software Engineer",
     company: "Hawaii Technology Development Corporation",
@@ -12,9 +12,9 @@ export const mockProfiles: Profile[] = [
     city: "Honolulu",
     school: "University of Hawaii at Manoa",
     bio: "Building the future of Hawaii tech with passion and aloha spirit. Love working on projects that benefit our local community.",
-    linkedin_url: "https://linkedin.com/in/johndoe",
-    github_url: "https://github.com/johndoe",
-    twitter_url: "https://twitter.com/johndoe",
+    linkedin_url: "https://linkedin.com/in/rafaelfirme",
+    github_url: "https://github.com/rafaelfirme",
+    twitter_url: "https://twitter.com/rafaelfirme",
     pay_band: 80000,
   },
   {

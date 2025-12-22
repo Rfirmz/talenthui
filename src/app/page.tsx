@@ -37,108 +37,128 @@ export default function HomePage() {
       try {
         setIsLoading(true);
         
-        // Fetch Zack and Gigi specifically
-        const { data: zackDataArray } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('visibility', true)
-          .ilike('full_name', '%zack hernandez%')
-          .limit(1);
-        const zackData = zackDataArray && zackDataArray.length > 0 ? zackDataArray[0] : null;
+        // Fetch specific featured profiles
+        const featuredNames = [
+          { name: 'Zack', search: ['zack hernandez', 'zack', 'hernandez'] },
+          { name: 'Gigi', search: ['gigi dawn', 'gigi', 'dawn'] },
+          { name: 'Jia Qi', search: ['jia qi', 'jia', 'qi'], company: 'TikTok' },
+          { name: 'Noel', search: ['noel', 'noel '] },
+          { name: 'Jeff Mori', search: ['jeff mori', 'jeff', 'mori'] },
+          { name: 'Austin Yoshino', search: ['austin yoshino', 'yoshino'], email: 'ay@austinyoshino.com' },
+          { name: 'Francisco Cha', search: ['francisco cha', 'francisco', 'cha'] },
+          { name: 'Brian NG', search: ['brian ng', 'brian', 'ng'] },
+          { name: 'Rafael Firme', search: ['rafael firme', 'rafael', 'firme'] },
+          { name: 'Austin Yoshino 2', search: ['austin yoshino', 'yoshino'], email: null, useSecond: true }
+        ];
 
-        const { data: gigiDataArray } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('visibility', true)
-          .ilike('full_name', '%gigi dawn%')
-          .limit(1);
-        const gigiData = gigiDataArray && gigiDataArray.length > 0 ? gigiDataArray[0] : null;
+        const fetchedProfiles: any[] = [];
+        const foundNames = new Set<string>();
 
-        // Get other profiles (excluding Zack and Gigi)
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('visibility', true)
-          .not('bio', 'is', null)
-          .limit(20);
+        // Fetch all profiles in parallel for faster loading
+        const profilePromises = featuredNames.map(async ({ name, search, email, useSecond, company }) => {
+          let profile = null;
 
-        if (error) {
-          console.error('Error loading featured profiles:', error);
-          setFeaturedProfiles(mockProfiles.slice(0, 9));
-        } else {
-          // Filter out Zack, Gigi, and unwanted profiles
-          const filteredData = (data || []).filter((profile) => {
-            const name = profile.full_name?.toLowerCase() || '';
-            return !name.includes('ryan dude') && 
-                   !name.includes('zack hernandez') && 
-                   !name.includes('gigi dawn');
-          });
-
-          // Merge cleared DoD profiles, avoiding duplicates
-          const existingNames = new Set(filteredData.map((profile) => (profile.full_name || '').toLowerCase()));
-          const mergedData = [
-            ...filteredData,
-            ...clearedDodProfiles.filter(
-              (profile) => profile.full_name && !existingNames.has(profile.full_name.toLowerCase())
-            ),
-          ];
-
-          // Find Rafael Firme
-          const rafaelProfile = mergedData.find(p => {
-            const name = (p.full_name || '').toLowerCase();
-            return name.includes('rafael firme');
-          });
-
-          // Get other profiles (excluding Rafael)
-          const otherProfiles = mergedData.filter(p => {
-            const name = (p.full_name || '').toLowerCase();
-            return !name.includes('rafael firme');
-          });
-
-          // Sort other profiles by created_at desc
-          const sortedOthers = otherProfiles.sort((a, b) => {
-            const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
-            const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
-            return bDate - aDate;
-          });
-
-          // Build final list: 9 profiles total
-          // Row 1 (positions 1-3): Rafael + 2 others
-          // Row 2 (positions 4-6): 3 others
-          // Row 3 (positions 7-9): 1 other + Zack + Gigi
-          const finalProfiles: any[] = [];
-          
-          // Position 1: Rafael if exists
-          if (rafaelProfile) {
-            finalProfiles.push(rafaelProfile);
-          }
-          
-          // Positions 2-6: Other profiles (5 more for rows 1-2)
-          finalProfiles.push(...sortedOthers.slice(0, 5));
-          
-          // Position 7: One more other profile
-          if (sortedOthers.length > 5) {
-            finalProfiles.push(sortedOthers[5]);
-          }
-          
-          // Positions 8-9: Zack and Gigi (3rd row)
-          if (zackData) {
-            finalProfiles.push(zackData);
-          }
-          if (gigiData) {
-            finalProfiles.push(gigiData);
-          }
-          
-          // Fill remaining slots if needed (in case we don't have enough)
-          if (finalProfiles.length < 9 && sortedOthers.length > 6) {
-            const remaining = sortedOthers.slice(6).filter(p => 
-              !finalProfiles.includes(p)
-            );
-            finalProfiles.push(...remaining.slice(0, 9 - finalProfiles.length));
+          // Try email search first if available
+          if (email && !useSecond) {
+            const { data: emailData } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('visibility', true)
+              .ilike('email', email)
+              .limit(1);
+            
+            if (emailData && emailData.length > 0) {
+              return { name, profile: emailData[0] };
+            }
           }
 
-          setFeaturedProfiles(finalProfiles.slice(0, 9));
+          // If not found by email, try name search (try most specific first)
+          for (const searchTerm of search) {
+            let query = supabase
+              .from('profiles')
+              .select('*')
+              .eq('visibility', true)
+              .ilike('full_name', `%${searchTerm}%`);
+            
+            // For Jia Qi, filter by company TikTok
+            if (name === 'Jia Qi' && (company || searchTerm.includes('jia qi'))) {
+              query = query.ilike('current_company', '%tiktok%');
+            }
+            
+            const { data } = await query.limit(10);
+
+            if (data && data.length > 0) {
+              // For Austin Yoshino with useSecond, get the second one
+              if (name === 'Austin Yoshino 2' && data.length > 1) {
+                // Prefer Founder profile, or get second by creation date
+                const founderProfile = data.find(p => 
+                  p.current_title?.toLowerCase().includes('founder')
+                );
+                
+                if (founderProfile) {
+                  profile = founderProfile;
+                } else {
+                  const sorted = data.sort((a, b) => {
+                    const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
+                    const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
+                    return bDate - aDate;
+                  });
+                  profile = sorted[1] || sorted[0];
+                }
+              } else if (name === 'Jia Qi') {
+                // For Jia Qi, prefer Machine Learning Engineer at TikTok
+                const mleProfile = data.find(p => 
+                  p.current_title?.toLowerCase().includes('machine learning') &&
+                  (p.current_company?.toLowerCase().includes('tiktok') || p.company?.toLowerCase().includes('tiktok'))
+                );
+                profile = mleProfile || data[0];
+              } else {
+                // For first Austin Yoshino, prefer the one with email or Founder
+                if (name === 'Austin Yoshino' && data.length > 1) {
+                  const founderProfile = data.find(p => 
+                    p.current_title?.toLowerCase().includes('founder')
+                  );
+                  profile = founderProfile || data[0];
+                } else {
+                  profile = data[0];
+                }
+              }
+              break; // Found a match, stop searching
+            }
+          }
+
+          return { name, profile };
+        });
+
+        // Wait for all queries to complete in parallel
+        const results = await Promise.all(profilePromises);
+
+        // Process results and add to fetchedProfiles
+        for (const { name, profile } of results) {
+          if (profile) {
+            const profileName = (profile.full_name || '').toLowerCase();
+            if (!foundNames.has(profileName)) {
+              foundNames.add(profileName);
+              fetchedProfiles.push({
+                ...profile,
+                company: profile.current_company || profile.company || '',
+              });
+            }
+          }
         }
+
+        // Ensure we have 9 profiles, fill with mock data if needed
+        if (fetchedProfiles.length < 9) {
+          const filteredMockProfiles = [...mockProfiles, ...clearedDodProfiles].filter((profile) => {
+            const name = profile.full_name?.toLowerCase() || '';
+            return !name.includes('ryan inouye') && 
+                   !name.includes('ryan dude') &&
+                   !foundNames.has(name);
+          });
+          fetchedProfiles.push(...filteredMockProfiles.slice(0, 9 - fetchedProfiles.length));
+        }
+
+        setFeaturedProfiles(fetchedProfiles.slice(0, 9));
       } catch (err) {
         console.error('Error loading featured profiles:', err);
         const filteredMockProfiles = [...mockProfiles, ...clearedDodProfiles].filter((profile) => {

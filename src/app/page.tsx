@@ -18,6 +18,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProfile, setSelectedProfile] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [testimonialProfiles, setTestimonialProfiles] = useState<{[key: string]: any}>({});
 
   // Handle profile card click - open modal
   const handleProfileClick = (profile: any) => {
@@ -151,6 +152,196 @@ export default function HomePage() {
     };
 
     loadFeaturedProfiles();
+  }, []);
+
+  // Load testimonial profiles
+  useEffect(() => {
+    const loadTestimonialProfiles = async () => {
+      try {
+        const testimonialQueries = [
+          { key: 'Austin Yoshino', searches: ['Austin Yoshino', 'Yoshino', 'Austin Y'], email: 'ay@austinyoshino.com' },
+          { key: 'Robert Kam', searches: ['Robert Kam', 'Kam'], email: null },
+          { key: 'Tim Kamana', searches: ['Timothy Kamanā', 'Timothy Kamana', 'Tim Kamanā', 'Tim Kamana', 'Kamanā', 'Kamana'], email: null }
+        ];
+        const profiles: {[key: string]: any} = {};
+
+        for (const { key, searches, email } of testimonialQueries) {
+          let found = false;
+          
+          // For Austin Yoshino, try email search first if available
+          if (key === 'Austin Yoshino' && email) {
+            const { data: emailData } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('visibility', true)
+              .ilike('email', email)
+              .limit(1);
+            
+            if (emailData && emailData.length > 0) {
+              profiles[key] = {
+                ...emailData[0],
+                company: emailData[0].current_company || emailData[0].company || '',
+              };
+              console.log(`✅ Found profile for ${key} (by email):`, emailData[0].full_name, 'Title:', emailData[0].current_title, 'Avatar:', emailData[0].avatar_url);
+              found = true;
+            }
+          }
+          
+          // Try each search variation
+          for (const search of searches) {
+            if (found) break;
+            
+            // Try exact match - get all matches for Austin Yoshino
+            let { data } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('visibility', true)
+              .ilike('full_name', `%${search}%`)
+              .limit(10);
+
+            if (data && data.length > 0) {
+              // For Austin Yoshino, find the one with "Founder" title or more complete data
+              if (key === 'Austin Yoshino' && data.length > 1) {
+                // First, exclude CEO profiles and prefer Founder
+                const founderProfile = data.find(p => {
+                  const title = p.current_title?.toLowerCase() || '';
+                  return title.includes('founder') && !title.includes('ceo') && !title.includes('chief executive');
+                });
+                
+                if (founderProfile) {
+                  profiles[key] = {
+                    ...founderProfile,
+                    company: founderProfile.current_company || founderProfile.company || '',
+                  };
+                  console.log(`✅ Found profile for ${key} (Founder):`, founderProfile.full_name, 'Title:', founderProfile.current_title, 'Avatar:', founderProfile.avatar_url);
+                  found = true;
+                  break;
+                }
+                
+                // If no founder, exclude CEO and find one with multiple locations
+                const nonCEOProfiles = data.filter(p => {
+                  const title = p.current_title?.toLowerCase() || '';
+                  return !title.includes('chief executive') && !title.includes('ceo');
+                });
+                
+                if (nonCEOProfiles.length > 0) {
+                  const profileWithMultipleLocations = nonCEOProfiles.find(p => {
+                    const hasMultipleLocations = 
+                      (p.current_city && p.hometown) || 
+                      (p.current_city && p.island) ||
+                      (p.city && p.island && p.hometown);
+                    const hasRealAvatar = p.avatar_url && 
+                      !p.avatar_url.includes('placeholder') &&
+                      p.avatar_url !== '/avatars/placeholder.svg';
+                    return hasMultipleLocations && hasRealAvatar;
+                  });
+                  
+                  if (profileWithMultipleLocations) {
+                    profiles[key] = {
+                      ...profileWithMultipleLocations,
+                      company: profileWithMultipleLocations.current_company || profileWithMultipleLocations.company || '',
+                    };
+                    console.log(`✅ Found profile for ${key} (multiple locations + avatar, non-CEO):`, profileWithMultipleLocations.full_name, 'Title:', profileWithMultipleLocations.current_title, 'Avatar:', profileWithMultipleLocations.avatar_url);
+                    found = true;
+                    break;
+                  }
+                }
+                
+                // If no founder, prefer profile with multiple locations (San Francisco, Honolulu, Oahu)
+                const profileWithMultipleLocations = data.find(p => {
+                  const hasMultipleLocations = 
+                    (p.current_city && p.hometown) || 
+                    (p.current_city && p.island) ||
+                    (p.city && p.island && p.hometown);
+                  const hasRealAvatar = p.avatar_url && 
+                    !p.avatar_url.includes('placeholder') &&
+                    p.avatar_url !== '/avatars/placeholder.svg';
+                  return hasMultipleLocations && hasRealAvatar;
+                });
+                
+                if (profileWithMultipleLocations) {
+                  profiles[key] = {
+                    ...profileWithMultipleLocations,
+                    company: profileWithMultipleLocations.current_company || profileWithMultipleLocations.company || '',
+                  };
+                  console.log(`✅ Found profile for ${key} (multiple locations + avatar):`, profileWithMultipleLocations.full_name, 'Title:', profileWithMultipleLocations.current_title, 'Avatar:', profileWithMultipleLocations.avatar_url);
+                  found = true;
+                  break;
+                }
+                
+                // Prefer profile with real avatar (not placeholder)
+                const profileWithAvatar = data.find(p => 
+                  p.avatar_url && 
+                  !p.avatar_url.includes('placeholder') &&
+                  p.avatar_url !== '/avatars/placeholder.svg'
+                );
+                
+                if (profileWithAvatar) {
+                  profiles[key] = {
+                    ...profileWithAvatar,
+                    company: profileWithAvatar.current_company || profileWithAvatar.company || '',
+                  };
+                  console.log(`✅ Found profile for ${key} (with avatar):`, profileWithAvatar.full_name, 'Title:', profileWithAvatar.current_title, 'Avatar:', profileWithAvatar.avatar_url);
+                  found = true;
+                  break;
+                }
+                
+                // Fallback: use the second one by creation date
+                const sorted = data.sort((a, b) => {
+                  const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
+                  const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
+                  return bDate - aDate; // Most recent first
+                });
+                const selectedProfile = sorted[1] || sorted[0];
+                profiles[key] = {
+                  ...selectedProfile,
+                  company: selectedProfile.current_company || selectedProfile.company || '',
+                };
+                console.log(`✅ Found profile for ${key} (using second match):`, selectedProfile.full_name, 'Avatar:', selectedProfile.avatar_url);
+                found = true;
+                break;
+              }
+              
+              // Find the best match (exact match preferred) for others
+              const exactMatch = data.find(p => 
+                p.full_name?.toLowerCase() === search.toLowerCase() ||
+                p.full_name?.toLowerCase().includes(search.toLowerCase())
+              );
+              
+              if (exactMatch) {
+                // Map current_company to company for compatibility with ProfileCard
+                profiles[key] = {
+                  ...exactMatch,
+                  company: exactMatch.current_company || exactMatch.company || '',
+                };
+                console.log(`✅ Found profile for ${key}:`, exactMatch.full_name, 'Avatar:', exactMatch.avatar_url);
+                found = true;
+                break;
+              } else if (data.length > 0) {
+                // Use first result if no exact match, map company field
+                profiles[key] = {
+                  ...data[0],
+                  company: data[0].current_company || data[0].company || '',
+                };
+                console.log(`✅ Found profile for ${key} (partial match):`, data[0].full_name, 'Avatar:', data[0].avatar_url);
+                found = true;
+                break;
+              }
+            }
+          }
+
+          if (!found) {
+            console.log(`❌ No profile found for ${key}`);
+          }
+        }
+
+        setTestimonialProfiles(profiles);
+      } catch (err) {
+        console.error('Error loading testimonial profiles:', err);
+      }
+    };
+
+    loadTestimonialProfiles();
   }, []);
   
   // Feature specific client companies
@@ -373,58 +564,172 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-              What Our Community Says
+              What our Community Says
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200">
-              <p className="text-gray-700 mb-4">
-                "Talent Hui helped me connect with amazing local companies. 
-                The community feel is exactly what I was looking for."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-primary-600 font-bold">JD</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            {/* Austin Yoshino */}
+            {(() => {
+              const profile = testimonialProfiles['Austin Yoshino'];
+              
+              return (
+                <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 flex flex-col h-full">
+                  {/* Quote at top */}
+                  <div className="mb-6">
+                    <p className="text-gray-800 text-lg italic text-center">
+                      "Love the vision, will use it as central source of truth for sourcing HI talent"
+                    </p>
+                  </div>
+                  
+                  {/* Profile section - aligned at bottom */}
+                  {profile ? (
+                    <div className="flex-grow flex flex-col justify-end">
+                      <div className="flex items-end space-x-4">
+                        {/* Avatar */}
+                        <div className="flex-shrink-0">
+                          <img
+                            src={profile.avatar_url && profile.avatar_url !== '/avatars/placeholder.svg' && !profile.avatar_url.includes('placeholder') 
+                              ? profile.avatar_url 
+                              : '/avatars/placeholder.svg'}
+                            alt={profile.full_name || 'Profile'}
+                            className="w-20 h-20 rounded-full object-cover border-[3px] border-primary-200 shadow-sm"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/avatars/placeholder.svg';
+                            }}
+                          />
+                        </div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-semibold text-gray-900 truncate">{profile.full_name || 'No name'}</h3>
+                          <p className="text-primary-600 font-medium text-sm mt-1 truncate">
+                            {profile.current_title || 'No title'}
+                          </p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <p className="text-gray-600 text-sm truncate">{profile.company || profile.current_company || 'No company'}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex-grow flex flex-col justify-end">
+                      <div className="flex items-end space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center border-[3px] border-primary-200 shadow-sm">
+                            <span className="text-primary-600 font-bold text-xl">AY</span>
+                          </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-semibold text-gray-900">Austin Yoshino</h3>
+                          <p className="text-primary-600 font-medium text-sm mt-1">CEO of Anja (raised 4.5m from YC, 776)</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <p className="font-medium text-gray-900">John Doe</p>
-                  <p className="text-sm text-gray-600">Software Engineer</p>
-                </div>
-              </div>
-            </div>
+              );
+            })()}
             
-            <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200">
-              <p className="text-gray-700 mb-4">
-                "As a hiring manager, I love how Talent Hui connects me with 
-                qualified local candidates who understand our culture."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-secondary-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-secondary-600 font-bold">SK</span>
+            {/* Robert Kam */}
+            {(() => {
+              const profile = testimonialProfiles['Robert Kam'];
+              
+              return (
+                <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 flex flex-col h-full">
+                  {/* Quote at top */}
+                  <div className="mb-6">
+                    <p className="text-gray-800 text-lg italic text-center">
+                      "Great tool, user friendly for recruiters and candidates alike."
+                    </p>
+                  </div>
+                  
+                  {/* Profile section - aligned at bottom */}
+                  <div className="flex-grow flex flex-col justify-end">
+                    <div className="flex items-end space-x-4">
+                      {/* Avatar - matches ProfileCard size */}
+                      <div className="flex-shrink-0">
+                        <div className="w-20 h-20 rounded-full bg-secondary-100 flex items-center justify-center border-[3px] border-secondary-200 shadow-sm">
+                          <span className="text-secondary-600 font-bold text-xl">RK</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold text-gray-900 truncate">Robert Kam</h3>
+                        <p className="text-primary-600 font-medium text-sm mt-1 truncate">
+                          Senior Federal Program Manager
+                        </p>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <p className="text-gray-600 text-sm truncate">Virtru</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-900">Sarah Kim</p>
-                  <p className="text-sm text-gray-600">HR Manager</p>
-                </div>
-              </div>
-            </div>
+              );
+            })()}
             
-            <div className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200">
-              <p className="text-gray-700 mb-4">
-                "The platform showcases Hawaii's incredible talent pool. 
-                It's inspiring to see so many skilled professionals here."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-accent-600 font-bold">MC</span>
+            {/* Tim Kamana */}
+            {(() => {
+              const profile = testimonialProfiles['Tim Kamana'];
+              
+              return (
+                <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 flex flex-col h-full">
+                  {/* Quote at top */}
+                  <div className="mb-6">
+                    <p className="text-gray-800 text-lg italic text-center">
+                      "Talent Hui represents something we've been missing. A place built for Hawai'i, by people who actually understand Hawai'i."
+                    </p>
+                  </div>
+                  
+                  {/* Profile section - aligned at bottom */}
+                  {profile ? (
+                    <div className="flex-grow flex flex-col justify-end">
+                      <div className="flex items-end space-x-4">
+                        {/* Avatar */}
+                        <div className="flex-shrink-0">
+                          <img
+                            src={profile.avatar_url && profile.avatar_url !== '/avatars/placeholder.svg' && !profile.avatar_url.includes('placeholder') 
+                              ? profile.avatar_url 
+                              : '/avatars/placeholder.svg'}
+                            alt={profile.full_name || 'Profile'}
+                            className="w-20 h-20 rounded-full object-cover border-[3px] border-primary-200 shadow-sm"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/avatars/placeholder.svg';
+                            }}
+                          />
+                        </div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-semibold text-gray-900 truncate">{profile.full_name || 'No name'}</h3>
+                          <p className="text-primary-600 font-medium text-sm mt-1 truncate">
+                            {profile.current_title || 'No title'}
+                          </p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <p className="text-gray-600 text-sm truncate">{profile.company || profile.current_company || 'No company'}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex-grow flex flex-col justify-end">
+                      <div className="flex items-end space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-20 h-20 rounded-full bg-accent-100 flex items-center justify-center border-[3px] border-accent-200 shadow-sm">
+                            <span className="text-accent-600 font-bold text-xl">TK</span>
+                          </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-semibold text-gray-900">Timothy Kamanā</h3>
+                          <p className="text-primary-600 font-medium text-sm mt-1">Talent at Onebrief</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <p className="font-medium text-gray-900">Mike Chen</p>
-                  <p className="text-sm text-gray-600">UX Designer</p>
-                </div>
-              </div>
-            </div>
+              );
+            })()}
           </div>
         </div>
       </section>

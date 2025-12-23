@@ -21675,7 +21675,7 @@ export const mockCompanies: Company[] = [
     name: "Hohonu",
     slug: "hohonu",
     description: "Climate adaptation and water monitoring solutions",
-    logo_url: "",
+    logo_url: "/images/company_photos/hohonu_logo.png",
     industry: "Technology",
     size: "10-50",
     island: "Oahu",

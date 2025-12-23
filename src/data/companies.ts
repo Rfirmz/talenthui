@@ -815,6 +815,21 @@ export const mockCompanies: Company[] = [
     contacts: []
   },
   {
+    id: "28a",
+    name: "Anja Health",
+    slug: "anja-health",
+    description: "Anja Health helps protect your baby's future by freezing umbilical cord and placenta stem cells. Backed by Y Combinator and Seven Seven Six (776), Anja Health makes this potentially life-saving resource accessible to everyone through nationwide collection, transport, processing, and storage services.",
+    logo_url: "/images/company_photos/anjahealth_logo.jpeg",
+    industry: "Healthcare",
+    size: "11-50",
+    island: "Oahu",
+    city: "Honolulu",
+    website: "https://www.anjahealth.com/",
+    linkedin_url: "https://www.linkedin.com/company/anjahealth/",
+    type: "Startup",
+    contacts: []
+  },
+  {
     id: "29",
     name: "OMVC",
     slug: "omvc",

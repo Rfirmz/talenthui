@@ -374,10 +374,10 @@ export default function HomePage() {
     'Hawaii Technology Development Corporation',
     'Bayze',
     'Honolulu Tech Week',
-    'Hawaii Technology Academy',
-    'Hawaii Techies',
-    'SAVON',
-    'NogaTech IT Solutions'
+    'Anja Health',
+    'Hohonu',
+    'Terraformation',
+    'Paubox'
   ];
   // Filter and sort companies to maintain the specified order
   const featuredCompanies = clientCompanyNames

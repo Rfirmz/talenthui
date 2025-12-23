@@ -15,10 +15,10 @@ export default function CompanyCarousel() {
     'Hawaii Technology Development Corporation',
     'Bayze',
     'Honolulu Tech Week',
-    'Hawaii Technology Academy',
-    'Hawaii Techies',
-    'SAVON',
-    'NogaTech IT Solutions'
+    'Anja Health',
+    'Hohonu',
+    'Terraformation',
+    'Paubox'
   ];
   const featuredClients = mockCompanies.filter(company => 
     featuredClientNames.includes(company.name) &&

@@ -36,7 +36,7 @@ export default function AboutPage() {
 
         {/* Team Section */}
         <div className="mb-16" id="team">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Team</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Leadership Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <AdvisorCard
               name="Zack"

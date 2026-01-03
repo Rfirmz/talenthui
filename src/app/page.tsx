@@ -10,7 +10,6 @@ import { mockCompanies } from '@/data/companies';
 import ProfileCard from '@/components/cards/ProfileCard';
 import ProfileModal from '@/components/modals/ProfileModal';
 import CompanyCard from '@/components/cards/CompanyCard';
-import VideoBackground from '@/components/ui/VideoBackground';
 import CompanyCarousel from '@/components/ui/CompanyCarousel';
 
 export default function HomePage() {
@@ -61,11 +60,11 @@ export default function HomePage() {
           // Try email search first if available
           if (email && !useSecond) {
             const { data: emailData } = await supabase
-              .from('profiles')
-              .select('*')
-              .eq('visibility', true)
+          .from('profiles')
+          .select('*')
+          .eq('visibility', true)
               .ilike('email', email)
-              .limit(1);
+          .limit(1);
             
             if (emailData && emailData.length > 0) {
               return { name, profile: emailData[0] };
@@ -75,9 +74,9 @@ export default function HomePage() {
           // If not found by email, try name search (try most specific first)
           for (const searchTerm of search) {
             let query = supabase
-              .from('profiles')
-              .select('*')
-              .eq('visibility', true)
+          .from('profiles')
+          .select('*')
+          .eq('visibility', true)
               .ilike('full_name', `%${searchTerm}%`);
             
             // For Jia Qi, filter by company TikTok
@@ -99,10 +98,10 @@ export default function HomePage() {
                   profile = founderProfile;
                 } else {
                   const sorted = data.sort((a, b) => {
-                    const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
-                    const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
-                    return bDate - aDate;
-                  });
+            const aDate = a.created_at ? new Date(a.created_at).getTime() : 0;
+            const bDate = b.created_at ? new Date(b.created_at).getTime() : 0;
+            return bDate - aDate;
+          });
                   profile = sorted[1] || sorted[0];
                 }
               } else if (name === 'Jia Qi') {
@@ -156,7 +155,7 @@ export default function HomePage() {
                    !foundNames.has(name);
           });
           fetchedProfiles.push(...filteredMockProfiles.slice(0, 9 - fetchedProfiles.length));
-        }
+          }
 
         setFeaturedProfiles(fetchedProfiles.slice(0, 9));
       } catch (err) {
@@ -386,31 +385,26 @@ export default function HomePage() {
 
   return (
     <div className="bg-gradient-to-b from-primary-50 to-white">
-      {/* Hero Section with Video Background */}
+      {/* Hero Section with Image Background */}
       <section className="relative min-h-[60vh]">
-        {/* Direct video element for testing */}
-        <video 
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          preload="auto"
-          poster="/images/hawaii.png"
-        >
-          <source src="https://ns0rtrmcit3lcpie.public.blob.vercel-storage.com/hawaii-background-fMboP8pkQRztVKij7SIPG0iLonCfeK.mp4" type="video/mp4" />
-          {/* Fallback for browsers that don't support video */}
-          Your browser does not support the video tag.
-        </video>
+        {/* Background Image */}
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src="/images/photo1.png"
+            alt="Hawaii background"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
         
         {/* Stronger light blue overlay for better text visibility */}
         <div className="absolute inset-0 w-full h-full bg-blue-500 bg-opacity-40" />
         
         <div className="relative z-10 w-full h-full flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-semibold text-white mb-6 drop-shadow-2xl tracking-tight uppercase">
-              CONNECTING HAWAII'S{' '}
-              <span className="text-yellow-300 font-semibold">TALENT</span>
+            <h1 className="text-4xl md:text-6xl font-semibold text-white mb-6 drop-shadow-2xl tracking-tight">
+              Global <span className="text-yellow-300 font-semibold">Talent</span>, Hawai'i <span className="text-yellow-300 font-semibold">Rooted</span>
             </h1>
             <p className="text-xl text-white mb-8 max-w-3xl mx-auto font-medium drop-shadow-xl">
               A community-driven career and talent discovery platform for Hawaii, 
@@ -448,30 +442,6 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Mission Images */}
-          <div className="flex flex-col md:flex-row gap-8 mb-16">
-            <div className="flex-1 relative">
-              <Image 
-                src="/images/photo1.png" 
-                alt="Hawaii landscape" 
-                width={400}
-                height={256}
-                className="w-full h-64 object-cover rounded-lg shadow-xl"
-              />
-              <div className="absolute inset-0 bg-primary-600 bg-opacity-40 rounded-lg"></div>
-            </div>
-            <div className="flex-1 relative">
-              <Image 
-                src="/images/photo2.png" 
-                alt="Hawaii landscape" 
-                width={400}
-                height={256}
-                className="w-full h-64 object-cover rounded-lg shadow-xl"
-              />
-              <div className="absolute inset-0 bg-primary-600 bg-opacity-40 rounded-lg"></div>
-            </div>
-          </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center group">
               <div className="bg-white/20 backdrop-blur-sm w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 border-2 border-white/30">
@@ -625,7 +595,7 @@ export default function HomePage() {
                           <h3 className="text-lg font-semibold text-gray-900 truncate">{profile.full_name || 'No name'}</h3>
                           <p className="text-primary-600 font-medium text-sm mt-1 truncate">
                             {profile.current_title || 'No title'}
-                          </p>
+              </p>
                           <div className="flex items-center space-x-2 mt-1">
                             <p className="text-gray-600 text-sm truncate">{profile.company || profile.current_company || 'No company'}</p>
                           </div>
@@ -662,7 +632,7 @@ export default function HomePage() {
                     <p className="text-gray-800 text-lg italic text-center">
                       "Great tool, user friendly for recruiters and candidates alike."
                     </p>
-                  </div>
+                </div>
                   
                   {/* Profile section - aligned at bottom */}
                   <div className="flex-grow flex flex-col justify-end">
@@ -671,21 +641,21 @@ export default function HomePage() {
                       <div className="flex-shrink-0">
                         <div className="w-20 h-20 rounded-full bg-secondary-100 flex items-center justify-center border-[3px] border-secondary-200 shadow-sm">
                           <span className="text-secondary-600 font-bold text-xl">RK</span>
-                        </div>
-                      </div>
-                      
+              </div>
+            </div>
+            
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg font-semibold text-gray-900 truncate">Robert Kam</h3>
                         <p className="text-primary-600 font-medium text-sm mt-1 truncate">
                           Senior Federal Program Manager
-                        </p>
+              </p>
                         <div className="flex items-center space-x-2 mt-1">
                           <p className="text-gray-600 text-sm truncate">Virtru</p>
                         </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
+                </div>
+              </div>
+            </div>
               );
             })()}
             
@@ -719,7 +689,7 @@ export default function HomePage() {
                               target.src = '/avatars/placeholder.svg';
                             }}
                           />
-                        </div>
+                </div>
                         
                         <div className="flex-1 min-w-0">
                           <h3 className="text-lg font-semibold text-gray-900 truncate">{profile.full_name || 'No name'}</h3>
@@ -728,9 +698,9 @@ export default function HomePage() {
                           </p>
                           <div className="flex items-center space-x-2 mt-1">
                             <p className="text-gray-600 text-sm truncate">{profile.company || profile.current_company || 'No company'}</p>
-                          </div>
-                        </div>
-                      </div>
+                </div>
+              </div>
+            </div>
                     </div>
                   ) : (
                     <div className="flex-grow flex flex-col justify-end">

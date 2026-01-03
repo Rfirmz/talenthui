@@ -442,6 +442,30 @@ export default function HomePage() {
             </p>
           </div>
 
+          {/* Mission Images */}
+          <div className="flex flex-col md:flex-row gap-8 mb-16">
+            <div className="flex-1 relative">
+              <Image 
+                src="/images/HTW_TalentLeadership&DJ-20.JPEG" 
+                alt="Hawaii talent networking event" 
+                width={600}
+                height={400}
+                className="w-full h-64 md:h-80 object-cover rounded-lg shadow-xl"
+              />
+              <div className="absolute inset-0 bg-blue-500 bg-opacity-40 rounded-lg"></div>
+            </div>
+            <div className="flex-1 relative">
+              <Image 
+                src="/images/HTW_TalentLeadership&DJ-10.JPEG" 
+                alt="Hawaii talent networking event" 
+                width={600}
+                height={400}
+                className="w-full h-64 md:h-80 object-cover rounded-lg shadow-xl"
+              />
+              <div className="absolute inset-0 bg-blue-500 bg-opacity-40 rounded-lg"></div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center group">
               <div className="bg-white/20 backdrop-blur-sm w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-all duration-300 border-2 border-white/30">

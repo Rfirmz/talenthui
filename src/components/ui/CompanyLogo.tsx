@@ -12,8 +12,6 @@ interface CompanyLogoProps {
 export default function CompanyLogo({ logoUrl, companyName, size = 'md', className = '' }: CompanyLogoProps) {
   const [imageError, setImageError] = useState(false);
   
-console.log('CompanyLogo props:', { logoUrl, companyName, size, className });
-
   const sizeClasses = {
     sm: 'w-16 h-16',
     md: 'w-24 h-24',

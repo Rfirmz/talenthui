@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="bg-primary-600 text-white">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -77,7 +79,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-white text-sm">
-              © 2024 Talent Hui. All rights reserved.
+              © {year} Talent Hui. All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-white hover:opacity-80 transition-opacity">

@@ -44,23 +44,49 @@ export default function ProfilesPage() {
     const loadProfiles = async () => {
       try {
         setIsLoading(true);
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('visibility', true)
-          .order('created_at', { ascending: false });
 
-        if (error) {
-          console.error('Error loading profiles:', error);
+        const PAGE_SIZE = 1000;
+        let dbData: any[] = [];
+        let from = 0;
+        let fetchError = null;
+
+        while (true) {
+          const to = from + PAGE_SIZE - 1;
+
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('visibility', true)
+            .order('created_at', { ascending: false })
+            .range(from, to);
+
+          if (error) {
+            fetchError = error;
+            break;
+          }
+
+          if (!data || data.length === 0) break;
+
+          dbData.push(...data);
+
+          // If we got less than a full page, we're done
+          if (data.length < PAGE_SIZE) break;
+
+          from += PAGE_SIZE;
+        }
+
+        if (fetchError) {
+          console.error('Error loading profiles:', fetchError);
           setError('Failed to load profiles');
           setUseRealData(false);
         } else {
           // Map current_company to company for compatibility
-          const mappedData = (data || []).map(profile => ({
+          const mappedData = (dbData || []).map(profile => ({
             ...profile,
             company: profile.current_company || profile.company || '',
           }));
 
+          console.log(`Loaded ${mappedData.length} profiles from Supabase.`);
           // Merge cleared DoD profiles at the end, avoiding duplicates by full name
           const existingNames = new Set(mappedData.map(profile => (profile.full_name || '').toLowerCase()));
           const extendedData = [

@@ -104,6 +104,7 @@ export default function SignupPage() {
         password: formData.password,
         options: {
           data: userMetadata,
+          emailRedirectTo: 'https://talenthui.com/profile/edit',
         },
       });
 
@@ -115,31 +116,11 @@ export default function SignupPage() {
 
       let userId = signUpData.user?.id;
 
-      if (!userId) {
-        setError('Account created, please verify your email before signing in.');
-        setIsLoading(false);
-        return;
-      }
+      // Redirect to email confirmation page and pass in email address
+      router.push('/signup/confirm-email?email=' + encodeURIComponent(formData.email));
+      return;
 
-      // If Supabase did not return a session (common when email confirmation is enabled),
-      // attempt to sign the user in so they do not need to re-enter their credentials.
-      if (!signUpData.session) {
-        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password,
-        });
-
-        if (signInError) {
-          setError(signInError.message);
-          setIsLoading(false);
-          return;
-        }
-
-        if (signInData.user?.id) {
-          userId = signInData.user.id;
-        }
-      }
-
+      // TODO: Move to a separate profile completion page after email confirmation?
       if (userId) {
         // Create profile entry
         const nameParts = formData.fullName.split(' ');

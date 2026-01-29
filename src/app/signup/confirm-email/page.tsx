@@ -1,11 +1,9 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
-
-export default function SignupConfirmEmailPage() {
-
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email') ?? '';
+export default function SignupConfirmEmailPage({
+  searchParams,
+}: {
+  searchParams: { email?: string };
+}) {
+  const email = searchParams.email ?? '';
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col  py-12 sm:px-6 lg:px-8">

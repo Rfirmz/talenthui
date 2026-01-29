@@ -121,81 +121,81 @@ export default function SignupPage() {
       return;
 
       // TODO: Move to a separate profile completion page after email confirmation?
-      if (userId) {
-        // Create profile entry
-        const nameParts = formData.fullName.split(' ');
-        const firstName = nameParts[0];
-        const lastName = nameParts.slice(1).join(' ');
-        const username = `${firstName.toLowerCase()}-${lastName.toLowerCase()}`.replace(/[^a-z0-9-]/g, '');
+      // if (userId) {
+      //   // Create profile entry
+      //   const nameParts = formData.fullName.split(' ');
+      //   const firstName = nameParts[0];
+      //   const lastName = nameParts.slice(1).join(' ');
+      //   const username = `${firstName.toLowerCase()}-${lastName.toLowerCase()}`.replace(/[^a-z0-9-]/g, '');
 
-        // Generate a bio
-        const title = formData.currentTitle || 'Professional';
-        const company = formData.company || 'Hawaii Tech';
-        const school = formData.college || formData.school || 'University';
-        const location = formData.currentCity || formData.city || formData.island || 'Hawaii';
-        const bio = `${title} at ${company}. ${school} alumni based in ${location}.`;
+      //   // Generate a bio
+      //   const title = formData.currentTitle || 'Professional';
+      //   const company = formData.company || 'Hawaii Tech';
+      //   const school = formData.college || formData.school || 'University';
+      //   const location = formData.currentCity || formData.city || formData.island || 'Hawaii';
+      //   const bio = `${title} at ${company}. ${school} alumni based in ${location}.`;
 
-        // Build profile data, excluding fields that might not exist in schema
-        const profileData: any = {
-          id: userId, // Use auth user id as profile id
-          user_id: userId,
-          full_name: formData.fullName,
-          first_name: firstName,
-          last_name: lastName,
-          username: username,
-          email: formData.email,
-          linkedin_url: formData.linkedinUrl || '',
-          current_title: formData.currentTitle || '',
-          current_company: formData.company || '',
-          city: formData.city || '',
-          bio: bio,
-          avatar_url: '/avatars/placeholder.svg',
-          visibility: true,
-        };
+      //   // Build profile data, excluding fields that might not exist in schema
+      //   const profileData: any = {
+      //     id: userId, // Use auth user id as profile id
+      //     user_id: userId,
+      //     full_name: formData.fullName,
+      //     first_name: firstName,
+      //     last_name: lastName,
+      //     username: username,
+      //     email: formData.email,
+      //     linkedin_url: formData.linkedinUrl || '',
+      //     current_title: formData.currentTitle || '',
+      //     current_company: formData.company || '',
+      //     city: formData.city || '',
+      //     bio: bio,
+      //     avatar_url: '/avatars/placeholder.svg',
+      //     visibility: true,
+      //   };
         
-        // Add optional location fields if they exist
-        if (formData.currentCity || formData.city) {
-          profileData.current_city = formData.currentCity || formData.city;
-        }
-        if (formData.hometown) {
-          profileData.hometown = formData.hometown;
-        }
-        if (formData.island) {
-          profileData.island = formData.island;
-        }
-        if (formData.school || formData.college) {
-          profileData.school = formData.school || formData.college || '';
-        }
-        // Only add these if they exist in schema (may not exist if migration not run)
-        if (formData.highSchool) {
-          profileData.high_school = formData.highSchool;
-        }
-        if (formData.college) {
-          profileData.college = formData.college;
-        }
+      //   // Add optional location fields if they exist
+      //   if (formData.currentCity || formData.city) {
+      //     profileData.current_city = formData.currentCity || formData.city;
+      //   }
+      //   if (formData.hometown) {
+      //     profileData.hometown = formData.hometown;
+      //   }
+      //   if (formData.island) {
+      //     profileData.island = formData.island;
+      //   }
+      //   if (formData.school || formData.college) {
+      //     profileData.school = formData.school || formData.college || '';
+      //   }
+      //   // Only add these if they exist in schema (may not exist if migration not run)
+      //   if (formData.highSchool) {
+      //     profileData.high_school = formData.highSchool;
+      //   }
+      //   if (formData.college) {
+      //     profileData.college = formData.college;
+      //   }
 
-        const { error: profileError, data: profileResult } = await supabase
-          .from('profiles')
-          .upsert(profileData)
-          .select();
+      //   const { error: profileError, data: profileResult } = await supabase
+      //     .from('profiles')
+      //     .upsert(profileData)
+      //     .select();
 
-        if (profileError) {
-          console.error('Error creating profile:', profileError);
-          // If it's a column error, give helpful message
-          if (profileError.message && profileError.message.includes('column')) {
-            setError(`Profile creation failed: ${profileError.message}. Please run the migration: migration-add-education-location-fields.sql`);
-          } else {
-            setError('Account created but profile setup failed. Please complete your profile.');
-          }
-        } else {
-          console.log('Profile created successfully:', profileResult);
-        }
+      //   if (profileError) {
+      //     console.error('Error creating profile:', profileError);
+      //     // If it's a column error, give helpful message
+      //     if (profileError.message && profileError.message.includes('column')) {
+      //       setError(`Profile creation failed: ${profileError.message}. Please run the migration: migration-add-education-location-fields.sql`);
+      //     } else {
+      //       setError('Account created but profile setup failed. Please complete your profile.');
+      //     }
+      //   } else {
+      //     console.log('Profile created successfully:', profileResult);
+      //   }
 
-        // Clear saved form data if it exists
-        sessionStorage.removeItem(STORAGE_KEY);
-        // Redirect to profile edit page
-        router.push('/profile/edit');
-      }
+      //   // Clear saved form data if it exists
+      //   sessionStorage.removeItem(STORAGE_KEY);
+      //   // Redirect to profile edit page
+      //   router.push('/profile/edit');
+      // }
     } catch (err) {
       setError('An unexpected error occurred');
     } finally {

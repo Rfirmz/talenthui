@@ -6,7 +6,7 @@
 A community-driven career and talent discovery platform for Hawaii, connecting local talent with employers and ecosystem partners.
 
 **Owner:** Zack @ AEP Hawaii  
-**Collaborators:** Rafael Firme  
+**Collaborators:** Rafael Firme, Jeff Mori 
 **Goal:** Functional frontend MVP with full backend integration (Supabase)
 
 ## ✅ Recently Implemented (Ready to Use!)

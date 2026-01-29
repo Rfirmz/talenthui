@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 
-export default function SignupPage() {
+export default function SignupConfirmEmailPage() {
 
   const searchParams = useSearchParams();
   const email = searchParams.get('email') ?? '';
